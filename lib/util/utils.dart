@@ -36,7 +36,7 @@ class DateUtils {
   static DateTime convertToDate(String input) {
     try
     {
-      var d = new DateFormat("yyyy-MM-dd").parseStrict(input);
+      var d = new DateFormat("dd-MM-yyyy").parseStrict(input);
       return d;
     } catch (e) {
       return null;
@@ -46,7 +46,7 @@ class DateUtils {
   static String convertToDateFull(String input) {
     try
     {
-      var d = new DateFormat("yyyy-MM-dd").parseStrict(input);
+      var d = new DateFormat("dd-MM-yyyy").parseStrict(input);
       var formatter = new DateFormat('dd MMM yyyy');
       return formatter.format(d);
     } catch (e) {

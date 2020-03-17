@@ -34,6 +34,7 @@ class DocDetailState extends State<DocDetail> {
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController expirationCtrl = MaskedTextController(
       mask: '2000-00-00');
+      // mudar a mask para mask: '00-00-2020'); formato brasileiro
 
   bool fqYearCtrl = true;
   bool fqHalfYearCtrl = true;
@@ -190,7 +191,7 @@ class DocDetailState extends State<DocDetail> {
                           decoration: InputDecoration(
                               icon: const Icon(Icons.calendar_today),
                               hintText: 'Expiry date (i.e. ' + DateUtils.daysAheadAsStr(daysAhead) + ')',
-                              labelText: 'Expiry Date'
+                               labelText: 'Expiry Date'
                           ),
                           keyboardType: TextInputType.number,
                           validator: (val) => DateUtils.isValidDate(val) ? null :
