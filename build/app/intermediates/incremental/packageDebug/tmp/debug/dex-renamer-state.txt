@@ -1,4 +1,0 @@
-#Mon Mar 16 13:32:51 BRT 2020
-base.0=C\:\\Users\\jeferson.alves\\Documents\\github\\Senai-2019-SPI\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
