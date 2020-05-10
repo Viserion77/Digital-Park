@@ -4,6 +4,7 @@
 - Projeto parque Malwee
 - Criar pagina web para configuração do app e gerenciamento
 - Criar app para os usuarios
+- Armazenar dados na amazon
 
 ### Estrutura do projeto
 
