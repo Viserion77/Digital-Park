@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'core/utils.dart';
+import 'components/basics.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

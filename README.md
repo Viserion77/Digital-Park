@@ -14,7 +14,7 @@ Atualmente, o projeto está organizado da seguinte maneira:
     app/                      | Raiz do front-end mobile da aplicação
       lib/                    |
         core/                 | Componentes e funcionalidades do core da aplicação
-        modules/              | Módulos padrão e customizados do front-end
+        components/           | Components padrão e customizados do front-end
     web/                      | Raiz do front-end web da aplicação
       src/                    |
         core/                 | Componentes e funcionalidades do core da aplicação
