@@ -1,0 +1,120 @@
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx,caption}			% Inclusão de gráficos
+\usepackage{longtable}                         % Permite utilizar o ambiente longtable
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb} 
+%\usepackage[labelsep=endash]{caption}
+\usepackage[inner=2.5cm,outer=1.5cm,top=2.0cm,bottom=1.5cm,head=0.7cm,foot=0.7cm]{geometry}
+\usepackage{setspace}
+\usepackage[scaled]{helvet}
+\renewcommand*{\familydefault}{\sfdefault}
+
+\usepackage{listings} % para código fonte
+\usepackage{epstopdf}
+\usepackage{./Data/subfigure}
+
+
+% opções do pacote listings
+\lstset{numbers=left,
+framerule=0.1pt,
+framesep=0.5pt,
+language=C,
+stepnumber=1,
+firstnumber=1,
+numberstyle=\tiny,
+extendedchars=true,
+breaklines=true,
+frame=tb,
+basicstyle=\footnotesize,
+stringstyle=\ttfamily,
+showstringspaces=false
+backgroundcolor=\color{white}
+}
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text - 
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf,abnt-etal-cite=0,abnt-emphasize=bf,bibjustif]{abntex2cite}  % Citações padrão ABNT
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% ---
+%% Configurações do pacote backref
+%% Usado sem a opção hyperpageref de backref
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+%% Texto padrão antes do número das páginas
+%\renewcommand{\backref}{}
+%% Define os textos da citação
+%\renewcommand*{\backrefalt}[4]{
+%	\ifcase #1 %
+%		Nenhuma citação no texto.%
+%	\or
+%		Citado na página #2.%
+%	\else
+%		Citado #1 vezes nas páginas #2.%
+%	\fi}%
+% ---
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=black,          	% color of internal links
+    	citecolor=black,        		% color of links to bibliography
+    	filecolor=black,      		% color of file links
+		urlcolor=black,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.25cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+%\makeindex
+% ---
+
+
