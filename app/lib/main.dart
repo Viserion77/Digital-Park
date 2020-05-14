@@ -44,13 +44,13 @@ class LoginScreen extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text('Apelido'),
-                  Text('Imput'),
+                  Text('[======]'),
                 ],
               ),
               Column(
                 children: <Widget>[
                   Text('Senha'),
-                  Text('Imput'),
+                  Text('[======]'),
                 ],
               ),
               Text('Esqueceu a senha?'),
