@@ -1,103 +1,22 @@
 import 'package:flutter/material.dart';
-import 'core/utils.dart';
-import 'components/basics.dart';
-void main() => runApp(MyApp());
+import 'package:learning/screens/sign/sign-in.dart';
 
-class MyApp extends StatelessWidget {
+void main() => runApp(ParqueMalweeAPP());
+
+class ParqueMalweeAPP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Core(),
-    );
-  }
-}
-
-class Core extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginScreen(),
-    );
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          GetImage(
-            ObjImagem(
-              'https://static.ndonline.com.br/2018/03/f9955999704006bcb9ffca74fb08d5a55b543bdd.png',
-              150,
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Text('Entrar'),
-              Text('Cadastrar'),
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text('Apelido'),
-                  Text('[=== ===]'),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text('Senha'),
-                  Text('[=== ===]'),
-                ],
-              ),
-              Text('Esqueceu a senha?'),
-              Row(
-                children: <Widget>[
-                  Text('button'),
-                  Text('Permanecer conectado'),
-                ],
-              ),
-            ],
-          ),
-        ],
+      theme: ThemeData(
+        primaryColor: Colors.red[900],
+        accentColor: Colors.orange[700],
+        backgroundColor: Colors.green[700],
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.pink[700],
+          textTheme: ButtonTextTheme.primary,
+        ),
       ),
-      color: Colors.lime,
+      home: Login(),
     );
   }
 }
-
-class GetImage extends StatelessWidget {
-  final ObjImagem _objImagem;
-
-  GetImage(this._objImagem);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Image.network(
-        _objImagem.imagemUrl.toString(),
-        width: _objImagem.sizeWidth.toDouble(),
-      ),
-    );
-  }
-}
-
-class ObjImagem {
-  final String imagemUrl;
-  final double sizeWidth;
-
-  ObjImagem(this.imagemUrl, this.sizeWidth);
-}
-
-//return MaterialApp(
-//      home: Scaffold(
-//        body: Text('Homa page'),
-//        appBar: AppBar(
-//          title: Text('Parque Malwee'),
-//        ),
-//      ),
-//    );
-//}
