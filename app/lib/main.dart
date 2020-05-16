@@ -8,11 +8,11 @@ class ParqueMalweeAPP extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.red[900],
-        accentColor: Colors.orange[700],
-        backgroundColor: Colors.green[700],
+        primaryColor: Colors.lime[700],
+        accentColor: Colors.lightGreen[600],
+        backgroundColor: Colors.red[700],
         buttonTheme: ButtonThemeData(
-          buttonColor: Colors.pink[700],
+          buttonColor: Colors.lightGreen[600],
           textTheme: ButtonTextTheme.primary,
         ),
       ),

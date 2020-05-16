@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:learning/screens/events/list.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -13,26 +12,35 @@ class Login extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Image.asset('images/logo.png'),
           ),
-          Container(
-            height: 120,
-            width: 100,
+          Material(
             color: Theme.of(context).primaryColor,
-            child: Column(
-              children: <Widget>[
-                Icon(
-                  Icons.people,
-                  color: Colors.white,
-                  size: 32,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => EventsList()),
+                );
+              },
+              child: Container(
+                height: 120,
+                width: 100,
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.people,
+                      color: Colors.white,
+                      size: 32,
+                    ),
+                    Text(
+                      'teste',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'teste',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
