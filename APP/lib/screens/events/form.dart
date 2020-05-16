@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:learning/models/event.dart';
 
-class EventForm extends StatelessWidget {
+class EventForm extends StatefulWidget {
+  @override
+  _EventFormState createState() => _EventFormState();
+}
 
+class _EventFormState extends State<EventForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _nameControllerImpput = TextEditingController();
 
@@ -29,11 +34,13 @@ class EventForm extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TextField(
+              controller: _nameController,
               decoration: InputDecoration(labelText: 'Fteste'),
               style: TextStyle(fontSize: 24),
               keyboardType: TextInputType.text,
             ),
             TextField(
+              controller: _nameControllerImpput,
               decoration: InputDecoration(labelText: 'Fteste'),
               style: TextStyle(fontSize: 24),
               keyboardType: TextInputType.text,
@@ -42,7 +49,12 @@ class EventForm extends StatelessWidget {
               width: double.maxFinite,
               child: RaisedButton(
                 child: Text('create'),
-                onPressed: () {},
+                onPressed: () {
+                  final String name = _nameController.text;
+                  final int numero = int.tryParse(_nameControllerImpput.text);
+                  final Event newEvent = Event(0, name, numero);
+                  Navigator.pop(context, newEvent);
+                },
               ),
             ),
           ],

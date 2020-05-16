@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:learning/models/event.dart';
 import 'package:learning/screens/sign/sign-in.dart';
 
-void main() => runApp(ParqueMalweeAPP());
+import 'database/app_database.dart';
+
+void main() {
+  runApp(ParqueMalweeAPP());
+}
 
 class ParqueMalweeAPP extends StatelessWidget {
   @override

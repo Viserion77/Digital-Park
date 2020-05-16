@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:learning/models/session.dart';
 import 'package:learning/screens/events/list.dart';
-import 'package:learning/screens/sign/sign-up.dart';
+import 'package:learning/screens/sign/sign-in.dart';
 
-class Login extends StatefulWidget {
+class Cadastro extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LoginState();
+    return CadastroState();
   }
 }
 
-class LoginState extends State<Login> {
+class CadastroState extends State<Cadastro> {
   final TextEditingController _login = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _passwordConfirmation = TextEditingController();
   bool _staySignin = false;
 
   @override
@@ -41,7 +42,11 @@ class LoginState extends State<Login> {
                         child: Material(
                           color: Theme.of(context).primaryColor,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => Login()),
+                              );},
                             child: Container(
                               child: Text(
                                 'Entrar',
@@ -59,10 +64,6 @@ class LoginState extends State<Login> {
                           color: Theme.of(context).primaryColor,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => Cadastro()),
-                              );
                             },
                             child: Container(
                               child: Text(
@@ -89,23 +90,11 @@ class LoginState extends State<Login> {
                     style: TextStyle(fontSize: 24),
                     keyboardType: TextInputType.text,
                   ),
-                  Material(
-                    color: Theme.of(context).primaryColor,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => EventsList()),
-                        );
-                      },
-                      child: Container(
-                        child: Text(
-                          'Esqueceu a senha?',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                  TextField(
+                    controller: _passwordConfirmation,
+                    decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.text,
                   ),
                   Material(
                     color: Theme.of(context).primaryColor,
@@ -134,7 +123,7 @@ class LoginState extends State<Login> {
                     ),
                   ),
                   RaisedButton(
-                    child: Text('Entrar'),
+                    child: Text('Cadastrar'),
                     onPressed: () {
                       final String login = _login.text;
                       final String password = _password.text;
