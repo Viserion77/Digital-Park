@@ -77,17 +77,24 @@ class LoginState extends State<Login> {
                     ),
                   ],
                 ),
-                TextField(
-                  controller: _login,
-                  decoration: InputDecoration(labelText: 'Apelido'),
-                  style: TextStyle(fontSize: 24),
-                  keyboardType: TextInputType.text,
+                Padding(
+                  padding: const EdgeInsets.only(left: 32, right: 32),
+                  child: TextField(
+                    controller: _login,
+                    decoration: InputDecoration(labelText: 'Apelido'),
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.text,
+                  ),
                 ),
-                TextField(
-                  controller: _password,
-                  decoration: InputDecoration(labelText: 'Senha'),
-                  style: TextStyle(fontSize: 24),
-                  keyboardType: TextInputType.text,
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 32, right: 32, bottom: 32),
+                  child: TextField(
+                    controller: _password,
+                    decoration: InputDecoration(labelText: 'Senha'),
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.text,
+                  ),
                 ),
                 Material(
                   color: Theme.of(context).primaryColor,
@@ -135,17 +142,39 @@ class LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                RaisedButton(
-                  child: Text('Entrar'),
-                  onPressed: () {
-                    final String login = _login.text;
-                    final String password = _password.text;
-                    final Session newSession = Session(0, login, password);
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: RaisedButton(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        'Entrar',
+                        style: TextStyle(
+                          fontSize: 32,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      final String login = _login.text;
+                      final String password = _password.text;
+                      final Session newSession = Session(0, login, password);
+                    },
+                  ),
                 ),
-                RaisedButton(
-                  child: Text('Pular'),
-                  onPressed: () {},
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: RaisedButton(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        'Pular',
+                        style: TextStyle(
+                          fontSize: 32,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
                 ),
               ],
             ),

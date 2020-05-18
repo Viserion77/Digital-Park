@@ -76,23 +76,32 @@ class CadastroState extends State<Cadastro> {
                     ),
                   ],
                 ),
-                TextField(
-                  controller: _login,
-                  decoration: InputDecoration(labelText: 'Apelido'),
-                  style: TextStyle(fontSize: 24),
-                  keyboardType: TextInputType.text,
+                Padding(
+                  padding: const EdgeInsets.only(left:32,right:32),
+                  child: TextField(
+                    controller: _login,
+                    decoration: InputDecoration(labelText: 'Apelido'),
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.text,
+                  ),
                 ),
-                TextField(
-                  controller: _password,
-                  decoration: InputDecoration(labelText: 'Senha'),
-                  style: TextStyle(fontSize: 24),
-                  keyboardType: TextInputType.text,
+                Padding(
+                  padding: const EdgeInsets.only(left:32,right:32),
+                  child: TextField(
+                    controller: _password,
+                    decoration: InputDecoration(labelText: 'Senha'),
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.text,
+                  ),
                 ),
-                TextField(
-                  controller: _passwordConfirmation,
-                  decoration: InputDecoration(labelText: 'Confirmar Senha'),
-                  style: TextStyle(fontSize: 24),
-                  keyboardType: TextInputType.text,
+                Padding(
+                  padding: const EdgeInsets.only(left:32,right:32,bottom: 32),
+                  child: TextField(
+                    controller: _passwordConfirmation,
+                    decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.text,
+                  ),
                 ),
                 Material(
                   color: Theme.of(context).primaryColor,
