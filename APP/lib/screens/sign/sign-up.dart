@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning/components/basics.dart';
 import 'package:learning/models/session.dart';
 import 'package:learning/screens/sign/sign-in.dart';
 
@@ -76,32 +77,17 @@ class CadastroState extends State<Cadastro> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left:32,right:32),
-                  child: TextField(
-                    controller: _login,
-                    decoration: InputDecoration(labelText: 'Apelido'),
-                    style: TextStyle(fontSize: 24),
-                    keyboardType: TextInputType.text,
-                  ),
+                Imput(
+                  controller: _login,
+                  label: 'Apelido',
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left:32,right:32),
-                  child: TextField(
-                    controller: _password,
-                    decoration: InputDecoration(labelText: 'Senha'),
-                    style: TextStyle(fontSize: 24),
-                    keyboardType: TextInputType.text,
-                  ),
+                Imput(
+                  controller: _password,
+                  label: 'Senha',
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left:32,right:32,bottom: 32),
-                  child: TextField(
-                    controller: _passwordConfirmation,
-                    decoration: InputDecoration(labelText: 'Confirmar Senha'),
-                    style: TextStyle(fontSize: 24),
-                    keyboardType: TextInputType.text,
-                  ),
+                Imput(
+                  controller: _passwordConfirmation,
+                  label: 'Confirmar Senha',
                 ),
                 Material(
                   color: Theme.of(context).primaryColor,
