@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/models/event.dart';
 import 'package:learning/screens/sign/sign-in.dart';
-
-import 'database/app_database.dart';
 
 void main() {
   runApp(ParqueMalweeAPP());
@@ -15,7 +12,7 @@ class ParqueMalweeAPP extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.lime[700],
         accentColor: Colors.lightGreen[600],
-        backgroundColor: Colors.red[700],
+        backgroundColor: Colors.white,
         buttonTheme: ButtonThemeData(
           buttonColor: Colors.lightGreen[600],
           textTheme: ButtonTextTheme.primary,
