@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning/components/basics.dart';
 import 'package:learning/models/session.dart';
 import 'package:learning/screens/events/list.dart';
 import 'package:learning/screens/sign/sign-up.dart';
@@ -20,7 +21,7 @@ class LoginState extends State<Login> {
     return Scaffold(
       body: Center(
         child: Container(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).backgroundColor,
           width: double.maxFinite,
           height: double.maxFinite,
           child: SingleChildScrollView(
@@ -36,145 +37,60 @@ class LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Material(
-                        color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Container(
-                            child: Text(
-                              'Entrar',
-                              style: TextStyle(
-                                fontSize: 32,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    TextFunction(
+                      label: 'Entrar',
+                      onTap: () {},
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Material(
-                        color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => Cadastro()),
-                            );
-                          },
-                          child: Container(
-                            child: Text(
-                              'Cadastrar',
-                              style: TextStyle(
-                                fontSize: 32,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    TextFunction(
+                      label: 'Cadastrar',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Cadastro()),
+                        );
+                      },
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 32, right: 32),
-                  child: TextField(
-                    controller: _login,
-                    decoration: InputDecoration(labelText: 'Apelido'),
-                    style: TextStyle(fontSize: 24),
-                    keyboardType: TextInputType.text,
-                  ),
+                Input(
+                  controller: _login,
+                  label: 'Apelido',
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 32, right: 32, bottom: 32),
-                  child: TextField(
-                    controller: _password,
-                    decoration: InputDecoration(labelText: 'Senha'),
-                    style: TextStyle(fontSize: 24),
-                    keyboardType: TextInputType.text,
-                  ),
+                Input(
+                  controller: _password,
+                  label: 'Senha',
                 ),
-                Material(
-                  color: Theme.of(context).primaryColor,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => EventsList()),
-                      );
-                    },
-                    child: Container(
-                      child: Text(
-                        'Esqueceu a senha?',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                TextFunction(
+                  label: 'Esqueceu a senha?',
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => EventsList()),
+                    );
+                  },
                 ),
-                Material(
-                  color: Theme.of(context).primaryColor,
-                  child: InkWell(
-                    onTap: () {
-                      setState(
-                        () {
-                          _staySignin = !_staySignin;
-                        },
-                      );
-                    },
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(_staySignin
-                              ? Icons.check_box_outline_blank
-                              : Icons.check_box),
-                          Text(
-                            'Permanecer conectado?',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                TextFunction(
+                  label: 'Permanecer conectado?',
+                  icon: _staySignin
+                      ? Icons.check_box_outline_blank
+                      : Icons.check_box,
+                  onTap: () {
+                    setState(
+                      () {
+                        _staySignin = !_staySignin;
+                      },
+                    );
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: RaisedButton(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        'Entrar',
-                        style: TextStyle(
-                          fontSize: 32,
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      final String login = _login.text;
-                      final String password = _password.text;
-                      final Session newSession = Session(0, login, password);
-                    },
-                  ),
+                Button(
+                  label: 'Entrar',
+                  onPressed: () {
+                    final String login = _login.text;
+                    final String password = _password.text;
+                    final Session newSession = Session(0, login, password);
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: RaisedButton(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        'Pular',
-                        style: TextStyle(
-                          fontSize: 32,
-                        ),
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
+                Button(
+                  label: 'Pular',
+                  onPressed: () {},
                 ),
               ],
             ),
