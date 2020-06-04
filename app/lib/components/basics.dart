@@ -90,3 +90,21 @@ class TextFunction extends StatelessWidget {
     );
   }
 }
+
+class JustImage extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Function onTap;
+
+  JustImage({this.label, this.icon, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Material(
+        child: Image(),
+      ),
+    );
+  }
+}
