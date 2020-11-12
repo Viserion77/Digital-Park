@@ -1,4 +1,4 @@
-import 'package:learning/models/event.dart';
+import 'package:DigitalPark/models/event.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:learning/components/basics.dart';
-import 'package:learning/models/session.dart';
-import 'package:learning/screens/events/list.dart';
-import 'package:learning/screens/sign/sign-up.dart';
+import 'package:DigitalPark/components/basics.dart';
+import 'package:DigitalPark/models/session.dart';
+import 'package:DigitalPark/screens/events/list.dart';
+import 'package:DigitalPark/screens/sign/sign-up.dart';
 
 class Login extends StatefulWidget {
   @override

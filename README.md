@@ -6,6 +6,9 @@
 - Criar app para os usuarios
 - Armazenar dados na amazon
 
+## Tecnologias utilizadas
+### Flutter ^1.22.3
+
 ### Estrutura do projeto
 
 Atualmente, o projeto está organizado da seguinte maneira:

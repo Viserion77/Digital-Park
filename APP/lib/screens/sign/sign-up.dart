@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learning/components/basics.dart';
-import 'package:learning/models/session.dart';
-import 'package:learning/screens/sign/sign-in.dart';
+import 'package:DigitalPark/components/basics.dart';
+import 'package:DigitalPark/models/session.dart';
+import 'package:DigitalPark/screens/sign/sign-in.dart';
 
 class Cadastro extends StatefulWidget {
   @override
