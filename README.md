@@ -8,6 +8,7 @@
 
 ### Tecnologias utilizadas
 #### Flutter ^1.22.3
+#### Node.js ^v14.8.0
 
 ### Estrutura do projeto
 
