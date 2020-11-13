@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learning/models/event.dart';
+import 'package:DigitalPark/models/event.dart';
 
 class EventForm extends StatefulWidget {
   @override

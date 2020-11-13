@@ -1,10 +1,14 @@
 # Projeto do Senai
-# Parque Malwee
+## DIgital Park
 
-- Projeto parque Malwee
-- Criar pagina web para configuração do app e gerenciamento
-- Criar app para os usuarios
-- Armazenar dados na amazon
+### Projeto para o Parque Malwee
+- Criar pagina web para configuração do app e gerenciamento. [Readme](./web/README.md)
+- Criar app para os usuários. [Readme](./app/README.md)
+- Armazenar dados no FireBase, e possuir apis REST. [Readme](./services/README.md)
+
+### Tecnologias utilizadas
+#### Flutter ^1.22.3
+#### Node.js ^v14.8.0
 
 ### Estrutura do projeto
 
@@ -24,3 +28,43 @@ Atualmente, o projeto está organizado da seguinte maneira:
         core/                 | Componentes e funcionalidades do core da aplicação
         components/           | Componentes padrão e customizados do front-end
         views/                | Principais paginas
+
+### Nomenclatura das branches
+Todas as branches criadas no GitHub devem seguir um padrão de nomenclatura e devem possuir apenas um propósito principal.
+
+Exemplo:
+
+`type/subject`
+Tipos disponíveis:
+
+- build
+- ci
+- docs
+- feat
+- feature
+- fix
+- hotfix
+- integration
+- perf
+- refactor
+- st
+- style
+
+### Commits
+Metodologia padrão para realizar o commit dos arquivos, ela se chama conventional commits, abaixo, segue exemplo de utilização do padrão aplicado às mensagens de commit:
+
+`type(scope): subject`
+Tipos disponíveis:
+
+- build: alterações que afetam o mecanismo de build ou dependências externas
+- chore: pequenas tarefas, ajustes de estrutura, remoção de arquivos
+- ci: alterações relacionadas à integração contínua do projeto
+- docs: alterações (ou criações) às documentações do projeto
+- feat: novas features
+- fix: fixes de bugs e falhas
+- improvement: pequenas melhorias realizadas aos códigos fonte do projeto
+- perf: melhorias de performance aos códigos fonte
+- refactor: refatorações de código
+- revert: tratam de reverts de commits passados
+- style: alterações de estilo de código (ESLint, geralmente)
+- test: alterações relacionadas à testes unitários

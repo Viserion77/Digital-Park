@@ -1,4 +1,4 @@
-# learning
+# DigitalPark
 
 A new Flutter project.
 

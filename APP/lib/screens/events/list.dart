@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learning/models/event.dart';
-import 'package:learning/screens/events/form.dart';
+import 'package:DigitalPark/models/event.dart';
+import 'package:DigitalPark/screens/events/form.dart';
 
 class EventsList extends StatelessWidget {
   final List<Event> events = List();

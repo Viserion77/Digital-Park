@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/screens/sign/sign-in.dart';
+import 'package:DigitalPark/screens/sign/sign-in.dart';
 
 void main() {
   runApp(ParqueMalweeAPP());
