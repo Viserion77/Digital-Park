@@ -12,20 +12,32 @@ class Input extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          icon: icon != null ? Icon(icon) : null,
-          labelText: label,
-          hintText: tip,
-        ),
-        style: TextStyle(
-          fontSize: 24,
-        ),
-        keyboardType: keyboardType != null ? keyboardType : TextInputType.text,
-      ),
-    );
+        padding: const EdgeInsets.only(left: 8),
+        child: Container(
+          decoration: new BoxDecoration(
+            color: Colors.grey[50],
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: TextField(
+            controller: controller,
+            cursorColor: Colors.lightGreen,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(15),
+                ),
+              ),
+              icon: icon != null ? Icon(icon) : null,
+              labelText: label,
+              hintText: tip,
+            ),
+            style: TextStyle(
+              fontSize: 24,
+            ),
+            keyboardType:
+                keyboardType != null ? keyboardType : TextInputType.text,
+          ),
+        ));
   }
 }
 
