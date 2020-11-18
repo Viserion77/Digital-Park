@@ -21,8 +21,13 @@ class LoginState extends State<Login> {
     return Scaffold(
       body: Center(
         child: Container(
-          color: Theme.of(context).backgroundColor,
           width: double.maxFinite,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
           height: double.maxFinite,
           child: SingleChildScrollView(
             child: Column(
