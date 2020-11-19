@@ -59,31 +59,47 @@ class LoginState extends State<Login> {
                 Input(
                   controller: _login,
                   label: 'Apelido',
+                  padding: const EdgeInsets.only(
+                      left: 12, right: 12, top: 6, bottom: 6),
                 ),
                 Input(
                   controller: _password,
                   label: 'Senha',
+                  padding: const EdgeInsets.only(
+                      left: 12, right: 12, top: 6, bottom: 6),
                 ),
-                TextFunction(
-                  label: 'Esqueceu a senha?',
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => EventsList()),
-                    );
-                  },
-                ),
-                TextFunction(
-                  label: 'Permanecer conectado?',
-                  icon: _staySignin
-                      ? Icons.check_box_outline_blank
-                      : Icons.check_box,
-                  onTap: () {
-                    setState(
-                      () {
-                        _staySignin = !_staySignin;
-                      },
-                    );
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 6, right: 6, top: 6, bottom: 6),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: _staySignin,
+                      ),
+                      TextFunction(
+                        label: 'Permanecer conectado?',
+                        icon: _staySignin
+                            ? Icons.check_box_outline_blank
+                            : Icons.check_box,
+                        onTap: () {
+                          setState(
+                            () {
+                              _staySignin = !_staySignin;
+                            },
+                          );
+                        },
+                      ),
+                      TextFunction(
+                        label: 'Esqueceu a senha?',
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => EventsList()),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 Button(
                   label: 'Entrar',

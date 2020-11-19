@@ -6,13 +6,22 @@ class Input extends StatelessWidget {
   final String tip;
   final IconData icon;
   final TextInputType keyboardType;
+  final padding;
 
-  Input({this.controller, this.label, this.tip, this.icon, this.keyboardType});
+  Input(
+      {this.controller,
+      this.label,
+      this.tip,
+      this.icon,
+      this.keyboardType,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 8),
+        padding: padding != null
+            ? padding
+            : EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
         child: Container(
           decoration: new BoxDecoration(
             color: Colors.grey[50],
