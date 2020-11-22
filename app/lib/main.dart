@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:DigitalPark/screens/sign/sign-in.dart';
+import 'package:DigitalPark/screens/sign/in.dart';
 
 void main() {
-  runApp(ParqueMalweeAPP());
+  runApp(DigitalPark());
 }
 
-class ParqueMalweeAPP extends StatelessWidget {
+class DigitalPark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
