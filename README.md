@@ -2,19 +2,19 @@
 ## DIgital Park
 
 ### Projeto para o Parque Malwee
-- Criar pagina web para configuração do app e gerenciamento. [Readme](./web/README.md)
+- Criar pagina web para configuração do app e gerenciamento. [Projeto](https://github.com/Hu3diger/digital-park-web)
 - Criar app para os usuários. [Readme](./app/README.md)
-- Armazenar dados no FireBase, e possuir apis REST. [Readme](./services/README.md)
+- Armazenar dados no FireBase, e possuir apis REST. [Projeto](https://github.com/Hu3diger/digital-park-api)
 
 ### Tecnologias utilizadas
 #### Flutter ^1.22.3
 #### Node.js ^v14.8.0
+#### Angular ^11.0.2
 
 ### Estrutura do projeto
 
 Atualmente, o projeto está organizado da seguinte maneira:
 
-    services/                 | alocara todos os api back-end
     app/                      | Raiz do front-end mobile da aplicação
       lib/                    |
         components/           | Possui widgets personalizados que são usados ​​por várias telas diferentes
@@ -23,11 +23,6 @@ Atualmente, o projeto está organizado da seguinte maneira:
         screens/              | Contém muitas pastas diferentes, cada uma correspondendo a uma tela diferente do aplicativo
         services/             | Contém algumas APIs da web e código de interação nativo
         theme/                | Contém apenas um `style.dart` com o tema do aplicativo que é acessado no arquivo `main.dart`
-    web/                      | Raiz do front-end web da aplicação
-      src/                    |
-        core/                 | Componentes e funcionalidades do core da aplicação
-        components/           | Componentes padrão e customizados do front-end
-        views/                | Principais paginas
 
 ### Nomenclatura das branches
 Todas as branches criadas no GitHub devem seguir um padrão de nomenclatura e devem possuir apenas um propósito principal.
