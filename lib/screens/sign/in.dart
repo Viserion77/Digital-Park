@@ -71,7 +71,7 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                                 height: 3,
-                                width: 192,
+                                width: 176,
                               ),
                             ],
                           ),
