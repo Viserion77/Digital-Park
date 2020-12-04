@@ -1,4 +1,4 @@
-package com.example.DigitalPark
+package com.malwee.digitalpark
 
 import io.flutter.embedding.android.FlutterActivity
 
