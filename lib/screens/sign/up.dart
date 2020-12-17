@@ -95,7 +95,7 @@ class CadastroState extends State<Cadastro> {
                               Container(
                                 color: Theme.of(context).primaryColor,
                                 height: 3,
-                                width: 240.0,
+                                width: 224.0,
                               ),
                             ],
                           ),
