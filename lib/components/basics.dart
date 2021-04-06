@@ -92,9 +92,11 @@ class Button extends StatelessWidget {
   final Color fontColor;
   final Color backgroundColor;
   final String imageAsset;
+  final double height;
 
   Button(
-      {this.label,
+      {this.height,
+      this.label,
       this.icon,
       this.onPressed,
       this.fontSize,
@@ -124,15 +126,18 @@ class Button extends StatelessWidget {
                 visible: icon != null,
                 child: Icon(icon),
               ),
-              Text(
-                label != null ? label : null,
-                style: TextStyle(
-                  fontSize: fontSize != null ? fontSize : 24,
-                  color: fontColor != null
-                      ? fontColor
-                      : Theme.of(context).secondaryHeaderColor,
+              Container(
+                child: Text(
+                  label != null ? label : null,
+                  style: TextStyle(
+                    fontSize: fontSize != null ? fontSize : 24,
+                    color: fontColor != null
+                        ? fontColor
+                        : Theme.of(context).secondaryHeaderColor,
+                  ),
                 ),
-              ),
+                height: height != null ? height : null,
+              )
             ],
           ),
         ),
