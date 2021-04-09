@@ -1,4 +1,5 @@
 import 'package:DigitalPark/components/basics.dart';
+import 'package:DigitalPark/screens/home.dart';
 import 'package:DigitalPark/screens/sign/up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +146,10 @@ class LoginState extends State<Login> {
                 ),
                 Button(
                   label: 'Entrar',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );},
                 ),
                 Button(
                   label: 'Com o Google',

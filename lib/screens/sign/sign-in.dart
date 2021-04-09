@@ -62,9 +62,6 @@ class LoginState extends State<Login> {
                 TextFunction(
                   label: 'Esqueceu a senha?',
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => EventsList()),
-                    );
                   },
                 ),
                 TextFunction(

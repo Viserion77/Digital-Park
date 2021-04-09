@@ -31,8 +31,8 @@ class EventsList extends StatelessWidget {
         onPressed: () {
           Navigator.of(context)
               .push(
-                MaterialPageRoute(builder: (context) => EventForm()),
-              )
+            MaterialPageRoute(builder: (context) => EventForm()),
+          )
               .then((newEvent) => debugPrint(newEvent.toString()));
         },
         child: Icon(
@@ -65,6 +65,24 @@ class _EventItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class NextNearEvent extends StatelessWidget {
+  final Event event = Event(0, 'aqui vem a imagem', 0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        height: 240.0,
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage('images/logo.png'),))
+
+      )
     );
   }
 }
