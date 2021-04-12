@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/map/map.dart';
 
 class BottomMenuBar extends StatelessWidget {
   final String label;
@@ -31,26 +32,37 @@ class BottomMenuBar extends StatelessWidget {
                 size: 36.0,
                 color: Theme.of(context).secondaryHeaderColor,
               ),
-              Container(
-                padding: EdgeInsets.all(8.0),
-                transform: Matrix4.translationValues(0.0, -36.0, 0.0),
-                decoration: new BoxDecoration(
-                  border: Border.all(color: Theme.of(context).secondaryHeaderColor),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
+              Material(
+                color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Map()),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    transform: Matrix4.translationValues(0.0, -36.0, 0.0),
+                    decoration: new BoxDecoration(
+                      border: Border.all(
+                          color: Theme.of(context).secondaryHeaderColor),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).primaryColor,
                     ),
-                  ],
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Icon(
-                  Icons.map,
-                  size: 64.0,
-                  color: Theme.of(context).secondaryHeaderColor,
+                    child: Icon(
+                      Icons.map,
+                      size: 64.0,
+                      color: Theme.of(context).secondaryHeaderColor,
+                    ),
+                  ),
                 ),
               ),
               Icon(
