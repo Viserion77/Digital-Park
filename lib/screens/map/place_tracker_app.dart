@@ -35,7 +35,8 @@ class _PlaceTrackerHomePage extends StatelessWidget {
       body: IndexedStack(
         index: state.viewType == PlaceTrackerViewType.map ? 0 : 1,
         children: [
-          PlaceMap(center: const LatLng(45.521563, -122.677433)),
+          PlaceMap(
+              center: const LatLng(-26.507562218125386, -49.12852719426155)),
           PlaceList()
         ],
       ),

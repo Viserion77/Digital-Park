@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+
 import '../screens/map/map.dart';
 
 class BottomMenuBar extends StatelessWidget {
   final String label;
+  final Function function;
+  final IconData functionIcon;
 
   BottomMenuBar({
     this.label,
+    this.function,
+    this.functionIcon,
   });
 
   @override
@@ -35,11 +40,13 @@ class BottomMenuBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Map()),
-                    );
-                  },
+                  onTap: function != null
+                      ? function
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Map()),
+                          );
+                        },
                   child: Container(
                     padding: EdgeInsets.all(8.0),
                     transform: Matrix4.translationValues(0.0, -36.0, 0.0),
@@ -58,7 +65,7 @@ class BottomMenuBar extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
                     child: Icon(
-                      Icons.map,
+                      functionIcon != null ? functionIcon : Icons.map,
                       size: 64.0,
                       color: Theme.of(context).secondaryHeaderColor,
                     ),

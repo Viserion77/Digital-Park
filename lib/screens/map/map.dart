@@ -17,7 +17,7 @@ class _MapState extends State<Map> {
         create: (context) => AppState(),
         child: PlaceTrackerApp(),
       ),
-      bottomNavigationBar: BottomMenuBar(),
+      bottomNavigationBar: BottomMenuBar(functionIcon: Icons.search),
     );
   }
 }
