@@ -7,23 +7,13 @@ class ServicesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 64.0, left: 32.0),
-        child: Text(
-          'Serviços',
-          style: TextStyle(
-            fontSize: 24.0,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          final Service event = services[index];
+          return _ServiceItem(event);
+        },
+        itemCount: services.length,
       ),
-      //ListView.builder(
-      //  itemBuilder: (context, index) {
-      //    final Service event = services[index];
-      //    return _ServiceItem(event);
-      //  },
-      //  itemCount: services.length,
-      //),
       bottomNavigationBar: BottomMenuBar(),
     );
   }
