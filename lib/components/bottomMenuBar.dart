@@ -1,4 +1,5 @@
 import 'package:DigitalPark/screens/services/list.dart';
+import 'package:DigitalPark/screens/user/user.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/map/map.dart';
@@ -82,11 +83,20 @@ class BottomMenuBar extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
-                Icons.person,
-                size: 36.0,
-                color: Theme.of(context).secondaryHeaderColor,
-              )
+              InkWell(
+                onTap: function != null
+                    ? function
+                    : () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => UserPage()),
+                        );
+                      },
+                child: Icon(
+                  Icons.person,
+                  size: 36.0,
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
+              ),
             ],
           ),
         ));
