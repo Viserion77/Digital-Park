@@ -1,3 +1,4 @@
+import 'package:DigitalPark/screens/suggestion/form.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/map/map.dart';
@@ -27,10 +28,20 @@ class BottomMenuBar extends StatelessWidget {
                 size: 36.0,
                 color: Theme.of(context).secondaryHeaderColor,
               ),
-              Icon(
-                Icons.label,
-                size: 36.0,
-                color: Theme.of(context).secondaryHeaderColor,
+              InkWell(
+                onTap: function != null
+                    ? function
+                    : () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SuggestionForm()),
+                        );
+                      },
+                child: Icon(
+                  Icons.label,
+                  size: 36.0,
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
               ),
               Icon(
                 Icons.attach_money,
