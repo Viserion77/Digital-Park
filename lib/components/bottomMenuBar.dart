@@ -1,3 +1,4 @@
+import 'package:DigitalPark/components/side_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/map/map.dart';
@@ -22,10 +23,23 @@ class BottomMenuBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                Icons.widgets,
-                size: 36.0,
-                color: Theme.of(context).secondaryHeaderColor,
+              Material(
+                color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  onTap: function != null
+                      ? function
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => NavDrawer()),
+                          );
+                        },
+                  child: Icon(
+                    Icons.widgets,
+                    size: 36.0,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
               ),
               Icon(
                 Icons.label,
