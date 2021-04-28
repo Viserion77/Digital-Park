@@ -1,4 +1,6 @@
+import 'package:DigitalPark/screens/services/list.dart';
 import 'package:DigitalPark/screens/suggestion/form.dart';
+import 'package:DigitalPark/screens/user/user.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/map/map.dart';
@@ -43,10 +45,19 @@ class BottomMenuBar extends StatelessWidget {
                   color: Theme.of(context).secondaryHeaderColor,
                 ),
               ),
-              Icon(
-                Icons.attach_money,
-                size: 36.0,
-                color: Theme.of(context).secondaryHeaderColor,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ServicesList()),
+                  );
+                },
+                child: Container(
+                  child: Icon(
+                    Icons.attach_money,
+                    size: 36.0,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
               ),
               Material(
                 color: Theme.of(context).primaryColor,
@@ -83,11 +94,20 @@ class BottomMenuBar extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
-                Icons.person,
-                size: 36.0,
-                color: Theme.of(context).secondaryHeaderColor,
-              )
+              InkWell(
+                onTap: function != null
+                    ? function
+                    : () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => UserPage()),
+                        );
+                      },
+                child: Icon(
+                  Icons.person,
+                  size: 36.0,
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
+              ),
             ],
           ),
         ));
