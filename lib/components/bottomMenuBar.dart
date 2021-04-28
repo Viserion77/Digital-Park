@@ -33,20 +33,17 @@ class BottomMenuBar extends StatelessWidget {
                 size: 36.0,
                 color: Theme.of(context).secondaryHeaderColor,
               ),
-              Material(
-                color: Theme.of(context).primaryColor,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ServicesList()),
-                    );
-                  },
-                  child: Container(
-                    child: Icon(
-                      Icons.attach_money,
-                      size: 36.0,
-                      color: Theme.of(context).secondaryHeaderColor,
-                    ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ServicesList()),
+                  );
+                },
+                child: Container(
+                  child: Icon(
+                    Icons.attach_money,
+                    size: 36.0,
+                    color: Theme.of(context).secondaryHeaderColor,
                   ),
                 ),
               ),
