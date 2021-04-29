@@ -1,5 +1,6 @@
 import 'package:DigitalPark/components/basics.dart';
 import 'package:DigitalPark/components/bottomMenuBar.dart';
+import 'package:DigitalPark/components/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -24,6 +25,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       body: Container(
         width: double.maxFinite,
         decoration: BoxDecoration(

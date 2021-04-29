@@ -1,3 +1,4 @@
+import 'package:DigitalPark/components/side_menu.dart';
 import 'package:DigitalPark/screens/services/list.dart';
 import 'package:DigitalPark/screens/suggestion/form.dart';
 import 'package:DigitalPark/screens/user/user.dart';
@@ -25,10 +26,20 @@ class BottomMenuBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                Icons.widgets,
-                size: 36.0,
-                color: Theme.of(context).secondaryHeaderColor,
+              InkWell(
+                onTap: function != null
+                    ? function
+                    : () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => NavDrawer()),
+                        );
+                      },
+                child: Icon(
+                  Icons.widgets,
+                  size: 36.0,
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
               ),
               InkWell(
                 onTap: function != null
