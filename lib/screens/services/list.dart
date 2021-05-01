@@ -1,4 +1,4 @@
-import 'package:DigitalPark/components/bottomMenuBar.dart';
+import 'package:DigitalPark/components/bottom_menu_bar.dart';
 import 'package:DigitalPark/models/service.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:DigitalPark/models/event.dart';
 import 'package:DigitalPark/screens/events/form.dart';
+import 'package:flutter/material.dart';
 
 class EventsList extends StatelessWidget {
   final List<Event> events = List();
@@ -31,8 +30,8 @@ class EventsList extends StatelessWidget {
         onPressed: () {
           Navigator.of(context)
               .push(
-            MaterialPageRoute(builder: (context) => EventForm()),
-          )
+                MaterialPageRoute(builder: (context) => EventForm()),
+              )
               .then((newEvent) => debugPrint(newEvent.toString()));
         },
         child: Icon(
@@ -75,14 +74,12 @@ class NextNearEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Container(
-        height: 240.0,
-        width: double.maxFinite,
-        decoration: BoxDecoration(
-        image: DecorationImage(
-        image: AssetImage('images/logo.png'),))
-
-      )
-    );
+        child: Container(
+            height: 240.0,
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage('images/logo.png'),
+            ))));
   }
 }
