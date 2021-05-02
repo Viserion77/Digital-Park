@@ -1,16 +1,20 @@
 class Session {
   final int id;
-  final String login;
-  final String password;
+  final String authToken;
+  final bool staySignIn;
 
   Session(
     this.id,
-    this.login,
-    this.password,
+    this.authToken,
+    this.staySignIn,
   );
 
   @override
   String toString() {
-    return 'Event{id: $id, login: $login, password: $password}';
+    return 'Event{id: $id, authToken: $authToken, staySignIn: $staySignIn}';
+  }
+
+  bool isAuthenticated() {
+    return this.staySignIn;
   }
 }

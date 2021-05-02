@@ -1,5 +1,5 @@
 import 'package:DigitalPark/components/basics.dart';
-import 'package:DigitalPark/components/bottomMenuBar.dart';
+import 'package:DigitalPark/components/bottom_menu_bar.dart';
 import 'package:DigitalPark/components/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

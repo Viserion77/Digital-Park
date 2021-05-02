@@ -24,49 +24,58 @@ class BottomMenuBar extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              InkWell(
-                onTap: function != null
-                    ? function
-                    : () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => NavDrawer()),
-                        );
-                      },
-                child: Icon(
-                  Icons.widgets,
-                  size: 36.0,
-                  color: Theme.of(context).secondaryHeaderColor,
-                ),
-              ),
-              InkWell(
-                onTap: function != null
-                    ? function
-                    : () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => SuggestionForm()),
-                        );
-                      },
-                child: Icon(
-                  Icons.label,
-                  size: 36.0,
-                  color: Theme.of(context).secondaryHeaderColor,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ServicesList()),
-                  );
-                },
-                child: Container(
+              Material(
+                color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  onTap: function != null
+                      ? function
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => NavDrawer()),
+                          );
+                        },
                   child: Icon(
-                    Icons.attach_money,
+                    Icons.widgets,
                     size: 36.0,
                     color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
+              ),
+              Material(
+                color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  onTap: function != null
+                      ? function
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => SuggestionForm()),
+                          );
+                        },
+                  child: Icon(
+                    Icons.label,
+                    size: 36.0,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
+              ),
+              Material(
+                color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ServicesList()),
+                    );
+                  },
+                  child: Container(
+                    child: Icon(
+                      Icons.attach_money,
+                      size: 36.0,
+                      color: Theme.of(context).secondaryHeaderColor,
+                    ),
                   ),
                 ),
               ),
@@ -105,18 +114,21 @@ class BottomMenuBar extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: function != null
-                    ? function
-                    : () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => UserPage()),
-                        );
-                      },
-                child: Icon(
-                  Icons.person,
-                  size: 36.0,
-                  color: Theme.of(context).secondaryHeaderColor,
+              Material(
+                color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  onTap: function != null
+                      ? function
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => UserPage()),
+                          );
+                        },
+                  child: Icon(
+                    Icons.person,
+                    size: 36.0,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
                 ),
               ),
             ],
