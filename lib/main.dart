@@ -43,8 +43,7 @@ class DigitalPark extends StatelessWidget {
             case ConnectionState.active:
               break;
             case ConnectionState.done:
-              if (snapshot.data.toString() != null &&
-                  snapshot.data.isAuthenticated()) {
+              if (snapshot.data != null && snapshot.data.isAuthenticated()) {
                 return Home();
               } else {
                 return Login();

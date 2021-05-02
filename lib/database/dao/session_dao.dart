@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class SessionDao {
   static const String _tableName = 'sessions';
+  static const String tableName = 'sessions';
   static const String _id = 'sessions';
   static const String _authToken = 'auth_token';
   static const String _staySignIn = 'stay_sign_in';

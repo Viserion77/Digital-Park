@@ -10,7 +10,7 @@ Future<Database> getDataBase() async {
     onCreate: (db, version) {
       db.execute(SessionDao.tableSql);
       SessionDao sessionDao = SessionDao();
-      sessionDao.save(Session(0, '', false));
+      db.insert(SessionDao.tableName, sessionDao.toMap(Session(0, '', false)));
     },
     version: 1,
     onDowngrade: onDatabaseDowngradeDelete,
