@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:DigitalPark/components/basics.dart';
+import 'package:DigitalPark/database/dao/session_dao.dart';
+import 'package:DigitalPark/models/session.dart';
+import 'package:DigitalPark/screens/home.dart';
 import 'package:DigitalPark/screens/sign/in.dart';
+import 'package:flutter/material.dart';
 
 class Cadastro extends StatefulWidget {
   @override
@@ -13,9 +16,11 @@ class CadastroState extends State<Cadastro> {
   final TextEditingController _login = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _passwordConfirmation = TextEditingController();
-  bool _staySignin = false;
+  bool _staySignIn = false;
   final String _backgroundImageAsset = 'images/background.png';
   final String _logoImageAsset = 'images/logo.png';
+
+  SessionDao sessionDao = SessionDao();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +80,7 @@ class CadastroState extends State<Cadastro> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.of(context).push(
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) => Login()),
                           );
                         },
@@ -127,36 +132,60 @@ class CadastroState extends State<Cadastro> {
                 ),
                 LabelBox(
                   label: 'Permanecer conectado?',
-                  value: _staySignin,
+                  value: _staySignIn,
                   function: () {
                     setState(
                       () {
-                        _staySignin = !_staySignin;
+                        _staySignIn = !_staySignIn;
                       },
                     );
                   },
                 ),
                 Button(
                   label: 'Cadastrar',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_login.text != '' &&
+                        _password.text != '' &&
+                        _password.text == _passwordConfirmation.text) {
+                      sessionDao.save(Session(
+                          0,
+                          _login.text + '^' + _passwordConfirmation.text,
+                          _staySignIn));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    }
+                  },
                 ),
                 Button(
                   label: 'Com o Google',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
                   imageAsset: 'images/icons/google.png',
                   backgroundColor: Colors.white,
                   fontColor: Colors.blueAccent,
                 ),
                 Button(
                   label: 'Com o Facebook',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
                   imageAsset: 'images/icons/facebook.png',
                   backgroundColor: Colors.white,
                   fontColor: Colors.indigo,
                 ),
                 Button(
                   label: 'Pular',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
                 ),
               ],
             ),

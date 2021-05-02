@@ -1,3 +1,4 @@
+import 'package:DigitalPark/screens/sign/in.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
@@ -74,7 +75,14 @@ class NavDrawer extends StatelessWidget {
             tileColor: Theme.of(context).primaryColor,
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => Login(),
+                ),
+                ModalRoute.withName('/'),
+              ),
+            },
           ),
         ],
       ),

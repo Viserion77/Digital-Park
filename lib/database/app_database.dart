@@ -1,54 +1,18 @@
-import 'package:DigitalPark/models/event.dart';
+import 'package:DigitalPark/database/dao/session_dao.dart';
+import 'package:DigitalPark/models/session.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<Database> createDataBase() {
-  return getDatabasesPath().then(
-    (dbPath) {
-      final String path = join(dbPath, 'parquemalwee.db');
-      return openDatabase(
-        path,
-        onCreate: (db, version) {
-          db.execute('CREATE TABLE events('
-              'id INTEGER PRIMARY KEY, '
-              'name TEXT, '
-              'numero INTEGER)');
-        },
-        version: 1,
-      );
+Future<Database> getDataBase() async {
+  final String path = join(await getDatabasesPath(), 'digital_park.db');
+  return openDatabase(
+    path,
+    onCreate: (db, version) {
+      db.execute(SessionDao.tableSql);
+      SessionDao sessionDao = SessionDao();
+      sessionDao.save(Session(0, '', false));
     },
-  );
-}
-
-Future<int> save(Event event) {
-  return createDataBase().then(
-    (db) {
-      final Map<String, dynamic> eventMap = Map();
-      eventMap['name'] = event.name;
-      eventMap['numero'] = event.numero;
-
-      return db.insert('events', eventMap);
-    },
-  );
-}
-
-Future<List<Event>> findAll() {
-  return createDataBase().then(
-    (db) {
-      return db.query('events').then(
-        (maps) {
-          final List<Event> events = List();
-          for (Map<String, dynamic> map in maps) {
-            final Event event = Event(
-              map['id'],
-              map['name'],
-              map['numero'],
-            );
-            events.add(event);
-          }
-          return events;
-        },
-      );
-    },
+    version: 1,
+    onDowngrade: onDatabaseDowngradeDelete,
   );
 }
