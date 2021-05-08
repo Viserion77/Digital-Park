@@ -15,6 +15,6 @@ class Session {
   }
 
   bool isAuthenticated() {
-    return this.staySignIn;
+    return this.authToken != '';
   }
 }

@@ -1,5 +1,6 @@
 import 'package:DigitalPark/components/basics.dart';
 import 'package:DigitalPark/database/dao/session_dao.dart';
+import 'package:DigitalPark/http/web_client.dart';
 import 'package:DigitalPark/models/session.dart';
 import 'package:DigitalPark/screens/home.dart';
 import 'package:DigitalPark/screens/sign/up.dart';
@@ -148,18 +149,19 @@ class LoginState extends State<Login> {
                 ),
                 Button(
                   label: 'Entrar',
-                  onPressed: () {
+                  onPressed: () async {
                     if (_controllerLogin.text != '' &&
                         _controllerPassword.text != '') {
-                      sessionDao.save(Session(
-                          0,
-                          _controllerLogin.text +
-                              '^' +
-                              _controllerPassword.text,
-                          _staySignIn));
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
+                      String oAuthResponse = await getOAuthToken(
+                          _controllerLogin.text, _controllerPassword.text);
+                      await sessionDao
+                          .save(Session(0, oAuthResponse, _staySignIn));
+                      Session session = await sessionDao.getLast();
+                      if (session.isAuthenticated()) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      }
                     }
                   },
                 ),

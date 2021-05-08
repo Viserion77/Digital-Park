@@ -22,16 +22,14 @@ environment:
 
 dependencies:
   google_maps_flutter: ^1.0.6
+  location: ^2.3.5
   provider: ^4.0.0
   uuid: ^2.0.4
   flutter:
     sdk: flutter
   sqflite:
   path:
-  firebase_analytics: ^5.0.2
-  firebase_auth: ^0.14.0+5
-  cloud_firestore: ^0.12.9+5
-  firebase_core: ^0.4.0+9
+  http:
   intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.

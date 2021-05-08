@@ -11,6 +11,7 @@ class Map extends StatefulWidget {
 
 class _MapState extends State<Map> {
   final Set<Marker> _markers = {};
+  GoogleMapController _controler;
   @override
   Widget build(BuildContext context) {
     _markers.add(Marker(
@@ -26,11 +27,29 @@ class _MapState extends State<Map> {
       body: ChangeNotifierProvider(
         create: (context) => AppState(),
         child: GoogleMap(
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          mapType: MapType.terrain,
           markers: _markers,
           initialCameraPosition: CameraPosition(
             target: const LatLng(-26.507562218125386, -49.12852719426155),
-            zoom: 11.0,
+            zoom: 35.0,
           ),
+          onCameraMove: (position) => {
+            _controler.animateCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: const LatLng(-26.507562218125386, -49.12852719426155),
+                  zoom: 20,
+                ),
+              ),
+            ),
+          },
+          buildingsEnabled: true,
+          zoomControlsEnabled: false,
+          onMapCreated: (GoogleMapController controller) {
+            _controler = controller;
+          },
         ),
       ),
       bottomNavigationBar: BottomMenuBar(functionIcon: Icons.search),

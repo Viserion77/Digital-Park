@@ -41,12 +41,12 @@ class SessionDao {
   }
 
   List<Session> toList(List<Map<String, dynamic>> result) {
-    final List<Session> sessions = List();
+    final List<Session> sessions = [];
     for (Map<String, dynamic> row in result) {
       final Session session = Session(
         row[_id],
         row[_authToken],
-        row[_staySignIn],
+        row[_staySignIn] == 1 ? true : false,
       );
       sessions.add(session);
     }

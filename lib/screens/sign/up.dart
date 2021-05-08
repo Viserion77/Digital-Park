@@ -1,5 +1,6 @@
 import 'package:DigitalPark/components/basics.dart';
 import 'package:DigitalPark/database/dao/session_dao.dart';
+import 'package:DigitalPark/http/web_client.dart';
 import 'package:DigitalPark/models/session.dart';
 import 'package:DigitalPark/screens/home.dart';
 import 'package:DigitalPark/screens/sign/in.dart';
@@ -143,17 +144,21 @@ class CadastroState extends State<Cadastro> {
                 ),
                 Button(
                   label: 'Cadastrar',
-                  onPressed: () {
+                  onPressed: () async {
                     if (_login.text != '' &&
                         _password.text != '' &&
                         _password.text == _passwordConfirmation.text) {
-                      sessionDao.save(Session(
-                          0,
-                          _login.text + '^' + _passwordConfirmation.text,
-                          _staySignIn));
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
+                      postNewUser(_login.text, _password.text);
+                      String oAuthResponse =
+                          await getOAuthToken(_login.text, _password.text);
+                      print(getOAuthToken);
+                      sessionDao.save(Session(0, oAuthResponse, _staySignIn));
+                      Session session = await sessionDao.getLast();
+                      if (session.isAuthenticated()) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      }
                     }
                   },
                 ),
