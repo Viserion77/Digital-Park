@@ -1,7 +1,7 @@
-import 'package:DigitalPark/components/side_menu.dart';
-import 'package:DigitalPark/screens/services/list.dart';
-import 'package:DigitalPark/screens/suggestion/form.dart';
-import 'package:DigitalPark/screens/user/user.dart';
+import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/screens/services/list.dart';
+import 'package:digital_park/screens/suggestion/form.dart';
+import 'package:digital_park/screens/user/user.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/map/map.dart';

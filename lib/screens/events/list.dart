@@ -1,9 +1,9 @@
-import 'package:DigitalPark/models/event.dart';
-import 'package:DigitalPark/screens/events/form.dart';
+import 'package:digital_park/models/event.dart';
+import 'package:digital_park/screens/events/form.dart';
 import 'package:flutter/material.dart';
 
 class EventsList extends StatelessWidget {
-  final List<Event> events = List();
+  final List<Event> events = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

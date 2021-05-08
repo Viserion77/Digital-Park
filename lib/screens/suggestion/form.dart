@@ -1,4 +1,4 @@
-import 'package:DigitalPark/models/suggestion.dart';
+import 'package:digital_park/models/suggestion.dart';
 import 'package:flutter/material.dart';
 
 class SuggestionForm extends StatefulWidget {
@@ -46,7 +46,7 @@ class _SuggestionFormState extends State<SuggestionForm> {
             ),
             SizedBox(
               width: double.maxFinite,
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text('create'),
                 onPressed: () {
                   final String name = _nameController.text;

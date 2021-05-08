@@ -1,5 +1,5 @@
-import 'package:DigitalPark/components/bottom_menu_bar.dart';
-import 'package:DigitalPark/screens/map/place_tracker_app.dart';
+import 'package:digital_park/components/bottom_menu_bar.dart';
+import 'package:digital_park/screens/map/place_tracker_app.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,5 @@
-import 'package:DigitalPark/database/app_database.dart';
-import 'package:DigitalPark/models/session.dart';
+import 'package:digital_park/database/app_database.dart';
+import 'package:digital_park/models/session.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SessionDao {

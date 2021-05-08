@@ -108,8 +108,12 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: RaisedButton(
-        color: backgroundColor,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: backgroundColor != null
+              ? backgroundColor
+              : Theme.of(context).primaryColor,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(

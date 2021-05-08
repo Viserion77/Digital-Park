@@ -1,4 +1,4 @@
-import 'package:DigitalPark/screens/sign/in.dart';
+import 'package:digital_park/screens/sign/in.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:DigitalPark/components/bottom_menu_bar.dart';
-import 'package:DigitalPark/models/service.dart';
+import 'package:digital_park/components/bottom_menu_bar.dart';
+import 'package:digital_park/models/service.dart';
 import 'package:flutter/material.dart';
 
 class ServicesList extends StatelessWidget {
-  final List<Service> services = List();
+  final List<Service> services = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

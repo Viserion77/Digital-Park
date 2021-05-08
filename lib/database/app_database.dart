@@ -1,5 +1,5 @@
-import 'package:DigitalPark/database/dao/session_dao.dart';
-import 'package:DigitalPark/models/session.dart';
+import 'package:digital_park/database/dao/session_dao.dart';
+import 'package:digital_park/models/session.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -12,7 +12,7 @@ Future<Database> getDataBase() async {
       SessionDao sessionDao = SessionDao();
       db.insert(SessionDao.tableName, sessionDao.toMap(Session(0, '', false)));
     },
-    version: 1,
+    version: 2,
     onDowngrade: onDatabaseDowngradeDelete,
   );
 }

@@ -1,9 +1,9 @@
-import 'package:DigitalPark/components/basics.dart';
-import 'package:DigitalPark/database/dao/session_dao.dart';
-import 'package:DigitalPark/http/web_client.dart';
-import 'package:DigitalPark/models/session.dart';
-import 'package:DigitalPark/screens/home.dart';
-import 'package:DigitalPark/screens/sign/up.dart';
+import 'package:digital_park/components/basics.dart';
+import 'package:digital_park/database/dao/session_dao.dart';
+import 'package:digital_park/http/web_client.dart';
+import 'package:digital_park/models/session.dart';
+import 'package:digital_park/screens/home.dart';
+import 'package:digital_park/screens/sign/up.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {

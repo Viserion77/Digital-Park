@@ -1,4 +1,4 @@
-import 'package:DigitalPark/models/event.dart';
+import 'package:digital_park/models/event.dart';
 import 'package:flutter/material.dart';
 
 class EventForm extends StatefulWidget {
@@ -46,7 +46,7 @@ class _EventFormState extends State<EventForm> {
             ),
             SizedBox(
               width: double.maxFinite,
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text('create'),
                 onPressed: () {
                   final String name = _nameController.text;

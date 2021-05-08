@@ -1,6 +1,6 @@
-import 'package:DigitalPark/database/dao/session_dao.dart';
-import 'package:DigitalPark/screens/home.dart';
-import 'package:DigitalPark/screens/sign/in.dart';
+import 'package:digital_park/database/dao/session_dao.dart';
+import 'package:digital_park/screens/home.dart';
+import 'package:digital_park/screens/sign/in.dart';
 import 'package:flutter/material.dart';
 
 import 'models/session.dart';
@@ -10,7 +10,7 @@ void main() {
 }
 
 class DigitalPark extends StatelessWidget {
-  SessionDao sessionDao = SessionDao();
+  final SessionDao sessionDao = SessionDao();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
-import 'package:DigitalPark/components/basics.dart';
-import 'package:DigitalPark/components/bottom_menu_bar.dart';
-import 'package:DigitalPark/components/side_menu.dart';
+import 'package:digital_park/components/basics.dart';
+import 'package:digital_park/components/bottom_menu_bar.dart';
+import 'package:digital_park/components/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,9 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  final TextEditingController _controllerLogin = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
-  bool _staySignIn = false;
   final String _backgroundImageAsset = 'images/background.png';
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
   final DateFormat _hourFormat = DateFormat('hh:mm');
