@@ -1,3 +1,4 @@
+import 'package:digital_park/screens/events/list.dart';
 import 'package:digital_park/screens/sign/in.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,11 @@ class NavDrawer extends StatelessWidget {
             tileColor: Theme.of(context).primaryColor,
             leading: Icon(Icons.calendar_today_outlined),
             title: Text('Eventos'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => EventsList()),
+              )
+            },
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,

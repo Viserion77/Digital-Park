@@ -4,7 +4,10 @@ import 'package:digital_park/http/web_client.dart';
 import 'package:digital_park/models/session.dart';
 import 'package:digital_park/screens/home.dart';
 import 'package:digital_park/screens/sign/up.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -20,6 +23,12 @@ class LoginState extends State<Login> {
   final String _backgroundImageAsset = 'images/background.png';
   final String _logoImageAsset = 'images/logo.png';
   final SessionDao sessionDao = SessionDao();
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -166,8 +175,26 @@ class LoginState extends State<Login> {
                   },
                 ),
                 Button(
-                  label: 'Com o Google',
-                  onPressed: () {
+                  label: 'Google',
+                  onPressed: () async {
+                    // Trigger the authentication flow
+                    final GoogleSignInAccount googleUser =
+                        await _googleSignIn.signIn();
+
+                    // Obtain the auth details from the request
+                    final GoogleSignInAuthentication googleAuth =
+                        await googleUser.authentication;
+
+                    // Create a new credential
+                    final credential = GoogleAuthProvider.getCredential(
+                      accessToken: googleAuth.accessToken,
+                      idToken: googleAuth.idToken,
+                    );
+
+                    // Once signed in, return the UserCredential
+                    await FirebaseAuth.instance
+                        .signInWithCredential(credential);
+
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => Home()),
                     );
@@ -177,8 +204,21 @@ class LoginState extends State<Login> {
                   fontColor: Colors.blueAccent,
                 ),
                 Button(
-                  label: 'Com o Facebook',
-                  onPressed: () {
+                  label: 'Facebook',
+                  onPressed: () async {
+                    // Trigger the sign-in flow
+                    final AccessToken result =
+                        await FacebookAuth.instance.login();
+
+                    // Create a credential from the access token
+                    final facebookAuthCredential =
+                        FacebookAuthProvider.getCredential(
+                            accessToken: result.token);
+
+                    // Once signed in, return the UserCredential
+                    await FirebaseAuth.instance
+                        .signInWithCredential(facebookAuthCredential);
+
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => Home()),
                     );

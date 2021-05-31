@@ -1,11 +1,11 @@
 import 'package:digital_park/components/basics.dart';
 import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/screens/events/components/next_event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../components/basics.dart';
-import 'events/list.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -85,25 +85,7 @@ class HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                Container(
-                  decoration:
-                      BoxDecoration(color: Theme.of(context).primaryColor),
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    children: [
-                      Text(
-                        'Próximo evento',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          color: Theme.of(context).selectedRowColor,
-                        ),
-                      ),
-                      Container(
-                        child: NextNearEvent(),
-                      )
-                    ],
-                  ),
-                ),
+                NextEvent(),
                 Button(
                   label: 'Uma atividade para agora?',
                   onPressed: () {},

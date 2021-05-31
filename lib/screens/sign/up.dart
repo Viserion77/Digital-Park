@@ -17,6 +17,7 @@ class CadastroState extends State<Cadastro> {
   final TextEditingController _login = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _passwordConfirmation = TextEditingController();
+  final TextEditingController _email = TextEditingController();
   bool _staySignIn = false;
   final String _backgroundImageAsset = 'images/background.png';
   final String _logoImageAsset = 'images/logo.png';
@@ -118,6 +119,13 @@ class CadastroState extends State<Cadastro> {
                   ),
                 ),
                 Input(
+                  controller: _email,
+                  label: 'E-mail',
+                  padding: const EdgeInsets.only(
+                    top: 16.0,
+                  ),
+                ),
+                Input(
                   controller: _password,
                   label: 'Senha',
                   padding: const EdgeInsets.only(
@@ -148,7 +156,7 @@ class CadastroState extends State<Cadastro> {
                     if (_login.text != '' &&
                         _password.text != '' &&
                         _password.text == _passwordConfirmation.text) {
-                      postNewUser(_login.text, _password.text);
+                      postNewUser(_login.text, _password.text, _email.text);
                       String oAuthResponse =
                           await getOAuthToken(_login.text, _password.text);
                       print(getOAuthToken);

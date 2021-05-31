@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/models/event.dart';
-import 'package:digital_park/screens/events/form.dart';
 import 'package:flutter/material.dart';
+
+import 'components/event.dart';
 
 class EventsList extends StatelessWidget {
   final List<Event> events = [];
@@ -19,24 +21,45 @@ class EventsList extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final Event event = events[index];
-          return _EventItem(event);
+      body: StreamBuilder(
+        stream: Firestore.instance.collection('events').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.data.documents.length == 0) {
+            return Center(
+              child: Text('Nenhum evento ainda'),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (BuildContext context, int i) {
+              final Event event = new Event(
+                  snapshot.data.documents[i].documentID,
+                  snapshot.data.documents[i].data['name'],
+                  snapshot.data.documents[0].data['startDate']);
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => EventDetail(
+                              event: event,
+                            )),
+                  );
+                },
+                child: _EventItem(event),
+              );
+            },
+          );
         },
-        itemCount: events.length,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .push(
-                MaterialPageRoute(builder: (context) => EventForm()),
-              )
-              .then((newEvent) => debugPrint(newEvent.toString()));
-        },
-        child: Icon(
-          Icons.add,
-        ),
       ),
     );
   }
@@ -51,35 +74,33 @@ class _EventItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Text(
-          event.name,
-          style: TextStyle(
-            fontSize: 24,
-          ),
+        title: Column(
+          children: [
+            Container(
+              height: 240.0,
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/logo.png'),
+                ),
+              ),
+            ),
+            Text(
+              event.name,
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+          ],
         ),
         subtitle: Text(
-          event.numero.toString(),
+          DateTime.fromMillisecondsSinceEpoch(event.startDate.seconds * 1000)
+              .toString(),
           style: TextStyle(
             fontSize: 16,
           ),
         ),
       ),
     );
-  }
-}
-
-class NextNearEvent extends StatelessWidget {
-  final Event event = Event(0, 'aqui vem a imagem', 0);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        child: Container(
-            height: 240.0,
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage('images/logo.png'),
-            ))));
   }
 }
