@@ -5,11 +5,7 @@ class Event {
   final String name;
   final Timestamp startDate;
 
-  Event(
-    this.id,
-    this.name,
-    this.startDate,
-  );
+  Event(this.id, this.name, this.startDate);
 
   @override
   String toString() {

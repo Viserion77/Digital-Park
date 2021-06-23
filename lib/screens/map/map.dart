@@ -11,7 +11,8 @@ class Map extends StatefulWidget {
 }
 
 class _MapState extends State<Map> {
-  final Set<Marker> _markers = {};
+  Set<Marker> _markers = {};
+  bool returnig = false;
   GoogleMapController _controler;
   @override
   Widget build(BuildContext context) {
@@ -33,22 +34,24 @@ class _MapState extends State<Map> {
               );
             }
 
+            _markers = {};
             snapshot.data.documents.forEach((element) {
               final GeoPoint geoPoint = element.data['wayPoint'];
-              _markers.add(Marker(
-                markerId: MarkerId(element.documentID),
-                position: LatLng(geoPoint.latitude, geoPoint.longitude),
-                infoWindow: InfoWindow(
-                  title: element.data['description'],
+              print(element.data);
+              _markers.add(
+                Marker(
+                  markerId: MarkerId(element.documentID),
+                  position: LatLng(geoPoint.latitude, geoPoint.longitude),
+                  infoWindow: InfoWindow(
+                    title: element.data['description'],
+                  ),
+                  icon: BitmapDescriptor.defaultMarker,
+                  visible: element.data['visible'],
                 ),
-                icon: BitmapDescriptor.defaultMarker,
-                visible: element.data['visible'],
-              ));
+              );
             });
 
             return GoogleMap(
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
               mapType: MapType.terrain,
               markers: _markers,
               initialCameraPosition: CameraPosition(
@@ -56,17 +59,31 @@ class _MapState extends State<Map> {
                 zoom: 35.0,
               ),
               onCameraMove: (position) => {
-                _controler.animateCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target:
-                          const LatLng(-26.507562218125386, -49.12852719426155),
-                      zoom: 20,
-                    ),
-                  ),
-                ),
+                if (position.target.longitude > -49.13593780249357 ||
+                    position.target.longitude < -49.120618030428886 &&
+                        position.target.latitude < -26.497728001569904 ||
+                    position.target.latitude > -26.510341665930866)
+                  {
+                    returnig = false,
+                  },
+                if (position.target.longitude < -49.13593780249357 ||
+                    position.target.longitude > -49.120618030428886 &&
+                        position.target.latitude > -26.497728001569904 ||
+                    position.target.latitude < -26.510341665930866)
+                  {
+                    returnig = true,
+                    _controler.animateCamera(
+                      CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                          tilt: 70,
+                          target: const LatLng(
+                              -26.507562218125386, -49.12852719426155),
+                          zoom: 20,
+                        ),
+                      ),
+                    )
+                  }
               },
-              buildingsEnabled: true,
               zoomControlsEnabled: false,
               onMapCreated: (GoogleMapController controller) {
                 _controler = controller;
@@ -75,7 +92,9 @@ class _MapState extends State<Map> {
           },
         ),
       ),
-      bottomNavigationBar: BottomMenuBar(functionIcon: Icons.search),
+      bottomNavigationBar: BottomMenuBar(
+        extraInfo: Text('Oxi'),
+      ),
     );
   }
 }

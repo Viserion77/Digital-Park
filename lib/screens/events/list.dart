@@ -6,6 +6,7 @@ import 'components/event.dart';
 
 class EventsList extends StatelessWidget {
   final List<Event> events = [];
+  final String _userEmail = 'jeferson_alves1@estudante.sc.senai.br';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,10 @@ class EventsList extends StatelessWidget {
         ),
       ),
       body: StreamBuilder(
-        stream: Firestore.instance.collection('events').snapshots(),
+        stream: Firestore.instance
+            .collection('events')
+            .where('active', isEqualTo: true)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -39,13 +43,14 @@ class EventsList extends StatelessWidget {
               child: Text('Nenhum evento ainda'),
             );
           }
+          print(snapshot);
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (BuildContext context, int i) {
               final Event event = new Event(
                   snapshot.data.documents[i].documentID,
-                  snapshot.data.documents[i].data['name'],
-                  snapshot.data.documents[0].data['startDate']);
+                  snapshot.data.documents[i].data['title'],
+                  snapshot.data.documents[i].data['startDate']);
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(

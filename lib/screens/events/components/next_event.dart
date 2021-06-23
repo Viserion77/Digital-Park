@@ -33,6 +33,7 @@ class _NextEventState extends State<NextEvent> {
 }
 
 class NextNearEvent extends StatelessWidget {
+  final String _userEmail = 'jeferson_alves1@estudante.sc.senai.br';
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -60,7 +61,7 @@ class NextNearEvent extends StatelessWidget {
         }
         final Event event = new Event(
             snapshot.data.documents[0].documentID,
-            snapshot.data.documents[0].data['name'],
+            snapshot.data.documents[0].data['title'],
             snapshot.data.documents[0].data['startDate']);
         return GestureDetector(
           onTap: () {
