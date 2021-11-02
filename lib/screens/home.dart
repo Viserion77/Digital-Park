@@ -60,14 +60,14 @@ class HomeState extends State<Home> {
                                   _dateFormat.format(DateTime.now()),
                                   style: TextStyle(
                                     fontSize: 24.0,
-                                    color: Theme.of(context).selectedRowColor,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 Text(
                                   _hourFormat.format(DateTime.now()),
                                   style: TextStyle(
                                     fontSize: 56.0,
-                                    color: Theme.of(context).selectedRowColor,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ],
@@ -76,7 +76,7 @@ class HomeState extends State<Home> {
                               'Aberto até as 20:00',
                               style: TextStyle(
                                 fontSize: 16.0,
-                                color: Theme.of(context).selectedRowColor,
+                                color: Colors.black,
                               ),
                             ),
                           ],

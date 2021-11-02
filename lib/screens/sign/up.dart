@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/basics.dart';
 import 'package:digital_park/database/dao/session_dao.dart';
-import 'package:digital_park/http/web_client.dart';
 import 'package:digital_park/models/session.dart';
 import 'package:digital_park/screens/home.dart';
 import 'package:digital_park/screens/sign/in.dart';
@@ -156,11 +156,11 @@ class CadastroState extends State<Cadastro> {
                     if (_login.text != '' &&
                         _password.text != '' &&
                         _password.text == _passwordConfirmation.text) {
-                      postNewUser(_login.text, _password.text, _email.text);
-                      String oAuthResponse =
-                          await getOAuthToken(_login.text, _password.text);
-                      print(getOAuthToken);
-                      sessionDao.save(Session(0, oAuthResponse, _staySignIn));
+                      Firestore.instance
+                          .collection('users')
+                          .document(_email.text)
+                          .setData({"password": _password.text});
+                      sessionDao.save(Session(0, 'oAuthResponse', _staySignIn));
                       Session session = await sessionDao.getLast();
                       if (session.isAuthenticated()) {
                         Navigator.of(context).pushReplacement(

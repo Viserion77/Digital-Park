@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/basics.dart';
 import 'package:digital_park/database/dao/session_dao.dart';
-import 'package:digital_park/http/web_client.dart';
 import 'package:digital_park/models/session.dart';
 import 'package:digital_park/screens/home.dart';
 import 'package:digital_park/screens/sign/up.dart';
@@ -158,15 +158,20 @@ class LoginState extends State<Login> {
                   onPressed: () async {
                     if (_controllerLogin.text != '' &&
                         _controllerPassword.text != '') {
-                      String oAuthResponse = await getOAuthToken(
-                          _controllerLogin.text, _controllerPassword.text);
-                      await sessionDao
-                          .save(Session(0, oAuthResponse, _staySignIn));
-                      Session session = await sessionDao.getLast();
-                      if (session.isAuthenticated()) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
+                      DocumentSnapshot doc = await Firestore.instance
+                          .collection('users')
+                          .document(_controllerLogin.text)
+                          .get();
+                      if (doc.exists &&
+                          doc.data['password'] == _controllerPassword.text) {
+                        await sessionDao
+                            .save(Session(0, 'oAuthResponse', _staySignIn));
+                        Session session = await sessionDao.getLast();
+                        if (session.isAuthenticated()) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
+                        }
                       }
                     }
                   },

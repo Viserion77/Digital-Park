@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/models/event.dart';
 import 'package:flutter/material.dart';
 
@@ -10,18 +11,6 @@ class EventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Container(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Image.asset(
-              'images/logo.png',
-              width: 40,
-            ),
-          ),
-        ),
-      ),
       body: StreamBuilder(
         stream: Firestore.instance
             .collection('events')
@@ -50,7 +39,11 @@ class EventsList extends StatelessWidget {
               final Event event = new Event(
                   snapshot.data.documents[i].documentID,
                   snapshot.data.documents[i].data['title'],
-                  snapshot.data.documents[i].data['startDate']);
+                  snapshot.data.documents[i].data['description'] != ""
+                      ? snapshot.data.documents[0].data['description']
+                      : "",
+                  snapshot.data.documents[i].data['startDate'],
+                  snapshot.data.documents[i].data['image']);
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -60,12 +53,16 @@ class EventsList extends StatelessWidget {
                             )),
                   );
                 },
-                child: _EventItem(event),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: _EventItem(event),
+                ),
               );
             },
           );
         },
       ),
+      bottomNavigationBar: BottomMenuBar(),
     );
   }
 }
@@ -78,6 +75,7 @@ class _EventItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).primaryColor,
       child: ListTile(
         title: Column(
           children: [
@@ -85,8 +83,11 @@ class _EventItem extends StatelessWidget {
               height: 240.0,
               width: double.maxFinite,
               decoration: BoxDecoration(
+                color: Theme.of(context).secondaryHeaderColor,
                 image: DecorationImage(
-                  image: AssetImage('images/logo.png'),
+                  image: NetworkImage(event.image != null
+                      ? event.image
+                      : "http://grupomalwee.s3.amazonaws.com/uploads/midias/original/1320.jpg"),
                 ),
               ),
             ),

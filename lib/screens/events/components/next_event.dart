@@ -62,14 +62,19 @@ class NextNearEvent extends StatelessWidget {
         final Event event = new Event(
             snapshot.data.documents[0].documentID,
             snapshot.data.documents[0].data['title'],
-            snapshot.data.documents[0].data['startDate']);
+            snapshot.data.documents[0].data['description'] != ""
+                ? snapshot.data.documents[0].data['description']
+                : "",
+            snapshot.data.documents[0].data['startDate'],
+            snapshot.data.documents[0].data['image']);
         return GestureDetector(
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                  builder: (context) => EventDetail(
-                        event: event,
-                      )),
+                builder: (context) => EventDetail(
+                  event: event,
+                ),
+              ),
             );
           },
           child: Card(
@@ -80,14 +85,10 @@ class NextNearEvent extends StatelessWidget {
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/logo.png'),
+                      image: NetworkImage(event.image != null
+                          ? event.image
+                          : "http://grupomalwee.s3.amazonaws.com/uploads/midias/original/1320.jpg"),
                     ),
-                  ),
-                ),
-                Text(
-                  event.name,
-                  style: TextStyle(
-                    fontSize: 24,
                   ),
                 )
               ],

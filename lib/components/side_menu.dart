@@ -1,4 +1,5 @@
 import 'package:digital_park/screens/events/list.dart';
+import 'package:digital_park/screens/home.dart';
 import 'package:digital_park/screens/sign/in.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,24 @@ class NavDrawer extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  'images/logo.png',
-                  width: 64.0,
+                GestureDetector(
+                  onTap: () => {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Home()),
+                    )
+                  },
+                  child: Image.asset(
+                    'images/logo.png',
+                    width: 64.0,
+                  ),
                 ),
-                Icon(Icons.input),
+                GestureDetector(
+                    onTap: () => {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Login()),
+                          )
+                        },
+                    child: Icon(Icons.input)),
               ],
             ),
             decoration: BoxDecoration(
