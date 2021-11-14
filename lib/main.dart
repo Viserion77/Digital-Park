@@ -16,6 +16,22 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => FirebaseAuthenticationProvider(),
+      child: MaterialApp(
+        title: 'Digital Park',
+        theme: AppStyle().defaultTheme,
+        home: const DigitalPark(),
+      ),
+    );
+  }
+}
+
 Future<void> _configureUser() async {
   UserSettings userSettings = UserSettings(
     0,
@@ -32,22 +48,5 @@ Future<void> _configureUser() async {
         google: userSettings.provider == 'google',
       );
     }
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => FirebaseAuthenticationProvider(),
-      child: MaterialApp(
-        title: 'Digital Park',
-        theme: AppStyle().defaultTheme,
-        home: const DigitalPark(),
-      ),
-    );
   }
 }
