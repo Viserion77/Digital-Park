@@ -1,5 +1,4 @@
-import 'package:digital_park/components/bottom_menu_bar.dart';
-import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:flutter/material.dart';
 
 class SuggestionHome extends StatelessWidget {
@@ -7,9 +6,7 @@ class SuggestionHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      drawer: NavDrawer(),
-      bottomNavigationBar: BottomMenuBar(),
+    return const DefaultScaffoldApp(
       body: SafeArea(
         child: CircularProgressIndicator(),
       ),

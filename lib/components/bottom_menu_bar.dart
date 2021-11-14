@@ -11,95 +11,59 @@ class BottomMenuBar extends StatefulWidget {
 class _BottomMenuBarState extends State<BottomMenuBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 8.0 * (12.0),
-      child: Container(
-        color: Theme.of(context).primaryColor,
-        height: 8.0 * 12.0,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Material(
-                color: Theme.of(context).primaryColor,
-                child: InkWell(
-                  onTap: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  child: Icon(
-                    Icons.widgets,
-                    size: 36.0,
-                    color: Theme.of(context).secondaryHeaderColor,
-                  ),
+    return SizedBox(
+      height: 8.0 * (9.0),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Material(
+              color: Theme.of(context).primaryColor,
+              child: InkWell(
+                onTap: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                child: const Icon(
+                  Icons.widgets,
+                  size: 36.0,
                 ),
               ),
-              Material(
-                color: Theme.of(context).primaryColor,
-                child: InkWell(
-                  onTap: () => navigatorRoute(context, '/suggestion'),
-                  child: Icon(
-                    Icons.label,
-                    size: 36.0,
-                    color: Theme.of(context).secondaryHeaderColor,
-                  ),
+            ),
+            Material(
+              color: Theme.of(context).primaryColor,
+              child: InkWell(
+                onTap: () => navigatorRoute(context, '/suggestion'),
+                child: const Icon(
+                  Icons.label,
+                  size: 36.0,
                 ),
               ),
-              Material(
-                color: Theme.of(context).primaryColor,
-                child: InkWell(
-                  onTap: () => navigatorRoute(context, '/services'),
-                  child: Container(
-                    child: Icon(
-                      Icons.attach_money,
-                      size: 36.0,
-                      color: Theme.of(context).secondaryHeaderColor,
-                    ),
-                  ),
+            ),
+            Material(
+              color: Theme.of(context).primaryColor,
+              child: InkWell(
+                onTap: () => navigatorRoute(context, '/services'),
+                child: const Icon(
+                  Icons.attach_money,
+                  size: 36.0,
                 ),
               ),
-              Material(
-                color: Theme.of(context).primaryColor,
-                child: InkWell(
-                  onTap: () => navigatorRoute(context, '/map'),
-                  child: Container(
-                    padding: EdgeInsets.all(8.0),
-                    transform: Matrix4.translationValues(0.0, -36.0, 0.0),
-                    decoration: new BoxDecoration(
-                      border: Border.all(
-                          color: Theme.of(context).secondaryHeaderColor),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Icon(
-                      Icons.map,
-                      size: 64.0,
-                      color: Theme.of(context).secondaryHeaderColor,
-                    ),
-                  ),
+            ),
+            Material(
+              color: Theme.of(context).primaryColor,
+              child: InkWell(
+                onTap: () => navigatorRoute(context, '/user'),
+                child: const Icon(
+                  Icons.person,
+                  size: 36.0,
                 ),
               ),
-              Material(
-                color: Theme.of(context).primaryColor,
-                child: InkWell(
-                  onTap: () => navigatorRoute(context, '/user'),
-                  child: Icon(
-                    Icons.person,
-                    size: 36.0,
-                    color: Theme.of(context).secondaryHeaderColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              width: 36 * 2,
+            )
+          ],
         ),
       ),
     );

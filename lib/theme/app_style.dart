@@ -18,6 +18,13 @@ class AppStyle {
         secondaryHeaderColor: secondaryHeaderColor,
         // accentColor: primaryColor,
         backgroundColor: const Color(0x007cb342),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFF7cb342),
+        ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Color(0xFF7cb342),
+          shape: CircularNotchedRectangle(),
+        ),
         progressIndicatorTheme: const ProgressIndicatorThemeData(
           color: Color(0xFFaee571),
         ),

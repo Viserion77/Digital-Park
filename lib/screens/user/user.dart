@@ -1,3 +1,4 @@
+import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/inputs/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +12,7 @@ class _UserPageState extends State<UserPage> {
   double sliderValue = 50.0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultScaffoldApp(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

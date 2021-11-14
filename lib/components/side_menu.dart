@@ -97,6 +97,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
             onTap: () async {
+              navigatorRoute(context, '/', wantsPop: true);
               final UserSettings userSettings = await UserSettingsDao().find();
               await FirebaseAuthenticationProvider().logout(
                 notifyTheListeners: false,

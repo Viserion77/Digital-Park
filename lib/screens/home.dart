@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/components/buttons/background_button.dart';
 import 'package:digital_park/components/buttons/fa_button.dart';
-import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/models/informations/information.dart';
 import 'package:digital_park/screens/events/next_event_card.dart';
 import 'package:flutter/material.dart';
@@ -13,42 +12,39 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const NavDrawer(),
-      bottomNavigationBar: const BottomMenuBar(),
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height -
-              MediaQuery.of(context).padding.top,
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'images/background.png',
-              ),
-              fit: BoxFit.cover,
+    return DefaultScaffoldApp(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height -
+            MediaQuery.of(context).padding.top +
+            (8.0 * (9.0)),
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              'images/background.png',
             ),
+            fit: BoxFit.cover,
           ),
-          child: ListView(
-            padding: const EdgeInsets.all(32.0),
-            children: [
-              const HomeHeader(),
-              const NextEventCard(),
-              BackgroundButton(
-                label: 'Uma atividade para agora?',
-                onPressed: () {},
+        ),
+        child: ListView(
+          padding: const EdgeInsets.all(32.0),
+          children: [
+            const HomeHeader(),
+            const NextEventCard(),
+            BackgroundButton(
+              label: 'Uma atividade para agora?',
+              onPressed: () {},
+            ),
+            FaButton(
+              label: 'Achou um código QR, leia-o!',
+              onPressed: () {},
+              icon: const FaIcon(
+                FontAwesomeIcons.qrcode,
+                size: 78.0,
               ),
-              FaButton(
-                label: 'Achou um código QR, leia-o!',
-                onPressed: () {},
-                icon: const FaIcon(
-                  FontAwesomeIcons.qrcode,
-                  size: 78.0,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

@@ -1,5 +1,4 @@
-import 'package:digital_park/components/bottom_menu_bar.dart';
-import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:flutter/material.dart';
 
 class MapScreen extends StatelessWidget {
@@ -7,12 +6,8 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      drawer: NavDrawer(),
-      bottomNavigationBar: BottomMenuBar(),
-      body: SafeArea(
-        child: CircularProgressIndicator(),
-      ),
+    return const DefaultScaffoldApp(
+      body: CircularProgressIndicator(),
     );
   }
 }
