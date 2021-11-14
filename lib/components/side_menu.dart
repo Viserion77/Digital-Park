@@ -1,12 +1,7 @@
 import 'package:digital_park/database/dao/user_settings_dao.dart';
 import 'package:digital_park/models/user/user_settings.dart';
 import 'package:digital_park/provider/firebase_authentication.dart';
-import 'package:digital_park/screens/events/list.dart';
-import 'package:digital_park/screens/home.dart';
-import 'package:digital_park/screens/map/map.dart';
-import 'package:digital_park/screens/seggestions/suggestion_home.dart';
-import 'package:digital_park/screens/services/list.dart';
-import 'package:digital_park/screens/user/user.dart';
+import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
@@ -23,11 +18,7 @@ class NavDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () => {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Home()),
-                    )
-                  },
+                  onTap: () => navigatorRoute(context, '/'),
                   child: Image.asset(
                     'images/logo.png',
                     width: 64.0,
@@ -44,51 +35,31 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.monetization_on_outlined),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ServicesList()),
-              );
-            },
+            onTap: () => navigatorRoute(context, '/services', wantsPop: true),
             title: const Text('Services'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.monetization_on_outlined),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => MapScreen()),
-              );
-            },
+            onTap: () => navigatorRoute(context, '/map', wantsPop: true),
             title: const Text('mapa'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.person),
-            onTap: () => {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => UserPage()),
-              )
-            },
+            onTap: () => navigatorRoute(context, '/user', wantsPop: true),
             title: const Text('Perfil'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.label),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SuggestionHome()),
-              );
-            },
+            onTap: () => navigatorRoute(context, '/suggestion', wantsPop: true),
             title: const Text('Sugestões'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.calendar_today_outlined),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EventsList()),
-              );
-            },
+            onTap: () => navigatorRoute(context, '/events', wantsPop: true),
             title: Text('Eventos'),
           ),
           ListTile(

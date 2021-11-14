@@ -1,7 +1,4 @@
-import 'package:digital_park/screens/map/map.dart';
-import 'package:digital_park/screens/seggestions/suggestion_home.dart';
-import 'package:digital_park/screens/services/list.dart';
-import 'package:digital_park/screens/user/user.dart';
+import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class BottomMenuBar extends StatefulWidget {
@@ -40,11 +37,7 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SuggestionHome()),
-                    );
-                  },
+                  onTap: () => navigatorRoute(context, '/suggestion'),
                   child: Icon(
                     Icons.label,
                     size: 36.0,
@@ -55,11 +48,7 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ServicesList()),
-                    );
-                  },
+                  onTap: () => navigatorRoute(context, '/services'),
                   child: Container(
                     child: Icon(
                       Icons.attach_money,
@@ -72,11 +61,7 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MapScreen()),
-                    );
-                  },
+                  onTap: () => navigatorRoute(context, '/map'),
                   child: Container(
                     padding: EdgeInsets.all(8.0),
                     transform: Matrix4.translationValues(0.0, -36.0, 0.0),
@@ -105,11 +90,7 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => UserPage()),
-                    );
-                  },
+                  onTap: () => navigatorRoute(context, '/user'),
                   child: Icon(
                     Icons.person,
                     size: 36.0,
