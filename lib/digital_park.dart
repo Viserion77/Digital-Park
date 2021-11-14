@@ -36,15 +36,13 @@ class DigitalPark extends StatelessWidget {
             return const Scaffold(
               body: SafeArea(
                 child: CenteredMessage(
-                  'Algo deu errado!',
+                  'Algo deu errado, erro na autenticação!',
                   icon: Icons.warning,
                 ),
               ),
             );
           } else if (snapshot.hasData) {
-            return const Center(
-              child: Home(),
-            );
+            return const Home();
           } else {
             return const ScreenChanger();
           }
