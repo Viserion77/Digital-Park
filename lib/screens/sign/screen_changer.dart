@@ -5,14 +5,14 @@ import 'package:digital_park/screens/sign/in.dart';
 import 'package:digital_park/screens/sign/up.dart';
 import 'package:flutter/material.dart';
 
-class ScreenChanger extends StatefulWidget {
-  const ScreenChanger({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScreenChanger> createState() => _ScreenChangerState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _ScreenChangerState extends State<ScreenChanger>
+class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
