@@ -1,202 +1,168 @@
-import 'package:digital_park/components/basics.dart';
-import 'package:digital_park/database/dao/session_dao.dart';
-import 'package:digital_park/http/web_client.dart';
-import 'package:digital_park/models/session.dart';
-import 'package:digital_park/screens/home.dart';
-import 'package:digital_park/screens/sign/in.dart';
+import 'package:digital_park/components/buttons/background_button.dart';
+import 'package:digital_park/components/buttons/fa_button.dart';
+import 'package:digital_park/components/inputs/text_input.dart';
+import 'package:digital_park/provider/firebase_authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-class Cadastro extends StatefulWidget {
+class SignUp extends StatefulWidget {
+  const SignUp({
+    Key? key,
+    required this.controlAccount,
+  }) : super(key: key);
+  final Widget controlAccount;
+
   @override
-  State<StatefulWidget> createState() {
-    return CadastroState();
-  }
+  _SignInState createState() => _SignInState();
 }
 
-class CadastroState extends State<Cadastro> {
-  final TextEditingController _login = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _passwordConfirmation = TextEditingController();
-  bool _staySignIn = false;
-  final String _backgroundImageAsset = 'images/background.png';
-  final String _logoImageAsset = 'images/logo.png';
+class _SignInState extends State<SignUp> {
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerConfirmPassword =
+      TextEditingController();
+  String _errorEmail = '';
+  String _errorPassWord = '';
+  String _errorConfirmPassWord = '';
+  bool _onLoadingStandard = false;
+  bool _onLoadingGoogle = false;
+  bool _onLoadingAnonymously = false;
 
-  SessionDao sessionDao = SessionDao();
+  @override
+  void dispose() {
+    _controllerEmail.dispose();
+    _controllerPassword.dispose();
+    _controllerConfirmPassword.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.maxFinite,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(_backgroundImageAsset),
-            fit: BoxFit.cover,
-          ),
-        ),
-        height: double.maxFinite,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32.0,
-            left: 32.0,
-            right: 32.0,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Image.asset(
-                  _logoImageAsset,
-                  width: 160,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Entrar',
-                                style: TextStyle(
-                                  fontSize: 32.0,
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                ),
-                              ),
-                              Container(
-                                decoration: new BoxDecoration(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(16.0),
-                                    bottomLeft: Radius.circular(16.0),
-                                  ),
-                                ),
-                                height: 3,
-                                width: 96.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => Login()),
-                          );
-                        },
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          alignment: Alignment.centerRight,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                'Cadastrar',
-                                style: TextStyle(
-                                    fontSize: 32,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                              Container(
-                                color: Theme.of(context).primaryColor,
-                                height: 3,
-                                width: 224.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Input(
-                  controller: _login,
-                  label: 'Apelido',
-                  padding: const EdgeInsets.only(
-                    top: 32.0,
-                  ),
-                ),
-                Input(
-                  controller: _password,
-                  label: 'Senha',
-                  padding: const EdgeInsets.only(
-                    top: 16.0,
-                  ),
-                ),
-                Input(
-                  controller: _passwordConfirmation,
-                  label: 'Confirmar Senha',
-                  padding: const EdgeInsets.only(
-                    top: 16.0,
-                  ),
-                ),
-                LabelBox(
-                  label: 'Permanecer conectado?',
-                  value: _staySignIn,
-                  function: () {
-                    setState(
-                      () {
-                        _staySignIn = !_staySignIn;
-                      },
-                    );
-                  },
-                ),
-                Button(
-                  label: 'Cadastrar',
-                  onPressed: () async {
-                    if (_login.text != '' &&
-                        _password.text != '' &&
-                        _password.text == _passwordConfirmation.text) {
-                      postNewUser(_login.text, _password.text);
-                      String oAuthResponse =
-                          await getOAuthToken(_login.text, _password.text);
-                      print(getOAuthToken);
-                      sessionDao.save(Session(0, oAuthResponse, _staySignIn));
-                      Session session = await sessionDao.getLast();
-                      if (session.isAuthenticated()) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
-                      }
-                    }
-                  },
-                ),
-                Button(
-                  label: 'Com o Google',
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                  imageAsset: 'images/icons/google.png',
-                  backgroundColor: Colors.white,
-                  fontColor: Colors.blueAccent,
-                ),
-                Button(
-                  label: 'Com o Facebook',
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                  imageAsset: 'images/icons/facebook.png',
-                  backgroundColor: Colors.white,
-                  fontColor: Colors.indigo,
-                ),
-                Button(
-                  label: 'Pular',
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                ),
-              ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: TextInput(
+              label: 'E-mail',
+              controller: _controllerEmail,
+              errorText: _errorEmail,
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: TextInput(
+              label: 'Senha',
+              obscureText: true,
+              controller: _controllerPassword,
+              errorText: _errorPassWord,
+            ),
+          ),
+          TextInput(
+            label: 'Confirmar senha',
+            obscureText: true,
+            controller: _controllerConfirmPassword,
+            errorText: _errorConfirmPassWord,
+          ),
+          widget.controlAccount,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: BackgroundButton(
+              onLoading: _onLoadingStandard,
+              onPressed: () {
+                setState(() {
+                  _onLoadingStandard = true;
+                });
+                createAccount(context);
+              },
+              label: 'Cadastrar',
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: FaButton(
+              color: Colors.white,
+              fontColor: Colors.red,
+              label: 'Cadastrar com o Google',
+              icon: const FaIcon(
+                FontAwesomeIcons.google,
+                color: Colors.red,
+              ),
+              onLoading: _onLoadingGoogle,
+              onPressed: () {
+                setState(() {
+                  _onLoadingGoogle = true;
+                });
+                try {
+                  final provider = Provider.of<FirebaseAuthenticationProvider>(
+                    context,
+                    listen: false,
+                  );
+                  provider.loginWithGoogle();
+                } catch (error) {
+                  setState(() {
+                    _onLoadingGoogle = false;
+                  });
+                }
+              },
+            ),
+          ),
+          BackgroundButton(
+            onLoading: _onLoadingAnonymously,
+            onPressed: () {
+              setState(() {
+                _onLoadingAnonymously = true;
+              });
+              final provider = Provider.of<FirebaseAuthenticationProvider>(
+                context,
+                listen: false,
+              );
+              provider.loginAnonymously();
+            },
+            label: 'Pular',
+          ),
+        ],
       ),
     );
+  }
+
+  void createAccount(BuildContext context) {
+    if (_controllerEmail.text != "" && _controllerPassword.text != "") {
+      try {
+        final provider = Provider.of<FirebaseAuthenticationProvider>(
+          context,
+          listen: false,
+        );
+        provider.signUpStandard(
+          email: _controllerEmail.text,
+          password: _controllerPassword.text,
+        );
+      } on Exception catch (e) {
+        print('Exception ${e.toString()}');
+        setState(() {
+          _onLoadingStandard = false;
+        });
+      }
+    } else {
+      setState(
+        () {
+          if (_controllerEmail.text.isEmpty) {
+            _errorEmail = 'Insira um e-mail valido!';
+          }
+          if (_controllerPassword.text.isEmpty) {
+            _errorPassWord = 'Insira uma senha!';
+          }
+          if (_controllerConfirmPassword.text.isEmpty) {
+            _errorConfirmPassWord = 'Senha não é coerente!';
+          }
+        },
+      );
+      setState(() {
+        _onLoadingStandard = false;
+      });
+    }
   }
 }

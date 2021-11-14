@@ -1,127 +1,179 @@
-import 'package:digital_park/components/basics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/bottom_menu_bar.dart';
+import 'package:digital_park/components/buttons/background_button.dart';
+import 'package:digital_park/components/buttons/fa_button.dart';
 import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/models/informations/information.dart';
+import 'package:digital_park/screens/events/next_event_card.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../components/basics.dart';
-import 'events/list.dart';
-
-class Home extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return HomeState();
-  }
-}
-
-class HomeState extends State<Home> {
-  final String _backgroundImageAsset = 'images/background.png';
-  final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
-  final DateFormat _hourFormat = DateFormat('hh:mm');
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(),
-      body: Container(
-        width: double.maxFinite,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(_backgroundImageAsset),
-            fit: BoxFit.cover,
-          ),
-        ),
-        height: double.maxFinite,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32.0,
-            left: 32.0,
-            right: 32.0,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _dateFormat.format(DateTime.now()),
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    color: Theme.of(context).selectedRowColor,
-                                  ),
-                                ),
-                                Text(
-                                  _hourFormat.format(DateTime.now()),
-                                  style: TextStyle(
-                                    fontSize: 56.0,
-                                    color: Theme.of(context).selectedRowColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Aberto até as 20:00',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Theme.of(context).selectedRowColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration:
-                      BoxDecoration(color: Theme.of(context).primaryColor),
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    children: [
-                      Text(
-                        'Próximo evento',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          color: Theme.of(context).selectedRowColor,
-                        ),
-                      ),
-                      Container(
-                        child: NextNearEvent(),
-                      )
-                    ],
-                  ),
-                ),
-                Button(
-                  label: 'Uma atividade para agora?',
-                  onPressed: () {},
-                  fontSize: 16.0,
-                ),
-                Button(
-                  label: 'Achou um código QR, leia-o!',
-                  onPressed: () {},
-                  fontSize: 16.0,
-                  imageAsset: 'images/icons/qr_code.png',
-                  height: 56.0,
-                ),
-              ],
+      drawer: const NavDrawer(),
+      bottomNavigationBar: const BottomMenuBar(),
+      body: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top,
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                'images/background.png',
+              ),
+              fit: BoxFit.cover,
             ),
+          ),
+          child: ListView(
+            padding: const EdgeInsets.all(32.0),
+            children: [
+              const HomeHeader(),
+              const NextEventCard(),
+              BackgroundButton(
+                label: 'Uma atividade para agora?',
+                onPressed: () {},
+              ),
+              FaButton(
+                label: 'Achou um código QR, leia-o!',
+                onPressed: () {},
+                icon: const FaIcon(
+                  FontAwesomeIcons.qrcode,
+                  size: 78.0,
+                ),
+              )
+            ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomMenuBar(),
+    );
+  }
+}
+
+class HomeHeader extends StatelessWidget {
+  const HomeHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('informations')
+          .where(
+            'active',
+            isEqualTo: true,
+          )
+          .where(
+            'showInHome.enable',
+            isEqualTo: true,
+          )
+          .where(
+            'showInHome.weekday',
+            arrayContainsAny: [DateTime.now().weekday],
+          )
+          .where(
+            'showInHome.startedShowAt',
+            isLessThanOrEqualTo: DateTime(
+              1970,
+              1,
+              1,
+              DateTime.now().hour,
+              DateTime.now().minute,
+              DateTime.now().second,
+            ),
+          )
+          .orderBy(
+            'showInHome.startedShowAt',
+            descending: true,
+          )
+          .limit(1)
+          .snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data!.docs.isNotEmpty) {
+            final Information information =
+                Information.fromSnapshot(snapshot.data!.docs[0]);
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const DateHour(),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      information.description.toString(),
+                      softWrap: true,
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          }
+        }
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            DateHour(),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class DateHour extends StatefulWidget {
+  const DateHour({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<DateHour> createState() => _DateHourState();
+}
+
+class _DateHourState extends State<DateHour> {
+  @override
+  Widget build(BuildContext context) {
+    late String dateNow = DateTime.now().day.toString() +
+        '/' +
+        DateTime.now().month.toString() +
+        '/' +
+        DateTime.now().year.toString();
+
+    late String hourNow = DateTime.now().hour.toString() +
+        ':' +
+        (DateTime.now().minute < 10 ? '0' : '') +
+        DateTime.now().minute.toString();
+
+    Future.delayed(
+      const Duration(seconds: 1),
+      () => setState(() {}),
+    );
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          dateNow,
+          style: const TextStyle(
+            fontSize: 24.0,
+          ),
+        ),
+        Text(
+          hourNow,
+          style: const TextStyle(
+            fontSize: 48.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }

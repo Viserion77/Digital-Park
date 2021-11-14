@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "86229631164",
-    "firebase_url": "https://h-digital-park.firebaseio.com",
-    "project_id": "h-digital-park",
-    "storage_bucket": "h-digital-park.appspot.com"
+    "project_number": "77425588670",
+    "project_id": "digital-park-services",
+    "storage_bucket": "digital-park-services.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:86229631164:android:c56d80093b84b29ff750b9",
+        "mobilesdk_app_id": "1:77425588670:android:0b27c7033759363b8de1ef",
         "android_client_info": {
-          "package_name": "com.malwee.digitalpark"
+          "package_name": "app.digitalpark.digital_park"
         }
       },
       "oauth_client": [
         {
-          "client_id": "86229631164-4vc3ot5n50hbg4kc8292lvsook9ahc72.apps.googleusercontent.com",
+          "client_id": "77425588670-iirqp7h25f05ntqavub6cm8gd431om07.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVZY5FRK1oIVrx7nGSsLdyRYznHM4qGro"
+          "current_key": "AIzaSyAB8wl_BCrDSJ5PqeQtEL7PlAB7dszpK88"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "86229631164-4vc3ot5n50hbg4kc8292lvsook9ahc72.apps.googleusercontent.com",
+              "client_id": "77425588670-iirqp7h25f05ntqavub6cm8gd431om07.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

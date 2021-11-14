@@ -1,18 +1,17 @@
-import 'package:digital_park/database/dao/session_dao.dart';
-import 'package:digital_park/models/session.dart';
+import 'package:digital_park/database/dao/user_settings_dao.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<Database> getDataBase() async {
-  final String path = join(await getDatabasesPath(), 'digital_park.db');
+Future<Database> getDatabase() async {
+  final String path = join(await getDatabasesPath(), 'learningFlutter.db');
+
   return openDatabase(
     path,
     onCreate: (db, version) {
-      db.execute(SessionDao.tableSql);
-      SessionDao sessionDao = SessionDao();
-      db.insert(SessionDao.tableName, sessionDao.toMap(Session(0, '', false)));
+      db.execute(
+        UserSettingsDao.tableSql,
+      );
     },
-    version: 2,
-    onDowngrade: onDatabaseDowngradeDelete,
+    version: 1,
   );
 }

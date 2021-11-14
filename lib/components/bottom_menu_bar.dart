@@ -1,26 +1,24 @@
-import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/screens/map/map.dart';
+import 'package:digital_park/screens/seggestions/suggestion_home.dart';
 import 'package:digital_park/screens/services/list.dart';
-import 'package:digital_park/screens/suggestion/form.dart';
 import 'package:digital_park/screens/user/user.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/map/map.dart';
+class BottomMenuBar extends StatefulWidget {
+  const BottomMenuBar({Key? key}) : super(key: key);
 
-class BottomMenuBar extends StatelessWidget {
-  final String label;
-  final Function function;
-  final IconData functionIcon;
+  @override
+  _BottomMenuBarState createState() => _BottomMenuBarState();
+}
 
-  BottomMenuBar({
-    this.label,
-    this.function,
-    this.functionIcon,
-  });
-
+class _BottomMenuBarState extends State<BottomMenuBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 8.0 * (12.0),
+      child: Container(
         color: Theme.of(context).primaryColor,
+        height: 8.0 * 12.0,
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -29,14 +27,9 @@ class BottomMenuBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: function != null
-                      ? function
-                      : () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => NavDrawer()),
-                          );
-                        },
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
                   child: Icon(
                     Icons.widgets,
                     size: 36.0,
@@ -47,14 +40,11 @@ class BottomMenuBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: function != null
-                      ? function
-                      : () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => SuggestionForm()),
-                          );
-                        },
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SuggestionHome()),
+                    );
+                  },
                   child: Icon(
                     Icons.label,
                     size: 36.0,
@@ -82,13 +72,11 @@ class BottomMenuBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: function != null
-                      ? function
-                      : () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Map()),
-                          );
-                        },
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MapScreen()),
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.all(8.0),
                     transform: Matrix4.translationValues(0.0, -36.0, 0.0),
@@ -107,7 +95,7 @@ class BottomMenuBar extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
                     child: Icon(
-                      functionIcon != null ? functionIcon : Icons.map,
+                      Icons.map,
                       size: 64.0,
                       color: Theme.of(context).secondaryHeaderColor,
                     ),
@@ -117,13 +105,11 @@ class BottomMenuBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).primaryColor,
                 child: InkWell(
-                  onTap: function != null
-                      ? function
-                      : () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => UserPage()),
-                          );
-                        },
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => UserPage()),
+                    );
+                  },
                   child: Icon(
                     Icons.person,
                     size: 36.0,
@@ -133,6 +119,8 @@ class BottomMenuBar extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

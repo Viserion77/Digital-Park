@@ -1,57 +1,52 @@
-import 'package:digital_park/database/dao/session_dao.dart';
-import 'package:digital_park/screens/home.dart';
-import 'package:digital_park/screens/sign/in.dart';
+import 'package:digital_park/database/dao/user_settings_dao.dart';
+import 'package:digital_park/digital_park.dart';
+import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/provider/firebase_authentication.dart';
+import 'package:digital_park/theme/app_style.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'models/session.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await _configureUser();
 
-void main() {
-  runApp(DigitalPark());
+  runApp(const MyApp());
 }
 
-class DigitalPark extends StatelessWidget {
-  final SessionDao sessionDao = SessionDao();
+Future<void> _configureUser() async {
+  UserSettings userSettings = UserSettings(
+    0,
+    staySignIn: true,
+  );
+  try {
+    userSettings = await UserSettingsDao().find();
+  } catch (error) {
+    UserSettingsDao().save(userSettings);
+  } finally {
+    if (!userSettings.staySignIn) {
+      await FirebaseAuthenticationProvider().logout(
+        notifyTheListeners: false,
+        google: userSettings.provider == 'google',
+      );
+    }
+  }
+}
 
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.lightGreen,
-        accentColor: Colors.lightGreen[600],
-        backgroundColor: Colors.grey[50],
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.lightGreen,
-          textTheme: ButtonTextTheme.primary,
-        ),
-      ),
-      home: FutureBuilder<Session>(
-        initialData: Session(0, '', false),
-        future: sessionDao.getLast(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              break;
-            case ConnectionState.waiting:
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [CircularProgressIndicator(), Text('Digital Park')],
-                ),
-              );
-              break;
-            case ConnectionState.active:
-              break;
-            case ConnectionState.done:
-              if (snapshot.data != null && snapshot.data.isAuthenticated()) {
-                return Home();
-              } else {
-                return Login();
-              }
-              break;
-          }
-          return Text('Unknown error');
-        },
+    return ChangeNotifierProvider(
+      create: (context) => FirebaseAuthenticationProvider(),
+      child: MaterialApp(
+        title: 'Digital Park',
+        theme: AppStyle().defaultTheme,
+        home: const DigitalPark(),
       ),
     );
   }
