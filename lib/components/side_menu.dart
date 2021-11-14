@@ -1,3 +1,6 @@
+import 'package:digital_park/database/dao/user_settings_dao.dart';
+import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/provider/firebase_authentication.dart';
 import 'package:digital_park/screens/events/list.dart';
 import 'package:digital_park/screens/home.dart';
 import 'package:digital_park/screens/map/map.dart';
@@ -122,7 +125,13 @@ class NavDrawer extends StatelessWidget {
             tileColor: Theme.of(context).primaryColor,
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
-            onTap: () => {},
+            onTap: () async {
+              final UserSettings userSettings = await UserSettingsDao().find();
+              await FirebaseAuthenticationProvider().logout(
+                notifyTheListeners: false,
+                google: userSettings.provider == 'google',
+              );
+            },
           ),
         ],
       ),
