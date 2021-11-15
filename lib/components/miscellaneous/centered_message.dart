@@ -6,6 +6,7 @@ class CenteredMessage extends StatelessWidget {
   final double iconSize;
   final double fontSize;
   final bool loading;
+  final List<Widget> children;
 
   const CenteredMessage(
     this.message, {
@@ -14,6 +15,7 @@ class CenteredMessage extends StatelessWidget {
     this.iconSize = 56.0,
     this.fontSize = 40.0,
     this.loading = false,
+    this.children = const [],
   }) : super(key: key);
 
   @override
@@ -47,6 +49,12 @@ class CenteredMessage extends StatelessWidget {
             child: const CircularProgressIndicator(),
             visible: loading,
           ),
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              children: [...children],
+            ),
+          )
         ],
       ),
     );

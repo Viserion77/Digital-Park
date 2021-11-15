@@ -8,11 +8,13 @@ class StatusMessage extends StatelessWidget {
     required this.errorMessage,
     this.errorIcon,
     this.loading = false,
+    this.children = const [],
   }) : super(key: key);
 
   final String errorMessage;
   final IconData? errorIcon;
   final bool loading;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class StatusMessage extends StatelessWidget {
             errorMessage,
             icon: errorIcon,
             loading: loading,
+            children: children,
           ),
         ),
       ),

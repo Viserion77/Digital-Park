@@ -1,5 +1,6 @@
 import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +8,18 @@ class DefaultScaffoldApp extends StatelessWidget {
   const DefaultScaffoldApp({
     Key? key,
     required this.body,
+    required this.userProfile,
   }) : super(key: key);
 
   final Widget body;
+  final UserProfile userProfile;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavDrawer(),
+      drawer: NavDrawer(
+        userProfile: userProfile,
+      ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: Container(
@@ -37,7 +42,11 @@ class DefaultScaffoldApp extends StatelessWidget {
           height: 85,
           child: FittedBox(
             child: FloatingActionButton(
-              onPressed: () => navigatorRoute(context, '/map'),
+              onPressed: () => navigatorRoute(
+                context,
+                '/map',
+                arguments: userProfile,
+              ),
               child: const Icon(
                 Icons.map,
                 size: 35.0,
@@ -46,9 +55,11 @@ class DefaultScaffoldApp extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         notchMargin: 3.5,
-        child: BottomMenuBar(),
+        child: BottomMenuBar(
+          userProfile: userProfile,
+        ),
         elevation: 3.0,
       ),
       extendBody: true,

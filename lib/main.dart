@@ -46,7 +46,6 @@ Future<void> _configureUser() async {
     if (!userSettings.staySignIn) {
       await FirebaseAuthenticationProvider().logout(
         notifyTheListeners: false,
-        google: userSettings.provider == 'google',
       );
     }
   }

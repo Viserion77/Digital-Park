@@ -2,11 +2,16 @@ import 'package:digital_park/components/buttons/background_button.dart';
 import 'package:digital_park/components/buttons/label_button.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/inputs/text_input.dart';
+import 'package:digital_park/models/user/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+  const UserPage({
+    Key? key,
+    required this.userProfile,
+  }) : super(key: key);
+  final UserProfile userProfile;
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -17,9 +22,12 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultScaffoldApp(
+      userProfile: widget.userProfile,
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            stretch: true,
             automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).primaryColor,
             expandedHeight: 200,
@@ -46,35 +54,46 @@ class _UserPageState extends State<UserPage> {
                               ]),
                           width: 85,
                           height: 85,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.network(
-                                'https://static.wikia.nocookie.net/gta/images/e/e8/0_0-2.jpg/revision/latest/scale-to-width/360?cb=20160226235722&path-prefix=pt',
-                                fit: BoxFit.cover,
-                              )),
+                          child: widget.userProfile.photoUrl != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.network(
+                                    widget.userProfile.photoUrl.toString(),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : null,
                         ),
                         Container(
                           alignment: Alignment.bottomRight,
                           width: 85,
                           height: 85,
-                          child: Container(
-                            width: 25,
-                            height: 25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.white),
-                            child: const Icon(
-                              FontAwesomeIcons.google,
-                              size: 18,
-                              color: Colors.redAccent,
-                            ),
-                          ),
+                          child: widget.userProfile.providerId == 'google.com'
+                              ? Container(
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.white),
+                                  child: const Icon(
+                                    FontAwesomeIcons.google,
+                                    size: 18,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              : Container(
+                                  alignment: Alignment.bottomRight,
+                                  width: 85,
+                                  height: 85,
+                                ),
                         ),
                       ],
                     ),
                     const SizedBox(width: 20),
                     Text(
-                      'Prostituta',
+                      widget.userProfile.username ??
+                          widget.userProfile.fullName ??
+                          '',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey.shade100,
@@ -93,6 +112,10 @@ class _UserPageState extends State<UserPage> {
               widthFactor: 0.9,
               child: Column(
                 children: [
+                  const SizedBox(height: 20),
+                  Text(
+                    widget.userProfile.toString(),
+                  ),
                   const SizedBox(height: 20),
                   TextInput(
                     label: 'Nome',

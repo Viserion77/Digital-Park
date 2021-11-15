@@ -77,6 +77,7 @@ class _TabSignInUpState extends State<TabSignInUp>
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: ContainerBackground(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,6 +186,7 @@ class TabBody extends StatelessWidget {
 
     return Expanded(
       child: TabBarView(
+        physics: const BouncingScrollPhysics(),
         controller: _tabController,
         children: [
           TabWithScroll(
@@ -214,6 +216,7 @@ class TabWithScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.only(
           left: 40.0,

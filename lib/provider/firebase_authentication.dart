@@ -5,15 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthenticationProvider extends ChangeNotifier {
-  final Map<String, dynamic> _user = {};
-
-  Map<String, dynamic> get user => _user;
-
   Future logout({
-    bool? google,
     bool notifyTheListeners = true,
   }) async {
-    if (google == true) {
+    if (FirebaseAuth.instance.currentUser!.providerData.isNotEmpty &&
+        FirebaseAuth.instance.currentUser!.providerData[0].providerId ==
+            'google.com') {
       await GoogleSignIn().disconnect();
     }
     await FirebaseAuth.instance.signOut();
@@ -29,9 +26,6 @@ class FirebaseAuthenticationProvider extends ChangeNotifier {
     final googleUser = await googleSignIn.signIn();
 
     if (googleUser == null) return;
-    _user['email'] = googleUser.email;
-    _user['displayName'] = googleUser.displayName;
-    _user['photoUrl'] = googleUser.photoUrl;
 
     final googleAuth = await googleUser.authentication;
 
@@ -54,7 +48,6 @@ class FirebaseAuthenticationProvider extends ChangeNotifier {
       email: email,
       password: password,
     );
-    _user['email'] = email;
     await _updateUserSettings('standard');
 
     notifyListeners();
@@ -68,7 +61,6 @@ class FirebaseAuthenticationProvider extends ChangeNotifier {
       email: email,
       password: password,
     );
-    _user['email'] = email;
     await _updateUserSettings('standard');
 
     notifyListeners();
@@ -86,6 +78,16 @@ class FirebaseAuthenticationProvider extends ChangeNotifier {
   }) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(
       email: email,
+    );
+  }
+
+  Future resetPasswordResetStandard({
+    required String code,
+    required String newPassword,
+  }) async {
+    await FirebaseAuth.instance.confirmPasswordReset(
+      newPassword: newPassword,
+      code: code,
     );
   }
 

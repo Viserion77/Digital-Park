@@ -17,6 +17,7 @@ class UserSettingsDao {
     final Database db = await getDatabase();
     Map<String, dynamic> userSettingsMap = _toMap(userSettings);
 
+    print('save ${userSettings.toString()}');
     return db.insert(_tableName, userSettingsMap);
   }
 
@@ -25,6 +26,7 @@ class UserSettingsDao {
     Map<String, dynamic> userSettingsMap = _toMap(userSettings);
     userSettingsMap[_id] = userSettings.id;
 
+    print('update ${userSettings.toString()}');
     return db.update(
       _tableName,
       userSettingsMap,
@@ -38,6 +40,7 @@ class UserSettingsDao {
     final List<Map<String, dynamic>> result = await db.query(_tableName);
 
     UserSettings userSettings = _toUserSettings(result[0]);
+    print('find ${userSettings.toString()}');
     return userSettings;
   }
 

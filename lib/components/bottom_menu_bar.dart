@@ -1,8 +1,14 @@
+import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user/user_settings.dart';
 import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class BottomMenuBar extends StatefulWidget {
-  const BottomMenuBar({Key? key}) : super(key: key);
+  const BottomMenuBar({
+    Key? key,
+    required this.userProfile,
+  }) : super(key: key);
+  final UserProfile userProfile;
 
   @override
   _BottomMenuBarState createState() => _BottomMenuBarState();
@@ -30,21 +36,33 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
             Material(
               color: Theme.of(context).primaryColor,
               child: InkWell(
-                onTap: () => navigatorRoute(context, '/suggestion'),
+                onTap: () => navigatorRoute(
+                  context,
+                  '/suggestion',
+                  arguments: widget.userProfile,
+                ),
                 child: const MenuIcon(icon: Icons.label),
               ),
             ),
             Material(
               color: Theme.of(context).primaryColor,
               child: InkWell(
-                onTap: () => navigatorRoute(context, '/services'),
+                onTap: () => navigatorRoute(
+                  context,
+                  '/services',
+                  arguments: widget.userProfile,
+                ),
                 child: const MenuIcon(icon: Icons.attach_money),
               ),
             ),
             Material(
               color: Theme.of(context).primaryColor,
               child: InkWell(
-                onTap: () => navigatorRoute(context, '/user'),
+                onTap: () => navigatorRoute(
+                  context,
+                  '/user',
+                  arguments: widget.userProfile,
+                ),
                 child: const MenuIcon(icon: Icons.person),
               ),
             ),

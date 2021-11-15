@@ -1,15 +1,19 @@
 import 'package:digital_park/components/default_scaffold_app.dart';
+import 'package:digital_park/models/user/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class ServicesList extends StatelessWidget {
-  const ServicesList({Key? key}) : super(key: key);
+  const ServicesList({
+    Key? key,
+    required this.userProfile,
+  }) : super(key: key);
+  final UserProfile userProfile;
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultScaffoldApp(
-      body: SafeArea(
-        child: CircularProgressIndicator(),
-      ),
+    return DefaultScaffoldApp(
+      userProfile: userProfile,
+      body: const CircularProgressIndicator(),
     );
   }
 }

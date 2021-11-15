@@ -1,16 +1,20 @@
-import 'package:digital_park/database/dao/user_settings_dao.dart';
-import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/provider/firebase_authentication.dart';
 import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
-  const NavDrawer({Key? key}) : super(key: key);
+  const NavDrawer({
+    Key? key,
+    required this.userProfile,
+  }) : super(key: key);
+  final UserProfile userProfile;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
@@ -18,7 +22,11 @@ class NavDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () => navigatorRoute(context, '/'),
+                  onTap: () => navigatorRoute(
+                    context,
+                    '/',
+                    arguments: userProfile,
+                  ),
                   child: Image.asset(
                     'images/logo.png',
                     width: 64.0,
@@ -35,31 +43,56 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.monetization_on_outlined),
-            onTap: () => navigatorRoute(context, '/services', wantsPop: true),
+            onTap: () => navigatorRoute(
+              context,
+              '/services',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
             title: const Text('Services'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.monetization_on_outlined),
-            onTap: () => navigatorRoute(context, '/map', wantsPop: true),
+            onTap: () => navigatorRoute(
+              context,
+              '/map',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
             title: const Text('mapa'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.person),
-            onTap: () => navigatorRoute(context, '/user', wantsPop: true),
+            onTap: () => navigatorRoute(
+              context,
+              '/user',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
             title: const Text('Perfil'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.label),
-            onTap: () => navigatorRoute(context, '/suggestion', wantsPop: true),
+            onTap: () => navigatorRoute(
+              context,
+              '/suggestion',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
             title: const Text('Sugestões'),
           ),
           ListTile(
             tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.calendar_today_outlined),
-            onTap: () => navigatorRoute(context, '/events', wantsPop: true),
+            onTap: () => navigatorRoute(
+              context,
+              '/events',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
             title: Text('Eventos'),
           ),
           ListTile(
@@ -97,11 +130,14 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
             onTap: () async {
-              navigatorRoute(context, '/', wantsPop: true);
-              final UserSettings userSettings = await UserSettingsDao().find();
+              navigatorRoute(
+                context,
+                '/',
+                wantsPop: true,
+                arguments: userProfile,
+              );
               await FirebaseAuthenticationProvider().logout(
                 notifyTheListeners: false,
-                google: userSettings.provider == 'google',
               );
             },
           ),
