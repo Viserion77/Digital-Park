@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserPage extends StatefulWidget {
+  const UserPage({Key? key}) : super(key: key);
+
   @override
   State<UserPage> createState() => _UserPageState();
 }
@@ -16,116 +18,104 @@ class _UserPageState extends State<UserPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             backgroundColor: Theme.of(context).primaryColor,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
+                margin: const EdgeInsets.only(top: 70),
+                alignment: Alignment.center,
+                color: Theme.of(context).primaryColor,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 3),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 8, // changes position of shadow
+                                ),
+                              ]),
+                          width: 85,
+                          height: 85,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                'https://static.wikia.nocookie.net/gta/images/e/e8/0_0-2.jpg/revision/latest/scale-to-width/360?cb=20160226235722&path-prefix=pt',
+                                fit: BoxFit.cover,
+                              )),
+                        ),
+                        Container(
+                          alignment: Alignment.bottomRight,
+                          width: 85,
+                          height: 85,
+                          child: Container(
+                            width: 25,
+                            height: 25,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.white, width: 3),
                                 borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 8, // changes position of shadow
-                                  ),
-                                ]),
-                            width: 100,
-                            height: 100,
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  'https://static.wikia.nocookie.net/gta/images/e/e8/0_0-2.jpg/revision/latest/scale-to-width/360?cb=20160226235722&path-prefix=pt',
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          Container(
-                            alignment: Alignment.bottomRight,
-                            width: 100,
-                            height: 100,
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.white),
-                              child: Icon(
-                                FontAwesomeIcons.google,
-                                size: 20,
-                                color: Colors.redAccent,
-                              ),
+                                color: Colors.white),
+                            child: const Icon(
+                              FontAwesomeIcons.google,
+                              size: 18,
+                              color: Colors.redAccent,
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        'Prostituta',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey.shade600,
-                          fontSize: 20,
                         ),
+                      ],
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      'Prostituta',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade100,
+                        fontSize: 18,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
           SliverToBoxAdapter(
               child: Container(
-            height: 2000,
+            margin: const EdgeInsets.only(bottom: 70),
             child: FractionallySizedBox(
               widthFactor: 0.9,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   TextInput(
                     label: 'Nome',
                     controller: TextEditingController(),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   TextInput(
-                    label: 'E-mail',
                     controller: TextEditingController(),
+                    label: 'E-mail',
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
+                      Flexible(
+                        flex: 3,
                         child: TextInput(
-                          label: 'Senha',
                           controller: TextEditingController(),
+                          label: 'Senha',
                         ),
-                        width: 273,
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 70,
+                      const SizedBox(width: 10),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
                         child: ElevatedButton(
                           style: ButtonStyle(
                             alignment: Alignment.center,
@@ -133,8 +123,9 @@ class _UserPageState extends State<UserPage> {
                                 Theme.of(context).primaryColor),
                           ),
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Trocar Senha',
+                            textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 13),
                           ),
                         ),
@@ -142,7 +133,7 @@ class _UserPageState extends State<UserPage> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.all(40),
+                    padding: const EdgeInsets.all(40),
                     child: Text(
                       'Para que são usados os dados preenchidos abaixo?',
                       textAlign: TextAlign.center,
@@ -152,28 +143,22 @@ class _UserPageState extends State<UserPage> {
                   ),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 173,
+                      Flexible(
                         child: TextInput(
-                          label: 'Data de Nascimento',
                           controller: TextEditingController(),
+                          label: 'Data de Nascimento',
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      SizedBox(
-                        width: 170,
+                      const SizedBox(width: 10),
+                      Flexible(
                         child: TextInput(
-                          label: 'Sexo',
                           controller: TextEditingController(),
+                          label: 'Sexo',
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -220,9 +205,7 @@ class _UserPageState extends State<UserPage> {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -232,38 +215,36 @@ class _UserPageState extends State<UserPage> {
                           TextStyle(color: Colors.grey.shade600, fontSize: 15),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Container(
                     color: Colors.white,
                     child: Table(
                       columnWidths: const <int, TableColumnWidth>{
-                        0: FixedColumnWidth(180),
-                        1: FixedColumnWidth(40),
-                        2: FixedColumnWidth(150),
+                        0: FlexColumnWidth(),
+                        1: FlexColumnWidth(),
+                        2: FlexColumnWidth(),
                       },
                       defaultVerticalAlignment:
                           TableCellVerticalAlignment.middle,
-                      children: <TableRow>[
+                      children: const <TableRow>[
                         TableRow(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 'Produto',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 'Qtd',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 'Data e Hora',
                                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -272,26 +253,26 @@ class _UserPageState extends State<UserPage> {
                           ],
                         ),
                         TableRow(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.grey,
                           ),
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 'Lacraia morta',
                                 style: TextStyle(fontSize: 13),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 '40',
                                 style: TextStyle(fontSize: 13),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 '24/04/2024 às 04:24',
                                 style: TextStyle(fontSize: 13),
