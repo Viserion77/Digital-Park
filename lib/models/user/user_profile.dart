@@ -8,7 +8,7 @@ class UserProfile {
   late String? photoUrl;
   late String? providerId;
   late List? roles;
-  late DateTime? birthDate;
+  late Timestamp? birthDate;
   late String? genre;
   late double? focusActivity = 0.5;
 
@@ -60,8 +60,9 @@ class UserProfile {
     return UserProfile(FirebaseAuth.instance.currentUser!.email.toString(),
         username: FirebaseAuth.instance.currentUser!.displayName,
         photoUrl: FirebaseAuth.instance.currentUser!.photoURL,
-        providerId:
-            FirebaseAuth.instance.currentUser!.providerData[0].providerId,
+        providerId: FirebaseAuth.instance.currentUser!.providerData.isEmpty
+            ? null
+            : FirebaseAuth.instance.currentUser!.providerData[0].providerId,
         roles: [FirebaseFirestore.instance.collection('roles').doc('usuario')]);
   }
 

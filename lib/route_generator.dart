@@ -13,7 +13,7 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final bool anonymouslyMode =
         FirebaseAuth.instance.currentUser!.providerData.isEmpty;
-    final List<String> noAnonymouslyRoutes = ['/user'];
+    final List<String> noAnonymouslyRoutes = ['/user', '/anonymously-route'];
     final args = settings.arguments;
 
     if (anonymouslyMode &&

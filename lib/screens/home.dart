@@ -17,21 +17,34 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return FirebaseAuth.instance.currentUser!.providerData.isNotEmpty
         ? const HomeWithProfile()
-        : DefaultScaffoldApp(
-            userProfile: UserProfile(''),
-            body: ContainerBackground(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(32.0),
-                children: const [
-                  HomeHeaderInformations(),
-                  NextEventCard(),
-                  GenerateActivity(),
-                  GetQRCode(),
-                ],
-              ),
+        : const HomeAnonymously();
+  }
+}
+
+class HomeAnonymously extends StatelessWidget {
+  const HomeAnonymously({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultScaffoldApp(
+      userProfile: UserProfile.fromCurrentUser(),
+      body: ContainerBackground(
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(32.0),
+          children: [
+            const HomeHeaderInformations(),
+            NextEventCard(
+              userProfile: UserProfile.fromCurrentUser(),
             ),
-          );
+            const GenerateActivity(),
+            const GetQRCode(),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -79,11 +92,13 @@ class HomeWithProfile extends StatelessWidget {
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.all(32.0),
-                    children: const [
-                      HomeHeaderInformations(),
-                      NextEventCard(),
-                      GenerateActivity(),
-                      GetQRCode(),
+                    children: [
+                      const HomeHeaderInformations(),
+                      NextEventCard(
+                        userProfile: UserProfile.fromCurrentUser(),
+                      ),
+                      const GenerateActivity(),
+                      const GetQRCode(),
                     ],
                   ),
                 ),

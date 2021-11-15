@@ -1,8 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_park/models/events/event.dart';
+import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/screens/events/event_detail.dart';
 import 'package:flutter/material.dart';
 
 class NextEventCard extends StatefulWidget {
-  const NextEventCard({Key? key}) : super(key: key);
+  const NextEventCard({
+    Key? key,
+    required this.userProfile,
+  }) : super(key: key);
+  final UserProfile userProfile;
 
   @override
   _NextEventCardState createState() => _NextEventCardState();
@@ -14,28 +21,79 @@ class _NextEventCardState extends State<NextEventCard> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('events')
-          .where('startDate', isGreaterThanOrEqualTo: DateTime.now())
+          .where('active', isEqualTo: true)
+          .where('roles', arrayContainsAny: widget.userProfile.roles)
+          .where('startDate', isGreaterThanOrEqualTo: Timestamp.now())
           .orderBy('startDate')
           .limit(1)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
+          return const SizedBox(
+            height: 52,
           );
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ),
           );
         }
-        if (!snapshot.hasData) {
-          return const Center(
-            child: Text('Nenhum evento proximo'),
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const SizedBox(
+            height: 52,
           );
         }
-        return const SizedBox(height: 300, child: CircularProgressIndicator());
+        return EventCard(
+          nextEvent: ParkEvent.fromSnapshot(snapshot.data!.docs[0]),
+          userProfile: widget.userProfile,
+        );
       },
+    );
+  }
+}
+
+class EventCard extends StatelessWidget {
+  const EventCard({
+    Key? key,
+    required this.nextEvent,
+    required this.userProfile,
+  }) : super(key: key);
+
+  final ParkEvent nextEvent;
+  final UserProfile userProfile;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => EventDetail(
+                userProfile: userProfile,
+                parkEvent: nextEvent,
+              ),
+            ),
+          );
+        },
+        title: const Text('Próximo Evento!'),
+        subtitle: nextEvent.image != null
+            ? Image.network(
+                nextEvent.image.toString(),
+              )
+            : Column(
+                children: [
+                  Text(
+                    nextEvent.title.toString(),
+                  ),
+                  Text(
+                    nextEvent.description.toString(),
+                  )
+                ],
+              ),
+      ),
     );
   }
 }
