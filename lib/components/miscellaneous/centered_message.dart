@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class CenteredMessage extends StatelessWidget {
   final String message;
   final IconData? icon;
-  final double? iconSize;
-  final double? fontSize;
+  final double iconSize;
+  final double fontSize;
   final bool loading;
 
   const CenteredMessage(
     this.message, {
     Key? key,
     this.icon,
-    this.iconSize,
-    this.fontSize,
+    this.iconSize = 56.0,
+    this.fontSize = 40.0,
     this.loading = false,
   }) : super(key: key);
 
@@ -24,18 +24,22 @@ class CenteredMessage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(
-              top: 24.0,
+            padding: const EdgeInsets.all(
+              32.0,
             ),
             child: Text(
               message,
-              style: TextStyle(fontSize: fontSize),
+              style: TextStyle(
+                fontSize: fontSize,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
           Visibility(
             child: Icon(
               icon,
               size: iconSize,
+              color: Theme.of(context).primaryColor,
             ),
             visible: icon != null,
           ),

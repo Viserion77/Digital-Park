@@ -37,7 +37,7 @@ class _ControllerAccountState extends State<ControllerAccount> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (context) => PasswordResetDialog(),
+              builder: (context) => const PasswordResetDialog(),
             );
           },
         ),

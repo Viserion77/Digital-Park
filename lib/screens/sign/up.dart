@@ -44,23 +44,19 @@ class _SignInState extends State<SignUp> {
       padding: const EdgeInsets.only(top: 16.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: TextInput(
-              label: 'E-mail',
-              controller: _controllerEmail,
-              errorText: _errorEmail,
-            ),
+          TextInput(
+            label: 'E-mail',
+            controller: _controllerEmail,
+            errorText: _errorEmail,
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: TextInput(
-              label: 'Senha',
-              obscureText: true,
-              controller: _controllerPassword,
-              errorText: _errorPassWord,
-            ),
+          const SizedBox(height: 16.0),
+          TextInput(
+            label: 'Senha',
+            obscureText: true,
+            controller: _controllerPassword,
+            errorText: _errorPassWord,
           ),
+          const SizedBox(height: 16.0),
           TextInput(
             label: 'Confirmar senha',
             obscureText: true,
@@ -68,68 +64,66 @@ class _SignInState extends State<SignUp> {
             errorText: _errorConfirmPassWord,
           ),
           widget.controlAccount,
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: BackgroundButton(
-              onLoading: _onLoadingStandard,
-              onPressed: () {
-                setState(() {
-                  _onLoadingStandard = true;
-                });
-                createAccount(context);
-              },
-              label: 'Cadastrar',
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: FaButton(
-              color: Colors.white,
-              fontColor: Colors.red,
-              label: 'Cadastrar com o Google',
-              icon: const FaIcon(
-                FontAwesomeIcons.google,
-                color: Colors.red,
-              ),
-              onLoading: _onLoadingGoogle,
-              onPressed: () {
-                setState(() {
-                  _onLoadingGoogle = true;
-                });
-                try {
-                  final provider = Provider.of<FirebaseAuthenticationProvider>(
-                    context,
-                    listen: false,
-                  );
-                  provider.loginWithGoogle();
-                } catch (error) {
-                  setState(() {
-                    _onLoadingGoogle = false;
-                  });
-                }
-              },
-            ),
-          ),
           BackgroundButton(
-            onLoading: _onLoadingAnonymously,
-            onPressed: () {
-              setState(() {
-                _onLoadingAnonymously = true;
-              });
-              final provider = Provider.of<FirebaseAuthenticationProvider>(
-                context,
-                listen: false,
-              );
-              provider.loginAnonymously();
-            },
+            onLoading: _onLoadingStandard,
+            label: 'Cadastrar',
+            onPressed: () => createAccount(context),
+          ),
+          const SizedBox(height: 16.0),
+          FaButton(
+            label: 'Cadastrar com o Google',
+            color: Colors.white,
+            fontColor: Colors.red,
+            onLoading: _onLoadingGoogle,
+            onPressed: () => loginWithGoogle(context),
+            icon: const FaIcon(
+              FontAwesomeIcons.google,
+              color: Colors.red,
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          BackgroundButton(
             label: 'Pular',
+            onLoading: _onLoadingAnonymously,
+            onPressed: () => loginLikeAnonymously(context),
           ),
         ],
       ),
     );
   }
 
+  void loginLikeAnonymously(BuildContext context) {
+    setState(() {
+      _onLoadingAnonymously = true;
+    });
+    final provider = Provider.of<FirebaseAuthenticationProvider>(
+      context,
+      listen: false,
+    );
+    provider.loginAnonymously();
+  }
+
+  void loginWithGoogle(BuildContext context) {
+    setState(() {
+      _onLoadingGoogle = true;
+    });
+    try {
+      final provider = Provider.of<FirebaseAuthenticationProvider>(
+        context,
+        listen: false,
+      );
+      provider.loginWithGoogle();
+    } catch (error) {
+      setState(() {
+        _onLoadingGoogle = false;
+      });
+    }
+  }
+
   void createAccount(BuildContext context) {
+    setState(() {
+      _onLoadingStandard = true;
+    });
     if (_controllerEmail.text != "" && _controllerPassword.text != "") {
       try {
         final provider = Provider.of<FirebaseAuthenticationProvider>(

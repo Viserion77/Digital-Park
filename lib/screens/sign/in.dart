@@ -40,14 +40,12 @@ class _SignInState extends State<SignIn> {
       padding: const EdgeInsets.only(top: 16.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: TextInput(
-              label: 'E-mail',
-              controller: _controllerEmail,
-              errorText: _errorEmail,
-            ),
+          TextInput(
+            label: 'E-mail',
+            controller: _controllerEmail,
+            errorText: _errorEmail,
           ),
+          const SizedBox(height: 16.0),
           TextInput(
             label: 'Senha',
             obscureText: true,
@@ -55,68 +53,66 @@ class _SignInState extends State<SignIn> {
             errorText: _errorPassWord,
           ),
           widget.controlAccount,
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: BackgroundButton(
-              onPressed: () {
-                setState(() {
-                  _onLoadingStandard = true;
-                });
-                signIn(context);
-              },
-              onLoading: _onLoadingStandard,
-              label: 'Entrar',
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: FaButton(
-              color: Colors.white,
-              fontColor: Colors.red,
-              label: 'Entrar com o Google',
-              onLoading: _onLoadingGoogle,
-              icon: const FaIcon(
-                FontAwesomeIcons.google,
-                color: Colors.red,
-              ),
-              onPressed: () {
-                setState(() {
-                  _onLoadingGoogle = true;
-                });
-                try {
-                  final provider = Provider.of<FirebaseAuthenticationProvider>(
-                    context,
-                    listen: false,
-                  );
-                  provider.loginWithGoogle();
-                } catch (error) {
-                  setState(() {
-                    _onLoadingGoogle = false;
-                  });
-                }
-              },
-            ),
-          ),
           BackgroundButton(
-            onLoading: _onLoadingAnonymously,
-            onPressed: () {
-              setState(() {
-                _onLoadingAnonymously = true;
-              });
-              final provider = Provider.of<FirebaseAuthenticationProvider>(
-                context,
-                listen: false,
-              );
-              provider.loginAnonymously();
-            },
+            label: 'Entrar',
+            onLoading: _onLoadingStandard,
+            onPressed: () => signIn(context),
+          ),
+          const SizedBox(height: 16.0),
+          FaButton(
+            label: 'Entrar com o Google',
+            color: Colors.white,
+            fontColor: Colors.red,
+            onLoading: _onLoadingGoogle,
+            onPressed: () => joinWithGoogle(context),
+            icon: const FaIcon(
+              FontAwesomeIcons.google,
+              color: Colors.red,
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          BackgroundButton(
             label: 'Pular',
+            onLoading: _onLoadingAnonymously,
+            onPressed: () => joinLikeAnonymously(context),
           ),
         ],
       ),
     );
   }
 
+  void joinLikeAnonymously(BuildContext context) {
+    setState(() {
+      _onLoadingAnonymously = true;
+    });
+    final provider = Provider.of<FirebaseAuthenticationProvider>(
+      context,
+      listen: false,
+    );
+    provider.loginAnonymously();
+  }
+
+  void joinWithGoogle(BuildContext context) {
+    setState(() {
+      _onLoadingGoogle = true;
+    });
+    try {
+      final provider = Provider.of<FirebaseAuthenticationProvider>(
+        context,
+        listen: false,
+      );
+      provider.loginWithGoogle();
+    } catch (error) {
+      setState(() {
+        _onLoadingGoogle = false;
+      });
+    }
+  }
+
   void signIn(BuildContext context) {
+    setState(() {
+      _onLoadingStandard = true;
+    });
     if (_controllerEmail.text != "" && _controllerPassword.text != "") {
       final provider = Provider.of<FirebaseAuthenticationProvider>(
         context,
@@ -128,7 +124,6 @@ class _SignInState extends State<SignIn> {
           password: _controllerPassword.text,
         );
       } catch (error) {
-        print('error.toString() ${error.toString()}');
         showDialog(
           context: context,
           builder: (context) => DialogMessage(
