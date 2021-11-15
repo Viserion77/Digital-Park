@@ -1,4 +1,5 @@
 import 'package:digital_park/components/basics.dart';
+import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,82 +13,82 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomMenuBar(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             backgroundColor: Theme.of(context).primaryColor,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
+                margin: EdgeInsets.only(top: 70),
+                alignment: Alignment.center,
+                color: Theme.of(context).primaryColor,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 3),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 8, // changes position of shadow
+                                ),
+                              ]),
+                          width: 85,
+                          height: 85,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                'https://static.wikia.nocookie.net/gta/images/e/e8/0_0-2.jpg/revision/latest/scale-to-width/360?cb=20160226235722&path-prefix=pt',
+                                fit: BoxFit.cover,
+                              )),
+                        ),
+                        Container(
+                          alignment: Alignment.bottomRight,
+                          width: 85,
+                          height: 85,
+                          child: Container(
+                            width: 25,
+                            height: 25,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.white, width: 3),
                                 borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 8, // changes position of shadow
-                                  ),
-                                ]),
-                            width: 100,
-                            height: 100,
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  'https://static.wikia.nocookie.net/gta/images/e/e8/0_0-2.jpg/revision/latest/scale-to-width/360?cb=20160226235722&path-prefix=pt',
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          Container(
-                            alignment: Alignment.bottomRight,
-                            width: 100,
-                            height: 100,
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.white),
-                              child: Icon(
-                                FontAwesomeIcons.google,
-                                size: 20,
-                                color: Colors.redAccent,
-                              ),
+                                color: Colors.white),
+                            child: Icon(
+                              FontAwesomeIcons.google,
+                              size: 18,
+                              color: Colors.redAccent,
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        'Prostituta',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey.shade600,
-                          fontSize: 20,
                         ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      'Prostituta',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade100,
+                        fontSize: 18,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
           SliverToBoxAdapter(
               child: Container(
-            height: 2000,
+            margin: EdgeInsets.only(bottom: 70),
             child: FractionallySizedBox(
               widthFactor: 0.9,
               child: Column(
@@ -109,19 +110,18 @@ class _UserPageState extends State<UserPage> {
                   ),
                   Row(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
+                      Flexible(
+                        flex: 3,
                         child: Input(
                           label: 'Senha',
                         ),
-                        width: 273,
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 70,
+                      Flexible(
+                        fit: FlexFit.tight,
+                        flex: 1,
                         child: ElevatedButton(
                           style: ButtonStyle(
                             alignment: Alignment.center,
@@ -131,6 +131,7 @@ class _UserPageState extends State<UserPage> {
                           onPressed: () {},
                           child: Text(
                             'Trocar Senha',
+                            textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 13),
                           ),
                         ),
@@ -148,8 +149,7 @@ class _UserPageState extends State<UserPage> {
                   ),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 173,
+                      Flexible(
                         child: Input(
                           label: 'Data de Nascimento',
                         ),
@@ -157,8 +157,7 @@ class _UserPageState extends State<UserPage> {
                       SizedBox(
                         width: 10,
                       ),
-                      SizedBox(
-                        width: 170,
+                      Flexible(
                         child: Input(
                           label: 'Sexo',
                         ),
@@ -233,9 +232,9 @@ class _UserPageState extends State<UserPage> {
                     color: Colors.white,
                     child: Table(
                       columnWidths: const <int, TableColumnWidth>{
-                        0: FixedColumnWidth(180),
-                        1: FixedColumnWidth(40),
-                        2: FixedColumnWidth(150),
+                        0: FlexColumnWidth(),
+                        1: FlexColumnWidth(),
+                        2: FlexColumnWidth(),
                       },
                       defaultVerticalAlignment:
                           TableCellVerticalAlignment.middle,
