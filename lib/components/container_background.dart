@@ -14,7 +14,7 @@ class ContainerBackground extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height -
           MediaQuery.of(context).padding.top +
-          (8.0 * (9.0)),
+          (8.0 * (7.0)),
       alignment: Alignment.center,
       decoration: const BoxDecoration(
         image: DecorationImage(

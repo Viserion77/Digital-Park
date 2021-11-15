@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 
 class LabelButton extends StatelessWidget {
   final String label;
+  final TextAlign? textAlign;
   final Function onPressed;
+  final double? fontSize;
+  final Color? textColor;
 
-  const LabelButton({
+  LabelButton({
     Key? key,
     required this.label,
+    this.textAlign,
+    this.fontSize,
+    this.textColor,
     required this.onPressed,
   }) : super(key: key);
 
@@ -19,9 +25,10 @@ class LabelButton extends StatelessWidget {
       },
       child: Text(
         label,
+        textAlign: textAlign ?? TextAlign.left,
         style: TextStyle(
-          fontSize: 12.0,
-          color: AppStyle().secondaryHeaderColor,
+          fontSize: fontSize ?? 12.0,
+          color: textColor ?? AppStyle().secondaryHeaderColor,
         ),
       ),
     );

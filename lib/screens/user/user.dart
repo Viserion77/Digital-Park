@@ -1,3 +1,5 @@
+import 'package:digital_park/components/buttons/background_button.dart';
+import 'package:digital_park/components/buttons/label_button.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/inputs/text_input.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +20,11 @@ class _UserPageState extends State<UserPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            pinned: true,
+            automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).primaryColor,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                margin: const EdgeInsets.only(top: 70),
                 alignment: Alignment.center,
                 color: Theme.of(context).primaryColor,
                 child: Row(
@@ -116,30 +117,22 @@ class _UserPageState extends State<UserPage> {
                       Flexible(
                         fit: FlexFit.tight,
                         flex: 1,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            alignment: Alignment.center,
-                            backgroundColor: MaterialStateProperty.all(
-                                Theme.of(context).primaryColor),
-                          ),
+                        child: BackgroundButton(
                           onPressed: () {},
-                          child: const Text(
-                            'Trocar Senha',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 13),
-                          ),
+                          label: 'Trocar Senha',
                         ),
                       )
                     ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(40),
-                    child: Text(
-                      'Para que são usados os dados preenchidos abaixo?',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(color: Colors.grey.shade600, fontSize: 15),
-                    ),
+                    child: LabelButton(
+                        fontSize: 15,
+                        textAlign: TextAlign.center,
+                        textColor: Colors.grey.shade500,
+                        label:
+                            'Para que são usados os dados preenchidos abaixo?',
+                        onPressed: () {}),
                   ),
                   Row(
                     children: [
@@ -282,7 +275,10 @@ class _UserPageState extends State<UserPage> {
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
                 ],
               ),
             ),

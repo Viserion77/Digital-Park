@@ -32,11 +32,17 @@ class DefaultScaffoldApp extends StatelessWidget {
             ),
           ],
         ),
-        child: FloatingActionButton.large(
-          onPressed: () => navigatorRoute(context, '/map'),
-          child: const Icon(
-            Icons.map,
-            size: 64.0,
+        child: SizedBox(
+          width: 85,
+          height: 85,
+          child: FittedBox(
+            child: FloatingActionButton(
+              onPressed: () => navigatorRoute(context, '/map'),
+              child: const Icon(
+                Icons.map,
+                size: 35.0,
+              ),
+            ),
           ),
         ),
       ),

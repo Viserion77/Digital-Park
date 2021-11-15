@@ -12,7 +12,7 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 8.0 * (9.0),
+      height: 8.0 * (7.0),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Row(
@@ -24,40 +24,28 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
                 onTap: () {
                   Scaffold.of(context).openDrawer();
                 },
-                child: const Icon(
-                  Icons.widgets,
-                  size: 36.0,
-                ),
+                child: const MenuIcon(icon: Icons.widgets),
               ),
             ),
             Material(
               color: Theme.of(context).primaryColor,
               child: InkWell(
                 onTap: () => navigatorRoute(context, '/suggestion'),
-                child: const Icon(
-                  Icons.label,
-                  size: 36.0,
-                ),
+                child: const MenuIcon(icon: Icons.label),
               ),
             ),
             Material(
               color: Theme.of(context).primaryColor,
               child: InkWell(
                 onTap: () => navigatorRoute(context, '/services'),
-                child: const Icon(
-                  Icons.attach_money,
-                  size: 36.0,
-                ),
+                child: const MenuIcon(icon: Icons.attach_money),
               ),
             ),
             Material(
               color: Theme.of(context).primaryColor,
               child: InkWell(
                 onTap: () => navigatorRoute(context, '/user'),
-                child: const Icon(
-                  Icons.person,
-                  size: 36.0,
-                ),
+                child: const MenuIcon(icon: Icons.person),
               ),
             ),
             const SizedBox(
@@ -66,6 +54,24 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MenuIcon extends StatelessWidget {
+  const MenuIcon({
+    Key? key,
+    required this.icon,
+  }) : super(key: key);
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      icon,
+      color: Colors.black45,
+      size: 29.0,
     );
   }
 }
