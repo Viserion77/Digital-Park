@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_park/components/formater/date.dart';
 import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
@@ -9,29 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EventDetail extends StatefulWidget {
-  EventDetail({
+  const EventDetail({
     Key? key,
     required this.userProfile,
     required this.parkEvent,
   }) : super(key: key);
   final UserProfile userProfile;
   final ParkEvent parkEvent;
-  late bool userConfirmedAttendance = parkEvent.confirmedAttendance!.any(
-    (element) =>
-        element.toString() ==
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(userProfile.email)
-            .toString(),
-  );
-  late bool userFavorite = parkEvent.favorite!.any(
-    (element) =>
-        element.toString() ==
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(userProfile.email)
-            .toString(),
-  );
 
   @override
   State<EventDetail> createState() => _EventDetailState();
@@ -40,94 +25,20 @@ class EventDetail extends StatefulWidget {
 class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
-    final DocumentReference userReference = FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.userProfile.email);
-
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: SizedBox(
         height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            FloatingActionButton.extended(
-              onPressed: () {
-                if (widget.userProfile.providerId == null) {
-                  Navigator.of(context).pop();
-                  navigatorRoute(context, '/anonymously-route',
-                      arguments: widget.userProfile);
-                } else {
-                  FirebaseFirestore.instance
-                      .collection('events')
-                      .doc(widget.parkEvent.id)
-                      .update(widget.userConfirmedAttendance
-                          ? {
-                              'confirmedAttendance':
-                                  FieldValue.arrayRemove([userReference]),
-                            }
-                          : {
-                              'confirmedAttendance':
-                                  FieldValue.arrayUnion([userReference]),
-                            });
-                  setState(() {
-                    widget.userConfirmedAttendance =
-                        !widget.userConfirmedAttendance;
-                  });
-                }
-              },
-              label: SizedBox(
-                height: 60,
-                child: Row(
-                  children: [
-                    FaIcon(
-                      FontAwesomeIcons.handPointUp,
-                      color: widget.userConfirmedAttendance
-                          ? Colors.yellowAccent
-                          : Colors.white,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Eu irei',
-                        style: TextStyle(
-                          color: widget.userConfirmedAttendance
-                              ? Colors.yellowAccent
-                              : Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            FloatingActionButtonConfirm(
+              userProfile: widget.userProfile,
+              parkEvent: widget.parkEvent,
             ),
-            FloatingActionButton(
-              onPressed: () {
-                if (widget.userProfile.providerId == null) {
-                  Navigator.of(context).pop();
-                  navigatorRoute(context, '/anonymously-route',
-                      arguments: widget.userProfile);
-                } else {
-                  FirebaseFirestore.instance
-                      .collection('events')
-                      .doc(widget.parkEvent.id)
-                      .update(widget.userFavorite
-                          ? {
-                              'favorite':
-                                  FieldValue.arrayRemove([userReference]),
-                            }
-                          : {
-                              'favorite':
-                                  FieldValue.arrayUnion([userReference]),
-                            });
-                  setState(() {
-                    widget.userFavorite = !widget.userFavorite;
-                  });
-                }
-              },
-              child: FaIcon(
-                FontAwesomeIcons.star,
-                color: widget.userFavorite ? Colors.yellowAccent : Colors.white,
-              ),
+            FloatingActionButtonFavorite(
+              userProfile: widget.userProfile,
+              parkEvent: widget.parkEvent,
             ),
           ],
         ),
@@ -142,74 +53,84 @@ class _EventDetailState extends State<EventDetail> {
               expandedHeight: widget.parkEvent.image != null ? 400 : null,
               flexibleSpace: FlexibleSpaceBar(
                 background: widget.parkEvent.image != null
-                    ? Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              widget.parkEvent.image.toString(),
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                    ? ImageFlatBack(
+                        image: widget.parkEvent.image.toString(),
                       )
                     : null,
               ),
             ),
             SliverToBoxAdapter(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height -
                     MediaQuery.of(context).padding.top -
                     50,
                 child: FractionallySizedBox(
                   widthFactor: 0.9,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 8.0),
                       Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            widget.parkEvent.title.toString(),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 24.0,
-                            ),
+                        child: Text(
+                          widget.parkEvent.title.toString(),
+                          softWrap: true,
+                          style: const TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
+                      const SizedBox(height: 16.0),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            children: [
-                              const Text('Começa em'),
-                              Text(widget.parkEvent.startDate!
-                                  .toDate()
-                                  .toString()),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              const Text('Termina em'),
-                              Text(widget.parkEvent.endDate!
-                                  .toDate()
-                                  .toString()),
-                            ],
-                          ),
+                          EventMoment(widget.parkEvent.startDate),
+                          const Text('-'),
+                          EventMoment(widget.parkEvent.endDate),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          children: [
-                            Text(
-                              widget.parkEvent.price.toString(),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: widget.parkEvent.price! <= 0
+                                    ? const Text('Gratuito')
+                                    : Text(
+                                        'R\$ ${widget.parkEvent.price.toString()}',
+                                      ),
+                              ),
                             ),
-                            const Text('Valor R\$'),
-                          ],
-                        ),
+                          ),
+                          widget.parkEvent.location != null
+                              ? StreamBuilder(
+                                  stream:
+                                      widget.parkEvent.location!.snapshots(),
+                                  builder: (context,
+                                      AsyncSnapshot<DocumentSnapshot>
+                                          snapshot) {
+                                    if (snapshot.hasData &&
+                                        snapshot.data!.exists) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              snapshot.data!.data().toString(),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    return Container();
+                                  })
+                              : Container(),
+                        ],
                       ),
+                      const SizedBox(height: 16.0),
                       Flexible(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -223,12 +144,6 @@ class _EventDetailState extends State<EventDetail> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          widget.parkEvent.location.toString(),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -237,6 +152,190 @@ class _EventDetailState extends State<EventDetail> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FloatingActionButtonConfirm extends StatefulWidget {
+  FloatingActionButtonConfirm({
+    Key? key,
+    required this.userProfile,
+    required this.parkEvent,
+  }) : super(key: key);
+  final UserProfile userProfile;
+  final ParkEvent parkEvent;
+
+  late bool userConfirmedAttendance = parkEvent.confirmedAttendance!.any(
+    (element) =>
+        element.toString() ==
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userProfile.email)
+            .toString(),
+  );
+
+  @override
+  State<FloatingActionButtonConfirm> createState() =>
+      _FloatingActionButtonConfirmState();
+}
+
+class _FloatingActionButtonConfirmState
+    extends State<FloatingActionButtonConfirm> {
+  @override
+  Widget build(BuildContext context) {
+    final DocumentReference userReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.userProfile.email);
+
+    return FloatingActionButton.extended(
+      onPressed: () {
+        if (widget.userProfile.providerId == null) {
+          Navigator.of(context).pop();
+          navigatorRoute(context, '/anonymously-route',
+              arguments: widget.userProfile);
+        } else {
+          FirebaseFirestore.instance
+              .collection('events')
+              .doc(widget.parkEvent.id)
+              .update(widget.userConfirmedAttendance
+                  ? {
+                      'confirmedAttendance':
+                          FieldValue.arrayRemove([userReference]),
+                    }
+                  : {
+                      'confirmedAttendance':
+                          FieldValue.arrayUnion([userReference]),
+                    });
+          setState(() {
+            widget.userConfirmedAttendance = !widget.userConfirmedAttendance;
+          });
+        }
+      },
+      label: SizedBox(
+        height: 60,
+        child: Row(
+          children: [
+            FaIcon(
+              FontAwesomeIcons.handPointUp,
+              color: widget.userConfirmedAttendance
+                  ? Colors.yellowAccent
+                  : Colors.white,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Eu irei',
+                style: TextStyle(
+                  color: widget.userConfirmedAttendance
+                      ? Colors.yellowAccent
+                      : Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FloatingActionButtonFavorite extends StatefulWidget {
+  FloatingActionButtonFavorite({
+    Key? key,
+    required this.userProfile,
+    required this.parkEvent,
+  }) : super(key: key);
+
+  final UserProfile userProfile;
+  final ParkEvent parkEvent;
+  late bool userFavorite = parkEvent.favorite!.any(
+    (element) =>
+        element.toString() ==
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userProfile.email)
+            .toString(),
+  );
+
+  @override
+  State<FloatingActionButtonFavorite> createState() =>
+      _FloatingActionButtonFavoriteState();
+}
+
+class _FloatingActionButtonFavoriteState
+    extends State<FloatingActionButtonFavorite> {
+  @override
+  Widget build(BuildContext context) {
+    final DocumentReference userReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.userProfile.email);
+
+    return FloatingActionButton(
+      onPressed: () {
+        if (widget.userProfile.providerId == null) {
+          Navigator.of(context).pop();
+          navigatorRoute(context, '/anonymously-route',
+              arguments: widget.userProfile);
+        } else {
+          FirebaseFirestore.instance
+              .collection('events')
+              .doc(widget.parkEvent.id)
+              .update(widget.userFavorite
+                  ? {
+                      'favorite': FieldValue.arrayRemove([userReference]),
+                    }
+                  : {
+                      'favorite': FieldValue.arrayUnion([userReference]),
+                    });
+          setState(() {
+            widget.userFavorite = !widget.userFavorite;
+          });
+        }
+      },
+      child: FaIcon(
+        FontAwesomeIcons.star,
+        color: widget.userFavorite ? Colors.yellowAccent : Colors.white,
+      ),
+    );
+  }
+}
+
+class ImageFlatBack extends StatelessWidget {
+  const ImageFlatBack({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                image,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Container(
+          height: 150,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [
+                Colors.white,
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
