@@ -11,7 +11,11 @@ class FirebaseAuthenticationProvider extends ChangeNotifier {
     if (FirebaseAuth.instance.currentUser!.providerData.isNotEmpty &&
         FirebaseAuth.instance.currentUser!.providerData[0].providerId ==
             'google.com') {
-      await GoogleSignIn().disconnect();
+      try {
+        await GoogleSignIn().disconnect();
+      } catch (error) {
+        print('Error to disconect google: $error');
+      }
     }
     await FirebaseAuth.instance.signOut();
     await _updateUserSettings(null);
