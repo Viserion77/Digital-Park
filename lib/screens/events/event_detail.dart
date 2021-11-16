@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/formater/date.dart';
 import 'package:digital_park/models/events/event.dart';
+import 'package:digital_park/models/locations/location_waypoint.dart';
 import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,7 +120,9 @@ class _EventDetailState extends State<EventDetail> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              snapshot.data!.data().toString(),
+                                              LocationWaypoint.fromSnapshot(
+                                                snapshot.data,
+                                              ).name.toString(),
                                             ),
                                           ),
                                         ),
