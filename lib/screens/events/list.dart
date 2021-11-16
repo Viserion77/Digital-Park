@@ -43,11 +43,15 @@ class EventsList extends StatelessWidget {
               height: 52,
             );
           }
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) => EventCard(
-              nextEvent: ParkEvent.fromSnapshot(snapshot.data!.docs[index]),
-              userProfile: userProfile,
+          return Container(
+            color: Theme.of(context).secondaryHeaderColor,
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => EventCard(
+                nextEvent: ParkEvent.fromSnapshot(snapshot.data!.docs[index]),
+                userProfile: userProfile,
+              ),
             ),
           );
         },
