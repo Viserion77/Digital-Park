@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/formater/date.dart';
+import 'package:digital_park/components/image_flat_back.dart';
 import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/locations/location_waypoint.dart';
 import 'package:digital_park/models/user/user_profile.dart';
@@ -299,46 +300,6 @@ class _FloatingActionButtonFavoriteState
         FontAwesomeIcons.star,
         color: widget.userFavorite ? Colors.yellowAccent : Colors.white,
       ),
-    );
-  }
-}
-
-class ImageFlatBack extends StatelessWidget {
-  const ImageFlatBack({
-    Key? key,
-    required this.image,
-  }) : super(key: key);
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(
-                image,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Container(
-          height: 150,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.white,
-                Colors.transparent,
-              ],
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

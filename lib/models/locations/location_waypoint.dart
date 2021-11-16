@@ -39,10 +39,10 @@ class LocationWaypoint {
   factory LocationWaypoint.fromSnapshot(locationDocument) {
     final Map locationData = locationDocument.data() as Map<dynamic, dynamic>;
 
-    final Map<String, double> wayPointMap = locationData['wayPoint'] ?? {};
+    final Map<String, dynamic> wayPointMap = locationData['wayPoint'] ?? {};
     final GeoPoint wayPoint = GeoPoint(
-      wayPointMap['_lat'] ?? 0,
-      wayPointMap['_long'] ?? 0,
+      double.tryParse(wayPointMap['_lat'].toString()) ?? 0,
+      double.tryParse(wayPointMap['_long'].toString()) ?? 0,
     );
 
     return LocationWaypoint(

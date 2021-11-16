@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/components/side_menu.dart';
+import 'package:digital_park/models/locations/location_waypoint.dart';
 import 'package:digital_park/models/tags/tag.dart';
 import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/screens/map/location_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,6 +60,7 @@ class _MapScreenState extends State<MapScreen> {
         ),
         extendBody: true,
         body: MapScreenController(
+          userProfile: widget.userProfile,
           onMapCreated: (GoogleMapController controllerMap) {
             _controller = controllerMap;
           },
@@ -81,14 +84,17 @@ class MapScreenController extends StatelessWidget {
     required GoogleMapController? controller,
     required Function(GoogleMapController controllerMap) onMapCreated,
     required Function(bool isTrue) onUserOutRange,
+    required UserProfile userProfile,
   })  : _controller = controller,
         _onMapCreated = onMapCreated,
         _onUserOutRange = onUserOutRange,
+        _userProfile = userProfile,
         super(key: key);
 
   final GoogleMapController? _controller;
   final Function(GoogleMapController controllerMap) _onMapCreated;
   final Function(bool isTrue) _onUserOutRange;
+  final UserProfile _userProfile;
 
   void _verifyUserOutRange(position) {
     if (position.target.longitude < -49.13593780249357 ||
@@ -105,29 +111,67 @@ class MapScreenController extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-      child: GoogleMap(
-        mapType: MapType.terrain,
-        padding: const EdgeInsets.only(bottom: 8.0),
-        minMaxZoomPreference: const MinMaxZoomPreference(17, 30),
-        zoomControlsEnabled: false,
-        myLocationEnabled: true,
-        mapToolbarEnabled: false,
-        onMapCreated: _onMapCreated,
-        myLocationButtonEnabled: true,
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(
-            -26.50792825460458,
-            -49.12902072072029,
-          ),
-          zoom: 20.0,
-          bearing: 50,
-          tilt: 70,
-        ),
-        onCameraMove: (position) {
-          _verifyUserOutRange(position);
-          print(position.target.toString());
-        },
-      ),
+      child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('locations')
+              .where('visible', isEqualTo: true)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            final Set<Marker> locations = {};
+            if (snapshot.hasData) {
+              locations.addAll(
+                snapshot.data!.docs.map(
+                  (e) {
+                    final LocationWaypoint locationWaypoint =
+                        LocationWaypoint.fromSnapshot(e);
+                    return Marker(
+                      markerId: MarkerId(locationWaypoint.id),
+                      position: LatLng(
+                        locationWaypoint.wayPoint!.latitude,
+                        locationWaypoint.wayPoint!.longitude,
+                      ),
+                      infoWindow: InfoWindow(title: locationWaypoint.name),
+                      visible: locationWaypoint.visible ?? false,
+                      onTap: () => {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => LocationDetail(
+                              userProfile: _userProfile,
+                              locationWaypoint: locationWaypoint,
+                            ),
+                          ),
+                        )
+                      },
+                    );
+                  },
+                ),
+              );
+            }
+            return GoogleMap(
+              mapType: MapType.terrain,
+              markers: locations,
+              padding: const EdgeInsets.only(bottom: 8.0),
+              minMaxZoomPreference: const MinMaxZoomPreference(17, 30),
+              zoomControlsEnabled: false,
+              myLocationEnabled: true,
+              mapToolbarEnabled: false,
+              onMapCreated: _onMapCreated,
+              myLocationButtonEnabled: true,
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(
+                  -26.50792825460458,
+                  -49.12902072072029,
+                ),
+                zoom: 20.0,
+                bearing: 50,
+                tilt: 70,
+              ),
+              onCameraMove: (position) {
+                _verifyUserOutRange(position);
+                print(position.target.toString());
+              },
+            );
+          }),
     );
   }
 }
