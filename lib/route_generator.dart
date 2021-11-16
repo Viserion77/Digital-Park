@@ -7,6 +7,7 @@ import 'package:digital_park/screens/seggestions/suggestion_home.dart';
 import 'package:digital_park/screens/services/list.dart';
 import 'package:digital_park/screens/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -27,47 +28,47 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => const DigitalPark(),
         );
       case '/user':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => UserPage(
             userProfile: args as UserProfile,
           ),
         );
       case '/suggestion':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => SuggestionHome(
             userProfile: args as UserProfile,
           ),
         );
       case '/services':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => ServicesList(
             userProfile: args as UserProfile,
           ),
         );
       case '/map':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => MapScreen(
             userProfile: args as UserProfile,
           ),
         );
       case '/events':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => EventsList(
             userProfile: args as UserProfile,
           ),
         );
       default:
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => const ErrorPage(),
         );
