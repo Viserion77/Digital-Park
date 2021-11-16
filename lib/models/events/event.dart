@@ -54,11 +54,11 @@ class ParkEvent {
       startDate: eventData['startDate'],
       endDate: eventData['endDate'],
       image: eventData['image'],
-      price: double.tryParse(eventData['price'].toString()),
+      price: double.tryParse(eventData['price'].toString()) ?? 0,
       location: eventData['location'],
-      roles: eventData['roles'],
-      favorite: eventData['favorite'],
-      confirmedAttendance: eventData['confirmedAttendance'],
+      roles: eventData['roles'] ?? [],
+      favorite: eventData['favorite'] ?? [],
+      confirmedAttendance: eventData['confirmedAttendance'] ?? [],
       description: eventData['description'],
     );
   }
