@@ -3,6 +3,7 @@
    <application
         android:label="digital_park"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA73XJ-ulj56ge0Y3U3GtssjCzZ0YOyPSQ"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -38,4 +39,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 </manifest>
