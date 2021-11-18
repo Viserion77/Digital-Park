@@ -8,14 +8,14 @@ class FirebaseAuthenticationProvider extends ChangeNotifier {
   Future logout({
     bool notifyTheListeners = true,
   }) async {
-    if (FirebaseAuth.instance.currentUser!.providerData.isNotEmpty &&
-        FirebaseAuth.instance.currentUser!.providerData[0].providerId ==
-            'google.com') {
-      try {
+    try {
+      if (FirebaseAuth.instance.currentUser!.providerData.isNotEmpty &&
+          FirebaseAuth.instance.currentUser!.providerData[0].providerId ==
+              'google.com') {
         await GoogleSignIn().disconnect();
-      } catch (error) {
-        print('Error to disconect google: $error');
       }
+    } catch (error) {
+      print('Error to disconect google: $error');
     }
     await FirebaseAuth.instance.signOut();
     await _updateUserSettings(null);
