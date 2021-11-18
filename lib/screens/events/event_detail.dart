@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_park/components/description_lines.dart';
 import 'package:digital_park/components/formater/date.dart';
 import 'package:digital_park/components/sheet_information_scaffold.dart';
 import 'package:digital_park/models/events/event.dart';
@@ -96,13 +95,8 @@ class _EventDetailState extends State<EventDetail> {
         Flexible(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
+            child: DescriptionLines(
               widget.parkEvent.description.toString(),
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16.0,
-              ),
             ),
           ),
         ),

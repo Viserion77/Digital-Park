@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_park/components/description_lines.dart';
 import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/screens/events/event_detail.dart';
@@ -78,7 +79,12 @@ class EventCard extends StatelessWidget {
             ),
           );
         },
-        title: const Text('Próximo Evento!'),
+        title: const Text(
+          'Próximo Evento!',
+          style: const TextStyle(
+            fontSize: 36.0,
+          ),
+        ),
         subtitle: nextEvent.image != null
             ? Image.network(
                 nextEvent.image.toString(),
@@ -88,9 +94,12 @@ class EventCard extends StatelessWidget {
                   Text(
                     nextEvent.title.toString(),
                   ),
-                  Text(
-                    nextEvent.description.toString(),
-                  )
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DescriptionLines(
+                      nextEvent.description.toString(),
+                    ),
+                  ),
                 ],
               ),
       ),

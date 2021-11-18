@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
+import 'package:digital_park/components/description_lines.dart';
 import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/screens/events/event_detail.dart';
@@ -83,13 +84,21 @@ class EventCard extends StatelessWidget {
             ),
           );
         },
-        title: Text(nextEvent.title.toString()),
+        title: Text(
+          nextEvent.title.toString(),
+          style: const TextStyle(
+            fontSize: 36.0,
+          ),
+        ),
         subtitle: nextEvent.image != null
             ? Image.network(
                 nextEvent.image.toString(),
               )
-            : Text(
-                nextEvent.description.toString(),
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DescriptionLines(
+                  nextEvent.description.toString(),
+                ),
               ),
       ),
     );
