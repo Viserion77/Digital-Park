@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/formater/date.dart';
-import 'package:digital_park/components/image_flat_back.dart';
+import 'package:digital_park/components/sheet_information_scaffold.dart';
 import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/locations/location_waypoint.dart';
 import 'package:digital_park/models/user/user_profile.dart';
@@ -27,135 +27,86 @@ class EventDetail extends StatefulWidget {
 class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      floatingActionButton: SizedBox(
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return SheetInformationScaffold(
+      imageUrl: widget.parkEvent.image,
+      title: widget.parkEvent.title,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          FloatingActionButtonConfirm(
+            userProfile: widget.userProfile,
+            parkEvent: widget.parkEvent,
+          ),
+          FloatingActionButtonFavorite(
+            userProfile: widget.userProfile,
+            parkEvent: widget.parkEvent,
+          ),
+        ],
+      ),
+      childrens: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FloatingActionButtonConfirm(
-              userProfile: widget.userProfile,
-              parkEvent: widget.parkEvent,
-            ),
-            FloatingActionButtonFavorite(
-              userProfile: widget.userProfile,
-              parkEvent: widget.parkEvent,
-            ),
+            EventMoment(widget.parkEvent.startDate),
+            const Text('-'),
+            EventMoment(widget.parkEvent.endDate),
           ],
         ),
-      ),
-      body: SafeArea(
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverAppBar(
-              stretch: true,
-              backgroundColor: Theme.of(context).primaryColor,
-              expandedHeight: widget.parkEvent.image != null ? 400 : null,
-              flexibleSpace: FlexibleSpaceBar(
-                background: widget.parkEvent.image != null
-                    ? ImageFlatBack(
-                        image: widget.parkEvent.image.toString(),
-                      )
-                    : null,
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: widget.parkEvent.price! <= 0
+                      ? const Text('Gratuito')
+                      : Text(
+                          'R\$ ${widget.parkEvent.price.toString()}',
+                        ),
+                ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    50,
-                child: FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 8.0),
-                      Flexible(
-                        child: Text(
-                          widget.parkEvent.title.toString(),
-                          softWrap: true,
-                          style: const TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          EventMoment(widget.parkEvent.startDate),
-                          const Text('-'),
-                          EventMoment(widget.parkEvent.endDate),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: widget.parkEvent.price! <= 0
-                                    ? const Text('Gratuito')
-                                    : Text(
-                                        'R\$ ${widget.parkEvent.price.toString()}',
-                                      ),
+            widget.parkEvent.location != null
+                ? StreamBuilder(
+                    stream: widget.parkEvent.location!.snapshots(),
+                    builder:
+                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasData && snapshot.data!.exists) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                LocationWaypoint.fromSnapshot(
+                                  snapshot.data,
+                                ).name.toString(),
                               ),
                             ),
                           ),
-                          widget.parkEvent.location != null
-                              ? StreamBuilder(
-                                  stream:
-                                      widget.parkEvent.location!.snapshots(),
-                                  builder: (context,
-                                      AsyncSnapshot<DocumentSnapshot>
-                                          snapshot) {
-                                    if (snapshot.hasData &&
-                                        snapshot.data!.exists) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              LocationWaypoint.fromSnapshot(
-                                                snapshot.data,
-                                              ).name.toString(),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    return Container();
-                                  })
-                              : Container(),
-                        ],
-                      ),
-                      const SizedBox(height: 16.0),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            widget.parkEvent.description.toString(),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
+                        );
+                      }
+                      return Container();
+                    })
+                : Container(),
           ],
         ),
-      ),
+        const SizedBox(height: 16.0),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.parkEvent.description.toString(),
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
