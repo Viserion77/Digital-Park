@@ -33,7 +33,9 @@ class NavDrawer extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                    onTap: () => {}, child: const Icon(Icons.input)),
+                  onTap: () => Navigator.of(context).pop(),
+                  child: const Icon(Icons.arrow_left),
+                ),
               ],
             ),
             decoration: BoxDecoration(
@@ -41,40 +43,16 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
-            leading: const Icon(Icons.monetization_on_outlined),
+            leading: const Icon(Icons.attach_money),
             onTap: () => navigatorRoute(
               context,
               '/services',
               wantsPop: true,
               arguments: userProfile,
             ),
-            title: const Text('Services'),
+            title: const Text('Serviços'),
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
-            leading: const Icon(Icons.monetization_on_outlined),
-            onTap: () => navigatorRoute(
-              context,
-              '/map',
-              wantsPop: true,
-              arguments: userProfile,
-            ),
-            title: const Text('mapa'),
-          ),
-          ListTile(
-            tileColor: Theme.of(context).primaryColor,
-            leading: const Icon(Icons.person),
-            onTap: () => navigatorRoute(
-              context,
-              '/user',
-              wantsPop: true,
-              arguments: userProfile,
-            ),
-            title: const Text('Perfil'),
-          ),
-          ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.label),
             onTap: () => navigatorRoute(
               context,
@@ -85,7 +63,6 @@ class NavDrawer extends StatelessWidget {
             title: const Text('Sugestões'),
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.calendar_today_outlined),
             onTap: () => navigatorRoute(
               context,
@@ -96,37 +73,31 @@ class NavDrawer extends StatelessWidget {
             title: Text('Eventos'),
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: Icon(Icons.directions_bike_outlined),
             title: const Text('Atividades'),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.text_snippet_outlined),
             title: const Text('Informações'),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.question_answer_sharp),
-            title: const Text('Personas'),
+            title: const Text('Perguntas'),
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.qr_code),
             onTap: () => {Navigator.of(context).pop()},
-            title: const Text('Código QR'),
+            title: const Text('Códigos QR'),
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: const Icon(Icons.settings),
             onTap: () => {Navigator.of(context).pop()},
             title: Text('Configurações'),
           ),
           ListTile(
-            tileColor: Theme.of(context).primaryColor,
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
             onTap: () async {
