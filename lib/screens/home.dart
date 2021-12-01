@@ -28,8 +28,9 @@ class HomeAnonymously extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserProfile userProfile = UserProfile.fromCurrentUser();
     return DefaultScaffoldApp(
-      userProfile: UserProfile.fromCurrentUser(),
+      userProfile: userProfile,
       body: ContainerBackground(
         child: ListView(
           physics: const BouncingScrollPhysics(),
@@ -38,12 +39,12 @@ class HomeAnonymously extends StatelessWidget {
             const HomeHeaderInformations(),
             const SizedBox(height: 16),
             NextEventCard(
-              userProfile: UserProfile.fromCurrentUser(),
+              userProfile: userProfile,
             ),
             const SizedBox(height: 16),
             const GenerateSuggestion(),
             const SizedBox(height: 16),
-            const GetQRCode(),
+            GetQRCode(userProfile: userProfile),
             const SizedBox(height: 16),
           ],
         ),
@@ -90,6 +91,7 @@ class HomeWithProfile extends StatelessWidget {
                 loading: true,
               );
             } else {
+              final UserProfile userProfile = UserProfile.fromCurrentUser();
               return DefaultScaffoldApp(
                 userProfile: UserProfile.fromSnapshot(snapshot.data),
                 body: ContainerBackground(
@@ -99,10 +101,10 @@ class HomeWithProfile extends StatelessWidget {
                     children: [
                       const HomeHeaderInformations(),
                       NextEventCard(
-                        userProfile: UserProfile.fromCurrentUser(),
+                        userProfile: userProfile,
                       ),
                       const GenerateSuggestion(),
-                      const GetQRCode(),
+                      GetQRCode(userProfile: userProfile),
                     ],
                   ),
                 ),
