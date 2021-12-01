@@ -4,6 +4,7 @@ import 'package:digital_park/components/sheet_information_scaffold.dart';
 import 'package:digital_park/models/locations/location_waypoint.dart';
 import 'package:digital_park/models/services/service.dart';
 import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/screens/map/location_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -48,15 +49,29 @@ class _ServiceDetailState extends State<ServiceDetail> {
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.hasData && snapshot.data!.exists) {
+                        final LocationWaypoint locationWaypoint =
+                            LocationWaypoint.fromSnapshot(
+                          snapshot.data,
+                        );
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                LocationWaypoint.fromSnapshot(
-                                  snapshot.data,
-                                ).name.toString(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => LocationDetail(
+                                    userProfile: widget.userProfile,
+                                    locationWaypoint: locationWaypoint,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  locationWaypoint.name.toString(),
+                                ),
                               ),
                             ),
                           ),
