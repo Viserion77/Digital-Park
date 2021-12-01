@@ -2,7 +2,7 @@
     package="app.digitalpark.digital_park">
    <application
         android:label="Digital Park"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA73XJ-ulj56ge0Y3U3GtssjCzZ0YOyPSQ"/>
         <activity
             android:name=".MainActivity"
