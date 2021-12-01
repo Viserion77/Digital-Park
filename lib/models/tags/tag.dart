@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Tag {
   final String id;
   final String? description;
+  late bool tagSelected = false;
 
   Tag(
     this.id, {

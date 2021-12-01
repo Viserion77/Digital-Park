@@ -44,7 +44,9 @@ class HomeAnonymously extends StatelessWidget {
               userProfile: userProfile,
             ),
             const SizedBox(height: 16),
-            const GenerateSuggestion(),
+            GenerateSuggestion(
+              userProfile: userProfile,
+            ),
             const SizedBox(height: 16),
             GetQRCode(userProfile: userProfile),
             const SizedBox(height: 16),
@@ -109,7 +111,9 @@ class HomeWithProfile extends StatelessWidget {
                         NextEventCard(
                           userProfile: userProfile,
                         ),
-                        const GenerateSuggestion(),
+                        GenerateSuggestion(
+                          userProfile: userProfile,
+                        ),
                         GetQRCode(userProfile: userProfile),
                       ],
                     ),

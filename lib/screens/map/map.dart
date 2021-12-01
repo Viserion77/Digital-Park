@@ -109,12 +109,13 @@ class MapScreenController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Tag> tagsFilter;
     return SafeArea(
       bottom: false,
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('locations')
-              .where('visible', isEqualTo: true)
+              .where('visible', isNotEqualTo: false)
               .snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             final Set<Marker> locations = {};
@@ -289,7 +290,7 @@ class TagsFilterSheet extends StatelessWidget {
                   child: GridView.count(
                     childAspectRatio: (30 / 10),
                     physics: const BouncingScrollPhysics(),
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     children: [
                       ...tags.map(
                         (tag) => TagMarkerFilter(tag: tag),
@@ -306,13 +307,18 @@ class TagsFilterSheet extends StatelessWidget {
   }
 }
 
-class TagMarkerFilter extends StatelessWidget {
+class TagMarkerFilter extends StatefulWidget {
   const TagMarkerFilter({
     Key? key,
     required this.tag,
   }) : super(key: key);
   final Tag? tag;
 
+  @override
+  State<TagMarkerFilter> createState() => _TagMarkerFilterState();
+}
+
+class _TagMarkerFilterState extends State<TagMarkerFilter> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -323,13 +329,17 @@ class TagMarkerFilter extends StatelessWidget {
           child: Row(
             children: [
               Checkbox(
-                value: true,
-                onChanged: (bool? value) {},
+                value: widget.tag!.tagSelected || false,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.tag!.tagSelected = value!;
+                  });
+                },
               ),
               const SizedBox(
                 width: 4,
               ),
-              Text(tag!.id),
+              Text(widget.tag!.id),
             ],
           ),
         ),

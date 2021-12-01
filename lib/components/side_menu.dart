@@ -52,16 +52,16 @@ class NavDrawer extends StatelessWidget {
             ),
             title: const Text('Serviços'),
           ),
-          ListTile(
-            leading: const Icon(Icons.label),
-            onTap: () => navigatorRoute(
-              context,
-              '/suggestion',
-              wantsPop: true,
-              arguments: userProfile,
-            ),
-            title: const Text('Sugestões'),
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.label),
+          //   onTap: () => navigatorRoute(
+          //     context,
+          //     '/suggestion',
+          //     wantsPop: true,
+          //     arguments: userProfile,
+          //   ),
+          //   title: const Text('Sugestões'),
+          // ),
           ListTile(
             leading: const Icon(Icons.calendar_today_outlined),
             onTap: () => navigatorRoute(
@@ -104,14 +104,19 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.qr_code),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => navigatorRoute(
+              context,
+              '/qr-code-scan-page',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
             title: const Text('Códigos QR'),
           ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            onTap: () => {Navigator.of(context).pop()},
-            title: Text('Configurações'),
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.settings),
+          //   onTap: () => {Navigator.of(context).pop()},
+          //   title: Text('Configurações'),
+          // ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
