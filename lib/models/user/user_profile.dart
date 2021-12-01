@@ -7,9 +7,11 @@ class UserProfile {
   late String? fullName;
   late String? photoUrl;
   late String? providerId;
+  late String? password; // because web system needs it
   late List? roles;
   late Timestamp? birthDate;
   late String? genre;
+  late bool? active; // because web system needs it
   late double? focusActivity = 0.5;
 
   UserProfile(
@@ -21,7 +23,9 @@ class UserProfile {
     this.birthDate,
     this.genre,
     this.roles,
+    this.active,
     this.focusActivity,
+    this.password,
   });
 
   @override
@@ -34,6 +38,8 @@ class UserProfile {
         ' roles: $roles,'
         ' birthDate: $birthDate,'
         ' genre: $genre,'
+        ' active: $active,'
+        ' password: $password,'
         ' focusActivity: $focusActivity}';
   }
 
@@ -43,16 +49,16 @@ class UserProfile {
     }
 
     final Map userData = userDocument.data() as Map<dynamic, dynamic>;
-    print('userDatauserDatauserDatauserData');
-    print(userData);
     return UserProfile(userDocument.id,
         username: userData['username'],
+        active: userData['active'],
         fullName: userData['fullName'],
         photoUrl: userData['photoUrl'],
         providerId: userData['providerId'],
         birthDate: userData['birthDate'],
         genre: userData['genre'],
         roles: userData['roles'],
+        password: userData['password'],
         focusActivity: userData['focusActivity']);
   }
 
@@ -68,12 +74,15 @@ class UserProfile {
 
   Map<String, dynamic> toJson() => {
         'username': username,
+        'email': email, // because web system needs it
         'fullName': fullName,
         'photoUrl': photoUrl,
+        'active': active,
         'providerId': providerId,
         'roles': roles,
         'birthDate': birthDate,
         'genre': genre,
+        'password': password,
         'focusActivity': focusActivity,
       };
 }
