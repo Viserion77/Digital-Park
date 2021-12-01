@@ -91,24 +91,27 @@ class HomeWithProfile extends StatelessWidget {
                 loading: true,
               );
             } else {
-              final UserProfile userProfile = UserProfile.fromCurrentUser();
-              return DefaultScaffoldApp(
-                userProfile: UserProfile.fromSnapshot(snapshot.data),
-                body: ContainerBackground(
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.all(32.0),
-                    children: [
-                      const HomeHeaderInformations(),
-                      NextEventCard(
-                        userProfile: userProfile,
-                      ),
-                      const GenerateSuggestion(),
-                      GetQRCode(userProfile: userProfile),
-                    ],
+              final UserProfile userProfile =
+                  UserProfile.fromSnapshot(snapshot.data);
+              if (userProfile.active == null || userProfile.active != false) {
+                return DefaultScaffoldApp(
+                  userProfile: userProfile,
+                  body: ContainerBackground(
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(32.0),
+                      children: [
+                        const HomeHeaderInformations(),
+                        NextEventCard(
+                          userProfile: userProfile,
+                        ),
+                        const GenerateSuggestion(),
+                        GetQRCode(userProfile: userProfile),
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             }
           }
         }

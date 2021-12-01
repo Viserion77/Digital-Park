@@ -71,8 +71,10 @@ class _ServiceDetailState extends State<ServiceDetail> {
         Flexible(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DescriptionLines(
-              widget.parkService.description.toString(),
+            child: SingleChildScrollView(
+              child: DescriptionLines(
+                widget.parkService.description.toString(),
+              ),
             ),
           ),
         ),
