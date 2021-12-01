@@ -3,10 +3,10 @@ import 'package:digital_park/components/container_background.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/status_message.dart';
 import 'package:digital_park/models/user/user_profile.dart';
-import 'package:digital_park/screens/activities/generate_activit_button.dart';
 import 'package:digital_park/screens/events/next_event_card.dart';
 import 'package:digital_park/screens/informations/get_qr_code_button.dart';
 import 'package:digital_park/screens/informations/home_header_informations.dart';
+import 'package:digital_park/screens/seggestions/generate_activit_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class HomeAnonymously extends StatelessWidget {
             NextEventCard(
               userProfile: UserProfile.fromCurrentUser(),
             ),
-            const GenerateActivity(),
+            const GenerateSuggestion(),
             const GetQRCode(),
           ],
         ),
@@ -97,7 +97,7 @@ class HomeWithProfile extends StatelessWidget {
                       NextEventCard(
                         userProfile: UserProfile.fromCurrentUser(),
                       ),
-                      const GenerateActivity(),
+                      const GenerateSuggestion(),
                       const GetQRCode(),
                     ],
                   ),
