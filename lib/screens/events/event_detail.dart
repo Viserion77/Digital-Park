@@ -6,6 +6,7 @@ import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/locations/location_waypoint.dart';
 import 'package:digital_park/models/user/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
+import 'package:digital_park/screens/map/location_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -72,15 +73,28 @@ class _EventDetailState extends State<EventDetail> {
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.hasData && snapshot.data!.exists) {
+                        final LocationWaypoint locationWaypoint=LocationWaypoint.fromSnapshot(
+                          snapshot.data,
+                        );
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                LocationWaypoint.fromSnapshot(
-                                  snapshot.data,
-                                ).name.toString(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => LocationDetail(
+                                    userProfile: widget.userProfile,
+                                    locationWaypoint: locationWaypoint,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  locationWaypoint.name.toString(),
+                                ),
                               ),
                             ),
                           ),
@@ -132,10 +146,6 @@ class _FloatingActionButtonConfirmState
     extends State<FloatingActionButtonConfirm> {
   @override
   Widget build(BuildContext context) {
-    final DocumentReference userReference = FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.userProfile.email);
-
     return FloatingActionButton.extended(
       onPressed: () {
         if (widget.userProfile.providerId == null) {
@@ -143,6 +153,9 @@ class _FloatingActionButtonConfirmState
           navigatorRoute(context, '/anonymously-route',
               arguments: widget.userProfile);
         } else {
+          final DocumentReference userReference = FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.userProfile.email);
           FirebaseFirestore.instance
               .collection('events')
               .doc(widget.parkEvent.id)
@@ -215,10 +228,6 @@ class _FloatingActionButtonFavoriteState
     extends State<FloatingActionButtonFavorite> {
   @override
   Widget build(BuildContext context) {
-    final DocumentReference userReference = FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.userProfile.email);
-
     return FloatingActionButton(
       onPressed: () {
         if (widget.userProfile.providerId == null) {
@@ -226,6 +235,9 @@ class _FloatingActionButtonFavoriteState
           navigatorRoute(context, '/anonymously-route',
               arguments: widget.userProfile);
         } else {
+          final DocumentReference userReference = FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.userProfile.email);
           FirebaseFirestore.instance
               .collection('events')
               .doc(widget.parkEvent.id)
