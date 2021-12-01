@@ -85,7 +85,12 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.text_snippet_outlined),
             title: const Text('Informações'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => navigatorRoute(
+              context,
+              '/informations',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.question_answer_sharp),

@@ -36,7 +36,9 @@ class HomeAnonymously extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(32.0),
           children: [
-            const HomeHeaderInformations(),
+            HomeHeaderInformations(
+              userProfile: userProfile,
+            ),
             const SizedBox(height: 16),
             NextEventCard(
               userProfile: userProfile,
@@ -101,7 +103,9 @@ class HomeWithProfile extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.all(32.0),
                       children: [
-                        const HomeHeaderInformations(),
+                        HomeHeaderInformations(
+                          userProfile: userProfile,
+                        ),
                         NextEventCard(
                           userProfile: userProfile,
                         ),

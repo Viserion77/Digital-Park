@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/models/informations/information.dart';
+import 'package:digital_park/models/user/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeaderInformations extends StatelessWidget {
-  const HomeHeaderInformations({Key? key}) : super(key: key);
+  const HomeHeaderInformations({Key? key, required this.userProfile})
+      : super(key: key);
+  final UserProfile userProfile;
 
   @override
   Widget build(BuildContext context) {
