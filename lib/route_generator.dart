@@ -1,6 +1,7 @@
 import 'package:digital_park/components/back_and_sign_in.dart';
 import 'package:digital_park/digital_park.dart';
 import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/screens/activities/list.dart';
 import 'package:digital_park/screens/events/list.dart';
 import 'package:digital_park/screens/informations/qr_code_scan_page.dart';
 import 'package:digital_park/screens/map/map.dart';
@@ -73,6 +74,13 @@ class RouteGenerator {
         return CupertinoPageRoute(
           settings: settings,
           builder: (context) => QrCodeScanPage(
+            userProfile: args as UserProfile,
+          ),
+        );
+      case '/activities':
+        return CupertinoPageRoute(
+          settings: settings,
+          builder: (context) => ActivityList(
             userProfile: args as UserProfile,
           ),
         );

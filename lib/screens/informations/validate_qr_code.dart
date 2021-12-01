@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/buttons/background_button.dart';
 import 'package:digital_park/components/status_message.dart';
+import 'package:digital_park/models/activities/activities.dart';
 import 'package:digital_park/models/events/event.dart';
 import 'package:digital_park/models/informations/information.dart';
 import 'package:digital_park/models/locations/location_waypoint.dart';
@@ -10,6 +11,7 @@ import 'package:digital_park/screens/activities/activit_detail.dart';
 import 'package:digital_park/screens/events/event_detail.dart';
 import 'package:digital_park/screens/informations/information_detail.dart';
 import 'package:digital_park/screens/map/location_detail.dart';
+import 'package:digital_park/screens/services/service_detail.dart';
 import 'package:flutter/material.dart';
 
 class ValidateQRCode extends StatefulWidget {
@@ -35,6 +37,7 @@ class _ValidateQRCodeState extends State<ValidateQRCode> {
       'informations',
       'locations',
       'services',
+      'activities',
     ];
     String collection = '';
     String document = '';
@@ -120,6 +123,15 @@ class _ValidateQRCodeState extends State<ValidateQRCode> {
                   ),
                 );
               }
+              if (collection == 'activities') {
+                return ActivityDetail(
+                  userProfile: widget.userProfile,
+                  parkActivity: ParkActivity.fromSnapshot(
+                    snapshot.data!.docs[0],
+                  ),
+                );
+              }
+
               return const ErrorMessageReading();
             },
           );

@@ -75,7 +75,12 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.directions_bike_outlined),
             title: const Text('Atividades'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => navigatorRoute(
+              context,
+              '/activities',
+              wantsPop: true,
+              arguments: userProfile,
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.text_snippet_outlined),

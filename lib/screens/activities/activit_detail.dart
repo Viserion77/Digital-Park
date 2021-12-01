@@ -1,31 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/description_lines.dart';
 import 'package:digital_park/components/sheet_information_scaffold.dart';
+import 'package:digital_park/models/activities/activities.dart';
 import 'package:digital_park/models/locations/location_waypoint.dart';
-import 'package:digital_park/models/services/service.dart';
 import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/screens/map/location_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ServiceDetail extends StatefulWidget {
-  const ServiceDetail({
+class ActivityDetail extends StatefulWidget {
+  const ActivityDetail({
     Key? key,
     required this.userProfile,
-    required this.parkService,
+    required this.parkActivity,
   }) : super(key: key);
   final UserProfile userProfile;
-  final ParkService parkService;
+  final ParkActivity parkActivity;
 
   @override
-  State<ServiceDetail> createState() => _ServiceDetailState();
+  State<ActivityDetail> createState() => _ActivityDetailState();
 }
 
-class _ServiceDetailState extends State<ServiceDetail> {
+class _ActivityDetailState extends State<ActivityDetail> {
   @override
   Widget build(BuildContext context) {
     return SheetInformationScaffold(
-      imageUrl: widget.parkService.image,
-      title: widget.parkService.title,
+      imageUrl: widget.parkActivity.image,
+      title: widget.parkActivity.title,
       childrens: [
         Row(
           children: [
@@ -34,29 +35,43 @@ class _ServiceDetailState extends State<ServiceDetail> {
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: widget.parkService.price! <= 0
+                  child: widget.parkActivity.price! <= 0
                       ? const Text('Gratuito')
                       : Text(
-                          'R\$ ${widget.parkService.price.toString()}',
+                          'R\$ ${widget.parkActivity.price.toString()}',
                         ),
                 ),
               ),
             ),
-            widget.parkService.location != null
+            widget.parkActivity.location != null
                 ? StreamBuilder(
-                    stream: widget.parkService.location!.snapshots(),
+                    stream: widget.parkActivity.location!.snapshots(),
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.hasData && snapshot.data!.exists) {
+                        final LocationWaypoint locationWaypoint =
+                            LocationWaypoint.fromSnapshot(
+                          snapshot.data,
+                        );
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                LocationWaypoint.fromSnapshot(
-                                  snapshot.data,
-                                ).name.toString(),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => LocationDetail(
+                                    userProfile: widget.userProfile,
+                                    locationWaypoint: locationWaypoint,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  locationWaypoint.name.toString(),
+                                ),
                               ),
                             ),
                           ),
@@ -72,7 +87,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: DescriptionLines(
-              widget.parkService.description.toString(),
+              widget.parkActivity.description.toString(),
             ),
           ),
         ),

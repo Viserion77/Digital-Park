@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/description_lines.dart';
-import 'package:digital_park/models/services/service.dart';
+import 'package:digital_park/models/activities/activities.dart';
 import 'package:digital_park/models/user/user_profile.dart';
-import 'package:digital_park/screens/services/service_detail.dart';
+import 'package:digital_park/screens/activities/activit_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ServicesList extends StatelessWidget {
-  const ServicesList({
+class ActivityList extends StatelessWidget {
+  const ActivityList({
     Key? key,
     required this.userProfile,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class ServicesList extends StatelessWidget {
       userProfile: userProfile,
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('services')
+            .collection('activities')
             .where('active', isEqualTo: true)
             .where('roles', arrayContainsAny: userProfile.roles)
             .snapshots(),
@@ -48,9 +48,9 @@ class ServicesList extends StatelessWidget {
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) => ServiceCard(
-                parkService:
-                    ParkService.fromSnapshot(snapshot.data!.docs[index]),
+              itemBuilder: (context, index) => ActivityCard(
+                parkActivity:
+                    ParkActivity.fromSnapshot(snapshot.data!.docs[index]),
                 userProfile: userProfile,
               ),
             ),
@@ -61,14 +61,14 @@ class ServicesList extends StatelessWidget {
   }
 }
 
-class ServiceCard extends StatelessWidget {
-  const ServiceCard({
+class ActivityCard extends StatelessWidget {
+  const ActivityCard({
     Key? key,
-    required this.parkService,
+    required this.parkActivity,
     required this.userProfile,
   }) : super(key: key);
 
-  final ParkService parkService;
+  final ParkActivity parkActivity;
   final UserProfile userProfile;
   @override
   Widget build(BuildContext context) {
@@ -77,27 +77,27 @@ class ServiceCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ServiceDetail(
+              builder: (context) => ActivityDetail(
                 userProfile: userProfile,
-                parkService: parkService,
+                parkActivity: parkActivity,
               ),
             ),
           );
         },
         title: Text(
-          parkService.title.toString(),
+          parkActivity.title.toString(),
           style: const TextStyle(
             fontSize: 36.0,
           ),
         ),
-        subtitle: parkService.image != null
+        subtitle: parkActivity.image != null
             ? Image.network(
-                parkService.image.toString(),
+                parkActivity.image.toString(),
               )
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DescriptionLines(
-                  parkService.description.toString(),
+                  parkActivity.description.toString(),
                 ),
               ),
       ),

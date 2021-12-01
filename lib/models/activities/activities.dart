@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ParkService {
+class ParkActivity {
   final String id;
   final String? title;
   final String? description;
@@ -10,7 +10,7 @@ class ParkService {
   final DocumentReference? location;
   final List? roles;
 
-  ParkService(
+  ParkActivity(
     this.id, {
     this.title,
     this.active,
@@ -23,7 +23,7 @@ class ParkService {
 
   @override
   String toString() {
-    return 'ParkService{id: $id,'
+    return 'ParkActivity{id: $id,'
         ' title: $title,'
         ' description: $description,'
         ' active: $active,'
@@ -33,9 +33,9 @@ class ParkService {
         ' roles: $roles}';
   }
 
-  factory ParkService.fromSnapshot(QueryDocumentSnapshot serviceDocument) {
+  factory ParkActivity.fromSnapshot(QueryDocumentSnapshot serviceDocument) {
     final Map serviceData = serviceDocument.data() as Map<dynamic, dynamic>;
-    return ParkService(
+    return ParkActivity(
       serviceDocument.id,
       title: serviceData['title'],
       active: serviceData['active'],
