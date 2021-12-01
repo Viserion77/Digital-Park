@@ -4,8 +4,10 @@ class DescriptionLines extends StatelessWidget {
   const DescriptionLines(
     this.description, {
     Key? key,
+    this.color,
   }) : super(key: key);
   final String description;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,9 @@ class DescriptionLines extends StatelessWidget {
               newPartDescription.toString(),
               softWrap: true,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16.0,
+                color: color ?? Colors.black,
               ),
             );
             return newText;

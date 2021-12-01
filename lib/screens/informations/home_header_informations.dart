@@ -77,16 +77,15 @@ class DateHour extends StatefulWidget {
 class _DateHourState extends State<DateHour> {
   @override
   Widget build(BuildContext context) {
-    late String dateNow = DateTime.now().day.toString() +
+    late String dateNow = normalizeDate(DateTime.now().day.toString()) +
         '/' +
-        DateTime.now().month.toString() +
+        normalizeDate(DateTime.now().month.toString()) +
         '/' +
         DateTime.now().year.toString();
 
-    late String hourNow = DateTime.now().hour.toString() +
+    late String hourNow = normalizeDate(DateTime.now().hour.toString()) +
         ':' +
-        (DateTime.now().minute < 10 ? '0' : '') +
-        DateTime.now().minute.toString();
+        normalizeDate(DateTime.now().minute.toString());
 
     Future.delayed(
       const Duration(seconds: 1),
@@ -112,4 +111,7 @@ class _DateHourState extends State<DateHour> {
       ],
     );
   }
+
+  String normalizeDate(String time) =>
+      int.tryParse(time)! > 9 ? time : '0$time';
 }

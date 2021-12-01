@@ -68,6 +68,7 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).primaryColor,
       child: ListTile(
         onTap: () {
           Navigator.of(context).push(
@@ -81,8 +82,9 @@ class EventCard extends StatelessWidget {
         },
         title: const Text(
           'Próximo Evento!',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 36.0,
+            color: Colors.white,
           ),
         ),
         subtitle: nextEvent.image != null
@@ -93,11 +95,16 @@ class EventCard extends StatelessWidget {
                 children: [
                   Text(
                     nextEvent.title.toString(),
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DescriptionLines(
                       nextEvent.description.toString(),
+                      color: Colors.white,
                     ),
                   ),
                 ],

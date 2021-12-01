@@ -36,11 +36,15 @@ class HomeAnonymously extends StatelessWidget {
           padding: const EdgeInsets.all(32.0),
           children: [
             const HomeHeaderInformations(),
+            const SizedBox(height: 16),
             NextEventCard(
               userProfile: UserProfile.fromCurrentUser(),
             ),
+            const SizedBox(height: 16),
             const GenerateSuggestion(),
+            const SizedBox(height: 16),
             const GetQRCode(),
+            const SizedBox(height: 16),
           ],
         ),
       ),
