@@ -73,7 +73,8 @@ class _EventDetailState extends State<EventDetail> {
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.hasData && snapshot.data!.exists) {
-                        final LocationWaypoint locationWaypoint=LocationWaypoint.fromSnapshot(
+                        final LocationWaypoint locationWaypoint =
+                            LocationWaypoint.fromSnapshot(
                           snapshot.data,
                         );
                         return Padding(
@@ -149,9 +150,12 @@ class _FloatingActionButtonConfirmState
     return FloatingActionButton.extended(
       onPressed: () {
         if (widget.userProfile.providerId == null) {
-          Navigator.of(context).pop();
-          navigatorRoute(context, '/anonymously-route',
-              arguments: widget.userProfile);
+          navigatorRoute(
+            context,
+            '/anonymously-route',
+            arguments: widget.userProfile,
+            wantsPop: true,
+          );
         } else {
           final DocumentReference userReference = FirebaseFirestore.instance
               .collection('users')
@@ -231,9 +235,12 @@ class _FloatingActionButtonFavoriteState
     return FloatingActionButton(
       onPressed: () {
         if (widget.userProfile.providerId == null) {
-          Navigator.of(context).pop();
-          navigatorRoute(context, '/anonymously-route',
-              arguments: widget.userProfile);
+          navigatorRoute(
+            context,
+            '/anonymously-route',
+            arguments: widget.userProfile,
+            wantsPop: true,
+          );
         } else {
           final DocumentReference userReference = FirebaseFirestore.instance
               .collection('users')
