@@ -3,10 +3,9 @@ import 'package:digital_park/components/description_lines.dart';
 import 'package:digital_park/components/formater/date.dart';
 import 'package:digital_park/components/sheet_information_scaffold.dart';
 import 'package:digital_park/models/event.dart';
-import 'package:digital_park/models/location_waypoint.dart';
 import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
-import 'package:digital_park/screens/map/location_detail.dart';
+import 'package:digital_park/screens/map/location_badge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -68,41 +67,10 @@ class _EventDetailState extends State<EventDetail> {
               ),
             ),
             widget.parkEvent.location != null
-                ? StreamBuilder(
-                    stream: widget.parkEvent.location!.snapshots(),
-                    builder:
-                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                      if (snapshot.hasData && snapshot.data!.exists) {
-                        final LocationWaypoint locationWaypoint =
-                            LocationWaypoint.fromSnapshot(
-                          snapshot.data,
-                        );
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => LocationDetail(
-                                    userProfile: widget.userProfile,
-                                    locationWaypoint: locationWaypoint,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  locationWaypoint.name.toString(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      return Container();
-                    })
+                ? LocationBadge(
+                    location: widget.parkEvent.location as DocumentReference,
+                    userProfile: widget.userProfile,
+                  )
                 : Container(),
           ],
         ),
