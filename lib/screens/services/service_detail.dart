@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/description_lines.dart';
 import 'package:digital_park/components/sheet_information_scaffold.dart';
-import 'package:digital_park/models/location_waypoint.dart';
 import 'package:digital_park/models/service.dart';
 import 'package:digital_park/models/user_profile.dart';
-import 'package:digital_park/screens/map/location_detail.dart';
+import 'package:digital_park/screens/map/location_badge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,41 +43,10 @@ class _ServiceDetailState extends State<ServiceDetail> {
               ),
             ),
             widget.parkService.location != null
-                ? StreamBuilder(
-                    stream: widget.parkService.location!.snapshots(),
-                    builder:
-                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                      if (snapshot.hasData && snapshot.data!.exists) {
-                        final LocationWaypoint locationWaypoint =
-                            LocationWaypoint.fromSnapshot(
-                          snapshot.data,
-                        );
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => LocationDetail(
-                                    userProfile: widget.userProfile,
-                                    locationWaypoint: locationWaypoint,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  locationWaypoint.name.toString(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      return Container();
-                    })
+                ? LocationBadge(
+                    location: widget.parkService.location as DocumentReference,
+                    userProfile: widget.userProfile,
+                  )
                 : Container(),
           ],
         ),

@@ -16,8 +16,10 @@ class MapScreen extends StatefulWidget {
   const MapScreen({
     Key? key,
     required this.userProfile,
+    this.startMapAt,
   }) : super(key: key);
   final UserProfile userProfile;
+  final LatLng? startMapAt;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -61,6 +63,7 @@ class _MapScreenState extends State<MapScreen> {
         extendBody: true,
         body: MapScreenController(
           userProfile: widget.userProfile,
+          startMapAt: widget.startMapAt,
           onMapCreated: (GoogleMapController controllerMap) {
             _controller = controllerMap;
           },
@@ -85,16 +88,19 @@ class MapScreenController extends StatelessWidget {
     required Function(GoogleMapController controllerMap) onMapCreated,
     required Function(bool isTrue) onUserOutRange,
     required UserProfile userProfile,
+    LatLng? startMapAt,
   })  : _controller = controller,
         _onMapCreated = onMapCreated,
         _onUserOutRange = onUserOutRange,
         _userProfile = userProfile,
+        _startMapAt = startMapAt,
         super(key: key);
 
   final GoogleMapController? _controller;
   final Function(GoogleMapController controllerMap) _onMapCreated;
   final Function(bool isTrue) _onUserOutRange;
   final UserProfile _userProfile;
+  final LatLng? _startMapAt;
 
   void _verifyUserOutRange(position) {
     if (position.target.longitude < -49.13593780249357 ||
@@ -158,11 +164,13 @@ class MapScreenController extends StatelessWidget {
               mapToolbarEnabled: false,
               onMapCreated: _onMapCreated,
               myLocationButtonEnabled: true,
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(
-                  -26.50792825460458,
-                  -49.12902072072029,
-                ),
+              initialCameraPosition: CameraPosition(
+                target: _startMapAt == null
+                    ? const LatLng(
+                        -26.50792825460458,
+                        -49.12902072072029,
+                      )
+                    : _startMapAt as LatLng,
                 zoom: 20.0,
                 bearing: 50,
                 tilt: 70,
