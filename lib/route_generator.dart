@@ -22,9 +22,7 @@ class RouteGenerator {
     final List<String> noAnonymouslyRoutes = ['/user', '/anonymously-route'];
     final args = settings.arguments;
 
-    if (anonymouslyMode &&
-        noAnonymouslyRoutes
-            .any((noAnonymouslyRoute) => noAnonymouslyRoute == settings.name)) {
+    if (anonymouslyMode && noAnonymouslyRoutes.contains(settings.name)) {
       return MaterialPageRoute(
         settings: settings,
         builder: (context) => const BackAndSignIn(),
