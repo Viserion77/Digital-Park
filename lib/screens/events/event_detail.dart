@@ -93,18 +93,22 @@ class FloatingActionButtonConfirm extends StatefulWidget {
     Key? key,
     required this.userProfile,
     required this.parkEvent,
+    this.isNextEvent,
   }) : super(key: key);
   final UserProfile userProfile;
   final ParkEvent parkEvent;
+  final bool? isNextEvent;
 
-  late bool userConfirmedAttendance = parkEvent.confirmedAttendance!.any(
-    (element) =>
-        element.toString() ==
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(userProfile.email)
-            .toString(),
-  );
+  late bool userConfirmedAttendance = userProfile.providerId != null
+      ? parkEvent.confirmedAttendance!.any(
+          (element) =>
+              element.toString() ==
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(userProfile.email)
+                  .toString(),
+        )
+      : false;
 
   @override
   State<FloatingActionButtonConfirm> createState() =>
@@ -182,14 +186,16 @@ class FloatingActionButtonFavorite extends StatefulWidget {
 
   final UserProfile userProfile;
   final ParkEvent parkEvent;
-  late bool userFavorite = parkEvent.favorite!.any(
-    (element) =>
-        element.toString() ==
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(userProfile.email)
-            .toString(),
-  );
+  late bool userFavorite = userProfile.providerId != null
+      ? parkEvent.favorite!.any(
+          (element) =>
+              element.toString() ==
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(userProfile.email)
+                  .toString(),
+        )
+      : false;
 
   @override
   State<FloatingActionButtonFavorite> createState() =>
