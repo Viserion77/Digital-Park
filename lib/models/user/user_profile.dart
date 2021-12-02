@@ -49,6 +49,14 @@ class UserProfile {
     }
 
     final Map userData = userDocument.data() as Map<dynamic, dynamic>;
+
+    if (userData['providerId'] == null) {
+      userData['providerId'] =
+          FirebaseAuth.instance.currentUser!.providerData.isEmpty
+              ? 'password'
+              : FirebaseAuth.instance.currentUser!.providerData[0].providerId;
+    }
+
     return UserProfile(userDocument.id,
         username: userData['username'],
         active: userData['active'],
