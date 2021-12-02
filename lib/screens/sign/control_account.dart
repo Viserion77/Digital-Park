@@ -1,7 +1,7 @@
 import 'package:digital_park/components/buttons/label_button.dart';
 import 'package:digital_park/components/inputs/label_box.dart';
 import 'package:digital_park/database/dao/user_settings_dao.dart';
-import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/models/user_settings.dart';
 import 'package:digital_park/screens/sign/password_reset_dialog.dart';
 import 'package:flutter/material.dart';
 

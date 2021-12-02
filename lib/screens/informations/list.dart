@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/description_lines.dart';
-import 'package:digital_park/models/informations/information.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/information.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/informations/information_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

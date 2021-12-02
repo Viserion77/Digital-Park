@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/description_lines.dart';
-import 'package:digital_park/models/events/event.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/event.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/events/event_detail.dart';
 import 'package:flutter/material.dart';
 

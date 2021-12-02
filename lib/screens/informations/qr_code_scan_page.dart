@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:digital_park/components/default_scaffold_app.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/informations/validate_qr_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

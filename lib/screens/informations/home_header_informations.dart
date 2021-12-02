@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:digital_park/models/informations/information.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/information.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeaderInformations extends StatelessWidget {

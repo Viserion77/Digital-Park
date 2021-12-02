@@ -1,5 +1,5 @@
 import 'package:digital_park/database/app_database.dart';
-import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/models/user_settings.dart';
 import 'package:sqflite/sqflite.dart';
 
 class UserSettingsDao {

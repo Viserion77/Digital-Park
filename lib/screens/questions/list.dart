@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
-import 'package:digital_park/models/questions/questions.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/questions.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/questions/question_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/components/side_menu.dart';
-import 'package:digital_park/models/locations/location_waypoint.dart';
-import 'package:digital_park/models/tags/tag.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/location_waypoint.dart';
+import 'package:digital_park/models/tag.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/map/location_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:digital_park/components/back_and_sign_in.dart';
 import 'package:digital_park/digital_park.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/activities/list.dart';
 import 'package:digital_park/screens/events/list.dart';
 import 'package:digital_park/screens/informations/list.dart';

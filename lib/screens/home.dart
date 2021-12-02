@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/container_background.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/status_message.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/events/next_event_card.dart';
 import 'package:digital_park/screens/informations/get_qr_code_button.dart';
 import 'package:digital_park/screens/informations/home_header_informations.dart';

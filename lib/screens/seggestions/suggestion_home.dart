@@ -2,7 +2,7 @@ import 'package:digital_park/components/buttons/background_button.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/inputs/label_box.dart';
 import 'package:digital_park/components/inputs/text_input.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/seggestions/sugestion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

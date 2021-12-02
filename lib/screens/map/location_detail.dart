@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:digital_park/components/image_flat_back.dart';
-import 'package:digital_park/models/locations/location_waypoint.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/location_waypoint.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

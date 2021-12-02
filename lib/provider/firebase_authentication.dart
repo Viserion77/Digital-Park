@@ -1,5 +1,5 @@
 import 'package:digital_park/database/dao/user_settings_dao.dart';
-import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/models/user_settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';

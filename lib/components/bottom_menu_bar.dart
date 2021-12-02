@@ -1,5 +1,4 @@
-import 'package:digital_park/models/user/user_profile.dart';
-import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 

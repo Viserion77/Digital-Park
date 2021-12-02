@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_park/components/buttons/background_button.dart';
-import 'package:digital_park/models/activities/activities.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/activities.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/screens/activities/activit_detail.dart';
 import 'package:flutter/material.dart';
 

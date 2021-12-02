@@ -1,6 +1,6 @@
 import 'package:digital_park/components/bottom_menu_bar.dart';
 import 'package:digital_park/components/side_menu.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -4,7 +4,7 @@ import 'package:digital_park/components/buttons/label_button.dart';
 import 'package:digital_park/components/default_scaffold_app.dart';
 import 'package:digital_park/components/formater/birth_date.dart';
 import 'package:digital_park/components/inputs/text_input.dart';
-import 'package:digital_park/models/user/user_profile.dart';
+import 'package:digital_park/models/user_profile.dart';
 import 'package:digital_park/provider/firebase_authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

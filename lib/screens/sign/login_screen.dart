@@ -1,7 +1,7 @@
 import 'package:digital_park/components/container_background.dart';
 import 'package:digital_park/components/status_message.dart';
 import 'package:digital_park/database/dao/user_settings_dao.dart';
-import 'package:digital_park/models/user/user_settings.dart';
+import 'package:digital_park/models/user_settings.dart';
 import 'package:digital_park/screens/sign/control_account.dart';
 import 'package:digital_park/screens/sign/in.dart';
 import 'package:digital_park/screens/sign/up.dart';
